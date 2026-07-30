@@ -159,7 +159,7 @@ MAIL_INFO status 更新為 'Y' ✅</pre>
             </tr>
             <tr>
               <td>Sender Address</td>
-              <td><code>NCATEST@iisigroup.com</code></td>
+              <td>依環境設定；本機測試使用已獲 Exchange Online 外寄授權的個人公司信箱</td>
               <td>🟡 內部資訊</td>
             </tr>
             <tr>
@@ -198,7 +198,8 @@ MAIL_INFO status 更新為 'Y' ✅</pre>
     tenant-id: 54aa2fea-ecb3-4c71-80b3-de9a356e77c1
     client-id: b6df8fec-2fdb-4d95-8838-7f459ebbc891
     client-secret: 請向負責人取得後填入此處
-    sender-address: NCATEST@iisigroup.com
+    # NCATEST 目前不可作為 Exchange Online 外寄寄件者
+    sender-address: your.name@iisigroup.com
     scope: https://graph.microsoft.com/.default
 
 scheduling:
@@ -217,7 +218,8 @@ scheduling:
     tenant-id: 54aa2fea-ecb3-4c71-80b3-de9a356e77c1
     client-id: b6df8fec-2fdb-4d95-8838-7f459ebbc891
     client-secret: ${'{'}GRAPH_CLIENT_SECRET{'}'}   # 環境變數注入，不可明文寫入
-    sender-address: NCATEST@iisigroup.com
+    # 必須使用已獲 Exchange Online 授權的外寄信箱
+    sender-address: \${GRAPH_SENDER_ADDRESS}
     scope: https://graph.microsoft.com/.default
 
 scheduling:
@@ -365,8 +367,8 @@ try {
             </tr>
             <tr>
               <td>403 Forbidden</td>
-              <td>Mail.Send 權限不足或未完成 Admin Consent</td>
-              <td>請資訊部門至 Azure Portal 確認 Mail.Send 權限與 Admin Consent</td>
+              <td>Mail.Send／Admin Consent 不足，或 sender mailbox 未獲 Exchange Online 外寄授權</td>
+              <td>同時確認 Azure App Registration 權限與 sender mailbox 的 Exchange 外寄授權</td>
             </tr>
             <tr>
               <td>404 Not Found</td>
@@ -520,7 +522,23 @@ WHERE STATUS = 'N'
     <!-- 測試操作補充說明 -->
     <div style="margin-bottom: 32px;">
       <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">測試操作補充說明</h3>
-      <p style="margin-bottom: 4px; color: #475569; font-size: 0.85rem;">版本：1.0.0　建立日期：2026-05-11　適用環境：local / SIT</p>
+      <p style="margin-bottom: 4px; color: #475569; font-size: 0.85rem;">版本：1.0.3　更新日期：2026-07-29　適用環境：local / SIT / UAT</p>
+
+      <!-- Exchange Online 寄件者授權 -->
+      <div class="callout" style="margin-top: 20px; margin-bottom: 24px; background: #fef3c7; border-color: #f59e0b;">
+        <p style="color: #92400e; margin: 0 0 8px 0; font-weight: 700;">⚠️ 本機寄信測試：寄件者不可使用 NCATEST</p>
+        <p style="color: #92400e; margin: 0 0 8px 0; font-size: 0.9rem;">
+          <code>NCATEST@iisigroup.com</code> 目前未被 Exchange Online 授權作為外寄寄件者；
+          將它設成 <code>microsoft.graph.sender-address</code> 時，即使 OAuth Token 與
+          <code>Mail.Send</code> 權限正常，郵件仍可能被系統阻擋。
+        </p>
+        <ul style="color: #92400e; margin: 0; padding-left: 20px; line-height: 1.8; font-size: 0.9rem;">
+          <li>寄件者：改成測試人員自己、且已獲外寄授權的公司信箱。</li>
+          <li>收件者：可以維持既有測試帳號／測試信箱。</li>
+          <li>個人信箱只放本機設定，不可 commit 進 Git；測試後應還原。</li>
+          <li>遇到 403 時，除 App Registration 權限外，也要檢查 Exchange sender mailbox 授權。</li>
+        </ul>
+      </div>
 
       <!-- 排程運作機制 -->
       <div style="margin-bottom: 28px; margin-top: 20px;">
@@ -558,12 +576,48 @@ WHERE STATUS = 'N'
 SELECT COUNT(*), MIN(ID), MAX(ID), MIN(CREATION_DATE), MAX(CREATION_DATE)
 FROM MAIL_INFO
 WHERE STATUS = 'N';</pre>
-        <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin-bottom: 16px;">-- 若有殘留且確認不需要寄出，全部作廢（此操作不可復原）
-UPDATE MAIL_INFO
-SET STATUS = 'X',
-    MODIFY_USER = 'MANUAL_CANCEL',
-    MODIFY_DATE = GETDATE()
-WHERE STATUS = 'N';</pre>
+        <div class="callout" style="margin-bottom: 12px; background: #eff6ff; border-color: #60a5fa;">
+          <p style="color: #1e40af; margin: 0; font-size: 0.9rem;">
+            <strong>狀態語意：</strong><code>X</code> 是暫時作廢／排除，不是已發送；已發送狀態是
+            <code>Y</code>。必須先保存原始 ID 清單，測試後才能精準還原。
+          </p>
+        </div>
+        <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.65; margin-bottom: 16px;">-- 步驟 1：先保存 CNT 與 ID_LIST
+SELECT COUNT(*) AS CNT,
+       STRING_AGG(CAST(ID AS VARCHAR(MAX)), ',') AS ID_LIST
+FROM dbo.MAIL_INFO
+WHERE STATUS = 'N';
+
+-- 步驟 2：貼上步驟 1 的 CNT；筆數不同會自動 ROLLBACK
+DECLARE @EXPECTED_COUNT INT = 貼上步驟 1 的 CNT;
+BEGIN TRANSACTION;
+
+UPDATE dbo.MAIL_INFO SET STATUS = 'X' WHERE STATUS = 'N';
+
+IF @@ROWCOUNT &lt;&gt; @EXPECTED_COUNT
+BEGIN
+    ROLLBACK;
+    THROW 50001, '排除筆數與原 CNT 不一致，已回滾', 1;
+END;
+
+COMMIT;
+
+-- 步驟 3：測試結束後，只還原步驟 1 保存的 ID
+DECLARE @EXPECTED_COUNT INT = 貼上步驟 1 的 CNT;
+BEGIN TRANSACTION;
+
+UPDATE dbo.MAIL_INFO
+SET STATUS = 'N'
+WHERE ID IN (貼上步驟 1 的 ID_LIST)
+  AND STATUS = 'X';
+
+IF @@ROWCOUNT &lt;&gt; @EXPECTED_COUNT
+BEGIN
+    ROLLBACK;
+    THROW 50002, '還原筆數與原 CNT 不一致，已回滾', 1;
+END;
+
+COMMIT;</pre>
 
         <p style="margin-bottom: 8px; font-weight: 600; color: #475569;">測試時只寄給測試信箱的做法</p>
         <div style="display: flex; flex-direction: column; gap: 10px;">

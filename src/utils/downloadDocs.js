@@ -15,6 +15,7 @@ import doc10 from '@/docs/10-GraphAPI寄信.md?raw'
 import doc11 from '@/docs/11-頁面權限.md?raw'
 import doc12 from '@/docs/12-Fortify掃描規則.md?raw'
 import doc13 from '@/docs/13-權限模型與最大管理員規範.md?raw'
+import doc14 from '@/docs/14-地端啟動與環境DB切換.md?raw'
 
 const docs = [
   { name: '01-API協作規則.md', content: doc01 },
@@ -29,7 +30,8 @@ const docs = [
   { name: '10-GraphAPI寄信.md', content: doc10 },
   { name: '11-頁面權限.md', content: doc11 },
   { name: '12-Fortify掃描規則.md', content: doc12 },
-  { name: '13-權限模型與最大管理員規範.md', content: doc13 }
+  { name: '13-權限模型與最大管理員規範.md', content: doc13 },
+  { name: '14-地端啟動與環境DB切換.md', content: doc14 }
 ]
 
 export async function downloadAllDocs() {

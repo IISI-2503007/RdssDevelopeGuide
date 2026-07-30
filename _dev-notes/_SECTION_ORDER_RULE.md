@@ -34,8 +34,10 @@
 | 10 | `section-10` | GraphAPI 寄信 | GraphMailSpec.vue |
 | 11 | `section-11` | 頁面權限 | PagePermission.vue |
 | 12 | `section-12` | Fortify 掃描規則 | FortifyPassword.vue |
-| **13（倒數第二）** | `appendix` | **測試環境** ⚠️ | TestEnvironment.vue |
-| **14（最後）** | `section-last` | **測試帳號** ⚠️ | TestAccounts.vue |
+| 13 | `section-13` | 權限模型與最大管理員規範 | PermissionModel.vue |
+| 14 | `section-14` | 地端啟動與環境 DB 切換 | LocalEnvironment.vue |
+| **15（倒數第二）** | `appendix` | **測試環境** ⚠️ | TestEnvironment.vue |
+| **16（最後）** | `section-last` | **測試帳號** ⚠️ | TestAccounts.vue |
 
 ---
 

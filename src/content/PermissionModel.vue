@@ -10,6 +10,15 @@
       </p>
     </div>
 
+    <div class="callout" style="margin-bottom: 24px; background: #fef2f2; border-color: #f87171;">
+      <p style="color: #991b1b; margin: 0;">
+        <strong>⚠️ 個人授權不等於 API 隔離：</strong>
+        <code>RDSYS_PERMISSION_USER.ACCOUNT</code> 目前可控制個人 menu，但 URI 授權的 FUNC_CODE
+        查詢只依 <code>USER_TYPE</code>。需要逐帳號 API 隔離時，必須把後端授權查詢與快取鍵改為
+        account-aware，不能只靠 DB 的 ACCOUNT 欄位。
+      </p>
+    </div>
+
     <div style="margin-bottom: 32px;">
       <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">權限分層</h3>
       <div class="table-wrap">
@@ -77,4 +86,3 @@
     </div>
   </div>
 </template>
-

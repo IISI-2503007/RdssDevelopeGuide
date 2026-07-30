@@ -1,6 +1,6 @@
 ﻿# Graph API 寄信
 
-> 文件版本：1.0.2
+> 文件版本：1.0.3
 > 建立日期：2026-05-08
 > 適用環境：local / SIT / UAT
 > 狀態：✅ Phase 2 驗收通過，整理為共用寄信架構規範
@@ -22,6 +22,7 @@
 11. 資安注意事項
 12. 同事交接清單
 13. 測試驗收記錄
+14. 本機寄信測試注意事項
 
 ---
 
@@ -120,7 +121,7 @@ MAIL_INFO status 更新為 'Y' ✅
 | Tenant ID | `54aa2fea-ecb3-4c71-80b3-de9a356e77c1` | 🟡 內部資訊 |
 | Client ID | `b6df8fec-2fdb-4d95-8838-7f459ebbc891` | 🟡 內部資訊 |
 | Client Secret | 請向負責人或資訊部門取得「用戶端認證」 | 🔴 機敏，勿外洩 |
-| Sender Address | `NCATEST@iisigroup.com` | 🟡 內部資訊 |
+| Sender Address | 依環境設定；本機測試必須使用已獲 Exchange Online 外寄授權的個人公司信箱 | 🟡 內部資訊 |
 | OAuth Scope | `https://graph.microsoft.com/.default` | 🟡 內部資訊 |
 | Required Permission | `Mail.Send` | 🟡 內部資訊 |
 | Admin Consent 狀態 | ✅ Mail.Send 已核准 | — |
@@ -140,7 +141,9 @@ microsoft:
     tenant-id: 54aa2fea-ecb3-4c71-80b3-de9a356e77c1
     client-id: b6df8fec-2fdb-4d95-8838-7f459ebbc891
     client-secret: 請向負責人取得後填入此處
-    sender-address: NCATEST@iisigroup.com
+    # NCATEST@iisigroup.com 目前未獲 Exchange Online 外寄寄件者授權。
+    # 本機寄信測試請改成自己的、已授權公司信箱；收件者仍可使用既有測試帳號。
+    sender-address: your.name@iisigroup.com
     scope: https://graph.microsoft.com/.default
 
 scheduling:
@@ -157,7 +160,8 @@ microsoft:
     tenant-id: 54aa2fea-ecb3-4c71-80b3-de9a356e77c1
     client-id: b6df8fec-2fdb-4d95-8838-7f459ebbc891
     client-secret: ${GRAPH_CLIENT_SECRET}   # 環境變數注入，不可明文寫入
-    sender-address: NCATEST@iisigroup.com
+    # 必須使用已獲 Exchange Online 授權的外寄信箱
+    sender-address: ${GRAPH_SENDER_ADDRESS}
     scope: https://graph.microsoft.com/.default
 
 scheduling:
@@ -313,7 +317,7 @@ for (Receiver receiver : receiverList) {
 |---|---|---|
 | `400 Bad Request` | request body 格式錯誤、收件人格式錯誤、附件 base64 錯誤 | 檢查 GraphMailRequestFactory 產出的 JSON、收件人 email、附件內容 |
 | `401 Unauthorized` | access token 遺失 / 過期 / 無效，或 client-secret 錯誤 | 確認 tenant-id / client-id / client-secret；系統自動重試一次 |
-| `403 Forbidden` | Mail.Send 權限不足或未完成 Admin Consent | 請資訊部門確認 Azure App Registration 的 Mail.Send 權限 |
+| `403 Forbidden` | Mail.Send／Admin Consent 不足，或 sender mailbox 未獲 Exchange Online 外寄授權 | 同時確認 Azure App Registration 權限與 sender mailbox 的 Exchange 外寄授權 |
 | `404 Not Found` | sender mailbox 不存在或 sender address 錯誤 | 確認 sender-address 是否為可寄信的 Exchange mailbox |
 | `429 Too Many Requests` | 短時間內請求過多，Graph API 節流 | 依 Retry-After 秒數等待後重試 |
 | `500 / 502 / 503 / 504` | Microsoft Graph 或 Microsoft 365 服務端暫時異常 | retry with backoff；持續發生請資訊部門確認服務狀態 |
@@ -370,6 +374,76 @@ WHERE STATUS = 'N'
 | 整合測試：sendMailToUnit | `POST /QSP042b02/sendMailToUnit` | 2026-05-07 | ✅ 寄出完成，CC Bug 已修正，防呆已新增 |
 
 > `sendMailToUnit` 是本次驗收使用的業務 API 範例，後續其他寄信功能仍應沿用相同的共用流程。
+
+---
+
+## 14. 本機寄信測試注意事項
+
+### 14.1 寄件者與收件者
+
+目前 `NCATEST@iisigroup.com` 在 Exchange Online **沒有被授權作為外寄寄件者**。若將它設為
+`microsoft.graph.sender-address`，即使 OAuth Token 與 Graph API `Mail.Send` 權限正常，
+Exchange Online 仍可能阻擋寄送。
+
+本機測試建議：
+
+- **寄件者（sender-address）**：改成測試人員自己的、已獲外寄授權的公司信箱。
+- **收件者（MAIL_TO）**：可以維持原本的測試帳號／測試信箱。
+- 測試完成後，還原個人本機設定；不可把個人信箱或本機 yml 設定 commit 進 Git。
+- 若收到 `403 Forbidden`，除了檢查 App Registration 的 `Mail.Send`，還要確認 sender mailbox
+  是否被 Exchange Online 授權作為外寄寄件者。
+
+### 14.2 暫時排除既有待寄信件
+
+為避免測試自己的寄信功能時，排程同時寄出其他既有 `STATUS='N'` 信件，可以先記錄所有 ID，
+再將它們暫時標記為 `X`。`X` 代表「作廢／排除」，**不是已發送**；已發送狀態是 `Y`。
+
+> ⚠️ 必須先保存步驟 1 的 `CNT` 與 `ID_LIST`，確認保存成功後才能執行步驟 2。
+> 所有步驟必須在同一個測試環境資料庫執行；測試結束後只還原原先保存的 ID。
+
+```sql
+-- 步驟 1：撈出並保存既有待寄資料的筆數與 ID 清單
+SELECT COUNT(*) AS CNT,
+       STRING_AGG(CAST(ID AS VARCHAR(MAX)), ',') AS ID_LIST
+FROM dbo.MAIL_INFO
+WHERE STATUS = 'N';
+
+-- 步驟 2：確認 CNT 與 ID_LIST 已複製存檔後，暫時排除既有待寄資料
+DECLARE @EXPECTED_COUNT INT = 貼上步驟 1 的 CNT;
+BEGIN TRANSACTION;
+
+UPDATE dbo.MAIL_INFO
+SET STATUS = 'X'
+WHERE STATUS = 'N';
+
+IF @@ROWCOUNT <> @EXPECTED_COUNT
+BEGIN
+    ROLLBACK;
+    THROW 50001, '排除筆數與步驟 1 的 CNT 不一致，已回滾', 1;
+END;
+
+COMMIT;
+
+-- 步驟 3：測試結束後，只還原步驟 1 保存的 ID
+DECLARE @EXPECTED_COUNT INT = 貼上步驟 1 的 CNT;
+BEGIN TRANSACTION;
+
+UPDATE dbo.MAIL_INFO
+SET STATUS = 'N'
+WHERE ID IN (貼上步驟 1 的 ID_LIST)
+  AND STATUS = 'X';
+
+IF @@ROWCOUNT <> @EXPECTED_COUNT
+BEGIN
+    ROLLBACK;
+    THROW 50002, '還原筆數與步驟 1 的 CNT 不一致，已回滾', 1;
+END;
+
+COMMIT;
+```
+
+若 `UPDATED_COUNT`／`RESTORED_COUNT` 與原 `CNT` 不一致，應先 `ROLLBACK` 並重新確認環境、ID清單
+與資料狀態，不可直接擴大 UPDATE 條件。
 
 ---
 

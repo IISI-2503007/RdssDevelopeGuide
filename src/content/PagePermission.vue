@@ -156,6 +156,16 @@ SELECT DISTINCT T.ACC_TYPE FROM (
           例如 FUNC_CODE = <code>QSP042B02</code>，前 6 碼為 <code>QSP042</code>，<code>/QSP042B02/xxx</code> 和 <code>/QSP042B03/xxx</code> 都會被比對到。
         </p>
       </div>
+      <div class="callout" style="margin-bottom: 16px; background: #fef2f2; border-color: #f87171;">
+        <p style="color: #991b1b; margin: 0;">
+          <strong>⚠️ 個人 ACCOUNT 權限限制：</strong>
+          目前 <code>RdsysPermissionRepository.selectFunctionCodeByRole</code> 只依
+          <code>USER_TYPE</code> 查 FUNC_CODE，沒有依 <code>ACCOUNT</code> 過濾。
+          個人 ACCOUNT 可以控制 menu，但同一 FUNC_CODE 仍可能被相同 USER_TYPE 的其他帳號用於 URI 放行。
+          若需求是逐帳號 API 隔離，必須同步修改後端授權查詢與
+          <code>functionCodesCacheStore</code> 的 cache key，不能只改 DB。
+        </p>
+      </div>
       <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">// 例：/adm_011b04/showPermissions
 // 1. 去除開頭 '/'   → adm_011b04/showPermissions
 // 2. 轉大寫         → ADM_011B04/SHOWPERMISSIONS
@@ -193,7 +203,7 @@ private String normalization(String str) {
             </tr>
             <tr>
               <td><code>functionCodesCacheStore</code></td>
-              <td>role (accType string)</td>
+              <td>目前為 role (accType string)；逐帳號隔離時必須納入 account</td>
               <td>List&lt;String&gt;</td>
               <td>快取每個 Role 對應的 FUNC_CODE 前 6 碼</td>
             </tr>
