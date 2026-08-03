@@ -18,7 +18,7 @@
 
 ---
 
-## 目前章節順序（2026-06-09）
+## 目前章節順序（2026-08-03）
 
 | 順序 | id | 標題 | 元件 |
 | --- | --- | --- | --- |
@@ -33,11 +33,12 @@
 | 9 | `section-9` | 下拉選單 API | DropdownApi.vue |
 | 10 | `section-10` | GraphAPI 寄信 | GraphMailSpec.vue |
 | 11 | `section-11` | 頁面權限 | PagePermission.vue |
-| 12 | `section-12` | Fortify 掃描規則 | FortifyPassword.vue |
+| 12 | `section-12` | Fortify 掃描規則 | FortifyRules.vue |
 | 13 | `section-13` | 權限模型與最大管理員規範 | PermissionModel.vue |
 | 14 | `section-14` | 地端啟動與環境 DB 切換 | LocalEnvironment.vue |
-| **15（倒數第二）** | `appendix` | **測試環境** ⚠️ | TestEnvironment.vue |
-| **16（最後）** | `section-last` | **測試帳號** ⚠️ | TestAccounts.vue |
+| 15 | `section-15` | Git 上板流程 | GitWorkflow.vue |
+| **16（倒數第二）** | `appendix` | **測試環境** ⚠️ | TestEnvironment.vue |
+| **17（最後）** | `section-last` | **測試帳號** ⚠️ | TestAccounts.vue |
 
 ---
 

@@ -22,7 +22,7 @@
             </svg>
             {{ isDownloading ? '打包中...' : '下載規範MD檔' }}
           </button>
-          <span class="text-xs sm:text-sm text-gray-500">最後編輯日期：2026-07-29</span>
+          <span class="text-xs sm:text-sm text-gray-500">最後編輯日期：2026-08-03</span>
         </div>
       </div>
     </header>
@@ -185,9 +185,10 @@ const sections = [
   { id: 'section-12', title: '12. Fortify 掃描規則', component: defineAsyncComponent(() => import('@/content/FortifyRules.vue')) },
   { id: 'section-13', title: '13. 權限模型與最大管理員規範', component: defineAsyncComponent(() => import('@/content/PermissionModel.vue')) },
   { id: 'section-14', title: '14. 地端啟動與環境 DB 切換', component: defineAsyncComponent(() => import('@/content/LocalEnvironment.vue')) },
+  { id: 'section-15', title: '15. Git 上板流程', component: defineAsyncComponent(() => import('@/content/GitWorkflow.vue')) },
   // ⚠️ 規則：測試環境與測試帳號永遠排在最後兩項，新增規範請插在它們上方。詳見 _dev-notes/_SECTION_ORDER_RULE.md
-  { id: 'appendix', title: '15. 測試環境', component: defineAsyncComponent(() => import('@/content/TestEnvironment.vue')), protected: true },
-  { id: 'section-last', title: '16. 測試帳號', component: defineAsyncComponent(() => import('@/content/TestAccounts.vue')), protected: true }
+  { id: 'appendix', title: '16. 測試環境', component: defineAsyncComponent(() => import('@/content/TestEnvironment.vue')), protected: true },
+  { id: 'section-last', title: '17. 測試帳號', component: defineAsyncComponent(() => import('@/content/TestAccounts.vue')), protected: true }
 ]
 
 const activeSection = ref(sections[0]?.id || '')
