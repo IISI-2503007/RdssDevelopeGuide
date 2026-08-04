@@ -24,9 +24,13 @@
       <div class="grid">
         <article class="card">
           <h3>個人設定</h3>
-          <pre>git config --local rdss.branchName "alvis"
-git config --local rdss.developerName "Alvis"</pre>
-          <p style="margin-top: 12px;">前端與後端各設定一次；分支名稱必須與目前個人分支相同，且不可為 <code>main</code>。</p>
+          <pre>git config --local rdss.branchName "&lt;個人分支名稱&gt;"
+git config --local rdss.developerName "&lt;開發者姓名&gt;"</pre>
+          <ul style="margin-top: 12px;">
+            <li><code>&lt;個人分支名稱&gt;</code>：填入自己目前使用的個人分支，必須與 <code>git branch --show-current</code> 的結果相同，且不可填 <code>main</code>。</li>
+            <li><code>&lt;開發者姓名&gt;</code>：填入自己的姓名，後續會用於確認 commit 紀錄。</li>
+          </ul>
+          <p style="margin-top: 12px;">請先替換角括號內的文字再執行；前端與後端 repository 必須各設定一次。</p>
         </article>
         <article class="card">
           <h3>遠端 main 保護</h3>

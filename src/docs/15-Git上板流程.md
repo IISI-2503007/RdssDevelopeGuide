@@ -40,12 +40,16 @@
 
 ## 個人設定
 
-每位 PG 在前端、後端 repository 各設定一次。先切到自己的個人分支，再把範例值換成自己的資料：
+每位 PG 在前端、後端 repository 各設定一次。先切到自己的個人分支，將角括號內的文字替換成自己的資料後再執行：
 
 ```powershell
-git config --local rdss.branchName "alvis"
-git config --local rdss.developerName "Alvis"
+git config --local rdss.branchName "<個人分支名稱>"
+git config --local rdss.developerName "<開發者姓名>"
 ```
+
+- `<個人分支名稱>`：填入自己目前使用的個人分支，必須與 `git branch --show-current` 的結果相同，且不可填 `main`。
+- `<開發者姓名>`：填入自己的姓名，後續會用於確認 commit 紀錄。
+- 角括號與提示文字只是填寫位置，必須替換，不可原樣執行。
 
 確認設定：
 
