@@ -1,6 +1,6 @@
 # 15. Git 上板流程
 
-本章是 RDSS 前端、後端共用的 Git commit、push 與上板正式規範。人員與 AI 使用同一份規則，不另外複製人員版與 AI 版。
+本章是 RDSS 前端、後端共用的 Git commit、push 與上板正式規範。人員與 AI 必須遵守同一套核心流程。
 
 目前團隊採 `main` 加個人分支模式，不強制 Pull Request。核心做法是：先在個人分支整合並驗證最新 `main`，最後只把已驗證的 commit 以一般 push 更新至遠端 `main`。
 
@@ -38,16 +38,24 @@
 
 > 請先完整讀取開發指南的 `15-Git上板流程.md`，只檢查目前是否符合上板條件，不要 commit、不要 push。
 
-## 一次性安全設定
+## 個人設定
 
-每個前端、後端 repository 各執行一次：
+每位 PG 在前端、後端 repository 各設定一次。先切到自己的個人分支，再把範例值換成自己的資料：
 
-```bash
-git config pull.ff only
-git config --get pull.ff
+```powershell
+git config --local rdss.branchName "alvis"
+git config --local rdss.developerName "Alvis"
 ```
 
-第二個指令應輸出 `only`。此 repo-local 設定可避免 `git pull` 或編輯器 Update／Sync 在分支分歧時自動建立 merge commit。
+確認設定：
+
+```powershell
+git config --local --get rdss.branchName
+git config --local --get rdss.developerName
+git branch --show-current
+```
+
+設定的分支必須與目前分支相同，且不可為 `main`。設定只寫入該 repository 的 `.git/config`，不會被 commit，也不會影響其他 PG。
 
 Repository 管理者必須確認遠端 `main`：
 
@@ -88,8 +96,10 @@ git add <檔案路徑一> <檔案路徑二>
 Commit 訊息格式：
 
 ```text
-[模組代號][姓名][修正內容]
+[模組代號][開發者姓名][修正內容]
 ```
+
+開發者姓名必須使用 repository-local 的 `rdss.developerName`，不可套用其他人的姓名。
 
 完成必要 commit 後執行：
 
@@ -105,15 +115,23 @@ git status --porcelain
 
 ### 1. 確認 repository 與個人分支
 
-```bash
+```powershell
 git rev-parse --show-toplevel
-git branch --show-current
 git status --short --branch
 git remote -v
-git config --get pull.ff
+
+$BRANCH_NAME = [string](git config --local --get rdss.branchName)
+$DEVELOPER_NAME = [string](git config --local --get rdss.developerName)
+$CURRENT_BRANCH = [string](git branch --show-current)
+
+$BRANCH_NAME = $BRANCH_NAME.Trim()
+$DEVELOPER_NAME = $DEVELOPER_NAME.Trim()
+$CURRENT_BRANCH = $CURRENT_BRANCH.Trim()
+
+git check-ref-format --branch $BRANCH_NAME
 ```
 
-必須確認 repository、remote `origin` 與個人分支正確，目前不能位於 `main`，而且 `pull.ff` 必須為 `only`。
+必須確認 repository 與 remote `origin` 正確；個人分支與開發者設定不可為空；`$CURRENT_BRANCH` 必須完全等於 `$BRANCH_NAME`，且不得為 `main` 或 detached HEAD。
 
 ### 2. 取得並合併最新 main
 
@@ -149,11 +167,12 @@ Repository 若有更完整的必要測試，仍須一併執行。任一必要驗
 
 ### 4. 審查上板差異並固定 SHA
 
-```bash
+```powershell
 git status --porcelain
 git diff --name-status main...HEAD
 git diff --stat main...HEAD
-git rev-parse HEAD
+$DEPLOY_SHA = [string](git rev-parse HEAD)
+$DEPLOY_SHA = $DEPLOY_SHA.Trim()
 ```
 
 必須確認：
@@ -163,46 +182,43 @@ git rev-parse HEAD
 - 沒有陌生檔案、敏感設定或非預期刪除。
 - 沒有編譯產物、套件目錄或其他不應提交的內容。
 
-將 `git rev-parse HEAD` 輸出記錄為 `<本次上板SHA>`。後續只能推送這個已完成驗證與差異審查的 commit。
+`$DEPLOY_SHA` 必須為非空的完整 commit SHA。後續只能檢查及推送這個已完成驗證與差異審查的 commit。
 
 ### 5. 上板前最後同步閘門
 
-```bash
+```powershell
 git status --porcelain
-git rev-parse HEAD
+
+$CURRENT_SHA = [string](git rev-parse HEAD)
+$CURRENT_SHA = $CURRENT_SHA.Trim()
+
 git fetch origin main:main
-git merge-base --is-ancestor main HEAD
+git merge-base --is-ancestor main $DEPLOY_SHA
 ```
 
 - 工作目錄必須仍然乾淨。
-- 目前 `HEAD` 必須仍等於 `<本次上板SHA>`。
-- ancestor 指令 exit code `0`：目前個人分支包含最新 `main`，可以繼續。
+- `$CURRENT_SHA` 必須仍完全等於 `$DEPLOY_SHA`。
+- ancestor 指令 exit code `0`：本次上板 SHA 包含最新 `main`，可以繼續。
 - 非 `0`：驗證期間 `main` 已更新，回到步驟 2，重新 merge、驗證與審查差異。
 
 ### 6. 推送已驗證 SHA
 
-先取得實際個人分支名稱：
-
-```bash
-git branch --show-current
-```
-
 推送已驗證版本：
 
-```bash
-git push origin <本次上板SHA>:<個人分支>
-git push origin <本次上板SHA>:main
+```powershell
+git push origin "${DEPLOY_SHA}:refs/heads/${BRANCH_NAME}"
+git push origin "${DEPLOY_SHA}:refs/heads/main"
 ```
 
-`<本次上板SHA>` 與 `<個人分支>` 必須替換成實際值，不可原樣執行。
+必須使用完整目的 ref `refs/heads/...`，讓遠端個人分支第一次建立時也能正確推送。兩次 push 必須使用同一個 `$DEPLOY_SHA`。
 
 只能使用一般 push。若個人分支 push 失敗，不能繼續更新 `main`；若 `main` push 被 rejected 或 non-fast-forward，代表其他人可能已搶先上板，回到步驟 2 重新執行，禁止 force。
 
 ### 7. 上板後確認
 
-```bash
+```powershell
 git fetch origin main:main
-git merge-base --is-ancestor <本次上板SHA> main
+git merge-base --is-ancestor $DEPLOY_SHA main
 git rev-parse main
 ```
 
@@ -215,6 +231,7 @@ git rev-parse main
 
 | 情況 | 處理方式 |
 |---|---|
+| 個人分支或開發者設定缺少 | 停止，請 PG 完成 repository-local 設定 |
 | 目前位於 `main` | 停止，回到正確個人分支重新確認 |
 | repository 或 remote 無法確認 | 停止，不 commit、不 push |
 | `git status --porcelain` 有任何輸出 | 停止，先釐清 staged、unstaged 或 untracked 檔案 |
@@ -222,7 +239,7 @@ git rev-parse main
 | merge conflict | 停止並回報衝突，不可繼續 push |
 | 驗證失敗 | 停止，不 push |
 | 差異包含非本次任務、敏感設定或非預期刪除 | 停止並修正上板範圍 |
-| `HEAD` 與 `<本次上板SHA>` 不一致 | 停止，重新驗證與審查 |
+| `HEAD` 與 `$DEPLOY_SHA` 不一致 | 停止，重新驗證與審查 |
 | 最後同步閘門失敗 | 回到同步、merge 與驗證步驟 |
 | 個人分支 push 失敗 | 停止，不更新 `main` |
 | `main` push 被拒絕 | 回到同步、merge 與驗證步驟，禁止 force |
@@ -242,7 +259,7 @@ git rev-parse main
 每個 repository 分別回報：
 
 - 前端或後端及個人分支名稱。
-- `<本次上板SHA>`。
+- 本次 `$DEPLOY_SHA`。
 - 已執行的驗證及結果。
 - 個人分支 push 結果。
 - 遠端 `main` push 結果。

@@ -23,10 +23,10 @@
       <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">第一次使用</h3>
       <div class="grid">
         <article class="card">
-          <h3>Repository 設定</h3>
-          <pre>git config pull.ff only
-git config --get pull.ff</pre>
-          <p style="margin-top: 12px;">預期輸出為 <code>only</code>，避免 Update／Sync 在分支分歧時自動合併。</p>
+          <h3>個人設定</h3>
+          <pre>git config --local rdss.branchName "alvis"
+git config --local rdss.developerName "Alvis"</pre>
+          <p style="margin-top: 12px;">前端與後端各設定一次；分支名稱必須與目前個人分支相同，且不可為 <code>main</code>。</p>
         </article>
         <article class="card">
           <h3>遠端 main 保護</h3>
@@ -58,11 +58,16 @@ git config --get pull.ff</pre>
       <article class="card" style="margin-bottom: 18px;">
         <h3>1. 確認 repository 與分支</h3>
         <pre>git rev-parse --show-toplevel
-git branch --show-current
 git status --short --branch
 git remote -v
-git config --get pull.ff</pre>
-        <p style="margin-top: 12px;">必須位於正確個人分支，不得位於 <code>main</code>；remote 與 <code>pull.ff</code> 也必須正確。</p>
+$BRANCH_NAME = [string](git config --local --get rdss.branchName)
+$DEVELOPER_NAME = [string](git config --local --get rdss.developerName)
+$CURRENT_BRANCH = [string](git branch --show-current)
+$BRANCH_NAME = $BRANCH_NAME.Trim()
+$DEVELOPER_NAME = $DEVELOPER_NAME.Trim()
+$CURRENT_BRANCH = $CURRENT_BRANCH.Trim()
+git check-ref-format --branch $BRANCH_NAME</pre>
+        <p style="margin-top: 12px;">repository、remote 與個人設定都必須正確；目前分支必須等於設定的個人分支，且不得位於 <code>main</code>。</p>
       </article>
 
       <article class="card" style="margin-bottom: 18px;">
@@ -101,30 +106,32 @@ npm run build:dev</pre>
         <pre>git status --porcelain
 git diff --name-status main...HEAD
 git diff --stat main...HEAD
-git rev-parse HEAD</pre>
-        <p style="margin-top: 12px;">差異只能包含本次任務。將最後輸出記為 <code>&lt;本次上板SHA&gt;</code>，後續只能推送這個已驗證版本。</p>
+$DEPLOY_SHA = [string](git rev-parse HEAD)
+$DEPLOY_SHA = $DEPLOY_SHA.Trim()</pre>
+        <p style="margin-top: 12px;">差異只能包含本次任務。後續檢查與兩次 push 都只能使用這個已驗證的 <code>$DEPLOY_SHA</code>。</p>
       </article>
 
       <article class="card" style="margin-bottom: 18px;">
         <h3>6. 最後同步閘門</h3>
         <pre>git status --porcelain
-git rev-parse HEAD
+$CURRENT_SHA = [string](git rev-parse HEAD)
+$CURRENT_SHA = $CURRENT_SHA.Trim()
 git fetch origin main:main
-git merge-base --is-ancestor main HEAD</pre>
-        <p style="margin-top: 12px;">工作目錄必須乾淨、HEAD 必須仍是已驗證 SHA，ancestor 指令必須成功；否則重新合併與驗證。</p>
+git merge-base --is-ancestor main $DEPLOY_SHA</pre>
+        <p style="margin-top: 12px;">工作目錄必須乾淨、<code>$CURRENT_SHA</code> 必須等於 <code>$DEPLOY_SHA</code>，ancestor 指令必須成功；否則重新合併與驗證。</p>
       </article>
 
       <article class="card" style="margin-bottom: 18px;">
         <h3>7. 推送已驗證 SHA</h3>
-        <pre>git push origin &lt;本次上板SHA&gt;:&lt;個人分支&gt;
-git push origin &lt;本次上板SHA&gt;:main</pre>
-        <p style="margin-top: 12px;">兩個佔位符都要換成實際值。任何 push 失敗都停止，禁止 force。</p>
+        <pre>git push origin "${DEPLOY_SHA}:refs/heads/${BRANCH_NAME}"
+git push origin "${DEPLOY_SHA}:refs/heads/main"</pre>
+        <p style="margin-top: 12px;">先推個人分支，成功後才推同一個 SHA 到 <code>main</code>。任何 push 失敗都停止，禁止 force。</p>
       </article>
 
       <article class="card">
         <h3>8. 上板後確認</h3>
         <pre>git fetch origin main:main
-git merge-base --is-ancestor &lt;本次上板SHA&gt; main
+git merge-base --is-ancestor $DEPLOY_SHA main
 git rev-parse main</pre>
         <p style="margin-top: 12px;">ancestor 指令成功，才代表本次 SHA 已存在於遠端 <code>main</code>。</p>
       </article>
@@ -136,6 +143,7 @@ git rev-parse main</pre>
         <table>
           <thead><tr><th>情況</th><th>處理</th></tr></thead>
           <tbody>
+            <tr><td>個人分支或開發者設定缺少</td><td>停止，先完成 repository-local 設定</td></tr>
             <tr><td>位於 <code>main</code> 或 repository／remote 不明</td><td>停止並重新確認</td></tr>
             <tr><td><code>git status --porcelain</code> 有輸出</td><td>先處理 staged、unstaged、untracked 檔案</td></tr>
             <tr><td>fetch rejected／non-fast-forward／forced update</td><td>停止，請管理者確認 main 歷史</td></tr>
