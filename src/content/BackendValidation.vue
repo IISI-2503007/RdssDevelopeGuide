@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-8">
+  <div class="space-y-8 official-source-links">
     <section>
       <h3 class="text-lg font-bold text-slate-700 mb-3">輸入驗證原則</h3>
       <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
@@ -30,6 +30,7 @@
               <th class="px-4 py-2 text-left font-semibold text-slate-700 border-b">機制</th>
               <th class="px-4 py-2 text-left font-semibold text-slate-700 border-b">建議機制</th>
               <th class="px-4 py-2 text-left font-semibold text-slate-700 border-b">必要條件</th>
+              <th class="px-4 py-2 text-left font-semibold text-slate-700 border-b">官方參考</th>
             </tr>
           </thead>
           <tbody>
@@ -37,21 +38,25 @@
               <td class="px-4 py-2 font-medium">POST Body 驗證</td>
               <td class="px-4 py-2"><code class="bg-gray-100 px-1 rounded">@Valid + DTO</code></td>
               <td class="px-4 py-2">驗證必填、長度、格式、範圍及必要的巢狀欄位</td>
+              <td class="px-4 py-2"><a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html" target="_blank" rel="noopener noreferrer">Spring MVC Validation</a><br><a href="https://jakarta.ee/specifications/bean-validation/3.1/jakarta-validation-spec-3.1" target="_blank" rel="noopener noreferrer">Jakarta Validation 3.1</a></td>
             </tr>
             <tr class="border-b bg-gray-50">
               <td class="px-4 py-2 font-medium">JSON 字串共用處理</td>
               <td class="px-4 py-2"><code class="bg-gray-100 px-1 rounded">XssStringJsonDeserializer</code></td>
               <td class="px-4 py-2">只能作輔助防護；不能取代輸入驗證與依輸出情境編碼</td>
+              <td class="px-4 py-2"><a href="https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP Input Validation</a><br><a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP XSS Prevention</a></td>
             </tr>
             <tr class="border-b">
               <td class="px-4 py-2 font-medium">統一例外處理</td>
               <td class="px-4 py-2"><code class="bg-gray-100 px-1 rounded">RestApiExceptionHandler</code></td>
               <td class="px-4 py-2">Body 與 method validation 失敗都須回一致的 400，不得落成 500</td>
+              <td class="px-4 py-2"><a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html" target="_blank" rel="noopener noreferrer">Spring MVC Validation</a></td>
             </tr>
             <tr class="bg-gray-50">
               <td class="px-4 py-2 font-medium">簡單 GET 參數驗證</td>
               <td class="px-4 py-2">Spring MVC method validation</td>
               <td class="px-4 py-2">只接受非敏感且可嚴格驗證的代碼、數字、日期或 enum</td>
+              <td class="px-4 py-2"><a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html" target="_blank" rel="noopener noreferrer">Spring MVC Validation</a><br><a href="https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md" target="_blank" rel="noopener noreferrer">ASVS 14.2.1</a></td>
             </tr>
           </tbody>
         </table>
@@ -77,6 +82,9 @@ public class PersonQueryReq {
     private String name;
 }</code></pre>
       </div>
+      <p class="text-sm text-gray-600 mt-3">
+        依據：<a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html" target="_blank" rel="noopener noreferrer">Spring MVC Validation</a>、<a href="https://jakarta.ee/specifications/bean-validation/3.1/jakarta-validation-spec-3.1" target="_blank" rel="noopener noreferrer">Jakarta Validation 3.1</a>、<a href="https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md" target="_blank" rel="noopener noreferrer">OWASP ASVS 14.2.1</a>
+      </p>
     </section>
 
     <section>

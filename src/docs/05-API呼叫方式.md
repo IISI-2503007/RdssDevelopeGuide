@@ -41,16 +41,16 @@
 
 ### 3.1 決策表
 
-| 情境 | method | 參數位置 | 必要條件 |
-|---|---|---|---|
-| 無副作用、無敏感 URL 參數的簡單查詢 | `GET` | Query string；或無參數 | 可安全重試／prefetch；參數須驗證 |
-| 查詢條件含敏感資料、複合 DTO 或大量條件 | `POST` | JSON Body | 後端 `@Valid @RequestBody`；不得因 POST 而省略授權 |
-| 新增或觸發業務動作 | `POST` | JSON Body／multipart | 不得用 GET；重送風險須由業務邏輯處理 |
-| 完整／局部修改 | `POST` | JSON Body | RDSS 新 API 預設使用 action-style POST；既有 PUT／PATCH 契約可維持 |
-| 刪除資源 | `POST` | JSON Body | RDSS 新 API 預設使用 action-style POST；敏感識別資料放 Body，且必須做物件層級授權；既有 DELETE 契約可維持 |
-| 檔案下載 | `GET` 或 `POST` | 無敏感條件可 GET；含敏感條件用 POST Body | 回應依內容決定 `Cache-Control`；需驗證下載權限 |
+| 情境 | method | 參數位置 | 必要條件 | 官方參考 |
+|---|---|---|---|---|
+| 無副作用、無敏感 URL 參數的簡單查詢 | `GET` | Query string；或無參數 | 可安全重試／prefetch；參數須驗證 | [RFC 9110 §9.2.1 Safe Methods](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.1)、[OWASP Input Validation](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html) |
+| 查詢條件含敏感資料、複合 DTO 或大量條件 | `POST` | JSON Body | 後端 `@Valid @RequestBody`；不得因 POST 而省略授權 | [CWE-598](https://cwe.mitre.org/data/definitions/598.html)、[OWASP ASVS 14.2.1](https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md) |
+| 新增或觸發業務動作 | `POST` | JSON Body／multipart | 不得用 GET；重送風險須由業務邏輯處理 | [RFC 9110 §9.2.1 Safe Methods](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.1)、[RFC 9110 §9.3.3 POST](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.3) |
+| 完整／局部修改 | `POST` | JSON Body | RDSS 新 API 預設使用 action-style POST；既有 PUT／PATCH 契約可維持 | [RFC 9110 §9.3.3 POST](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.3)；POST 為 RDSS 落地決策 |
+| 刪除資源 | `POST` | JSON Body | RDSS 新 API 預設使用 action-style POST；敏感識別資料放 Body，且必須做物件層級授權；既有 DELETE 契約可維持 | [RFC 9110 §9.3.3 POST](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.3)、[OWASP API1:2023 BOLA](https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/) |
+| 檔案下載 | `GET` 或 `POST` | 無敏感條件可 GET；含敏感條件用 POST Body | 回應依內容決定 `Cache-Control`；需驗證下載權限 | [OWASP ASVS 14.2.1／14.3.2](https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md)、[OWASP API1:2023 BOLA](https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/) |
 
-method 語意依據：[RFC 9110 §9 Methods](https://www.rfc-editor.org/rfc/rfc9110.html#section-9)；敏感資料位置依據：[OWASP ASVS 14.2.1](https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md)
+表內官方來源說明通用安全控制；新 API 預設採 action-style POST 是 RDSS 依現況制定的落地規則，不代表 RFC 或 OWASP 強制所有異動一律使用 POST。
 
 ### 3.2 RDSS 現階段採用原則
 
@@ -118,6 +118,8 @@ public class Rdp011a03Controller {
 }
 ```
 
+官方參考：[RFC 9110 §9.2.1 Safe Methods](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.1)、[OWASP Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
+
 ### 5.2 含敏感／複合條件的 POST 查詢
 
 ```java
@@ -135,6 +137,8 @@ public class PersonQueryReq {
 }
 ```
 
+官方參考：[CWE-598](https://cwe.mitre.org/data/definitions/598.html)、[OWASP ASVS 14.2.1](https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md)、[Spring MVC Validation](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html)
+
 ### 5.3 禁止用 GET 執行異動
 
 ```java
@@ -147,19 +151,19 @@ public ResponseEntity<?> logout() { ... }
 public ResponseEntity<?> logout() { ... }
 ```
 
+官方參考：[RFC 9110 §9.2.1 Safe Methods](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.1)、[RFC 9110 §9.3.3 POST](https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.3)
+
 ### 5.4 驗證要求
 
-1. JSON Body 使用 `@Valid @RequestBody` + DTO Bean Validation。
-2. `@RequestParam`／`@PathVariable` 使用可生效的 method validation + 參數標註。
-3. 所有字串至少定義最大長度；有固定格式／列舉時再加 `@Pattern` 或 enum 驗證。
-4. 驗證必須在後端執行，前端驗證只負責使用者體驗。
-5. 不得因現有 `XssStringJsonDeserializer` 而省略長度、格式、SQL 參數化或輸出編碼。
+1. JSON Body 使用 `@Valid @RequestBody` + DTO Bean Validation。（[Spring MVC Validation](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html)、[Jakarta Validation 3.1](https://jakarta.ee/specifications/bean-validation/3.1/jakarta-validation-spec-3.1)）
+2. `@RequestParam`／`@PathVariable` 使用可生效的 method validation + 參數標註。（[Spring MVC Validation](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html)）
+3. 所有字串至少定義最大長度；有固定格式／列舉時再加 `@Pattern` 或 enum 驗證。（[OWASP Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)、[Jakarta Validation 3.1](https://jakarta.ee/specifications/bean-validation/3.1/jakarta-validation-spec-3.1)）
+4. 驗證必須在後端執行，前端驗證只負責使用者體驗。（[OWASP Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)）
+5. 不得因現有 `XssStringJsonDeserializer` 而省略長度、格式、SQL 參數化或輸出編碼。（[OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)、[OWASP Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)）
 
-統一例外處理必須涵蓋 `MethodArgumentNotValidException` 與 `HandlerMethodValidationException`；若既有 Controller 保留類別層級 `@Validated` 並透過 AOP 執行 method validation，也須涵蓋 `ConstraintViolationException`。驗證失敗應回傳一致的 400 格式，不得落成 500。
+統一例外處理必須涵蓋 `MethodArgumentNotValidException` 與 `HandlerMethodValidationException`；若既有 Controller 保留類別層級 `@Validated` 並透過 AOP 執行 method validation，也須涵蓋 `ConstraintViolationException`。驗證失敗應回傳一致的 400 格式，不得落成 500。（[Spring MVC Validation](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html)）
 
-含自由文字的查詢優先使用 POST + DTO；若使用 GET，只接受可嚴格白名單驗證的代碼、數字、日期或 enum 類參數，並確認 method validation 與錯誤回應確實生效。
-
-對應依據：[OWASP Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)、[Spring MVC Validation](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-validation.html)、[OWASP XSS Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html)
+含自由文字的查詢優先使用 POST + DTO；若使用 GET，只接受可嚴格白名單驗證的代碼、數字、日期或 enum 類參數，並確認 method validation 與錯誤回應確實生效。（[OWASP Input Validation Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)、[OWASP ASVS 14.2.1](https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md)）
 
 ---
 

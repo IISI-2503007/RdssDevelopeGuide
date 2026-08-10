@@ -26,6 +26,14 @@
 //   固定 8081。各 profile 的預設 port 不一致，一律以參數覆寫，
 //   前端 .env.dev 的 VITE_API_BASE_URL_V2 也以 8081 為準。
 //
+// envFile
+//   本後端啟動範本不使用 envFile；profile、port 與下方 JWT secret 均由 args 傳入。
+//   注意：這與前端 rdss_front/.env.dev 是兩件事。前端仍須將 dev mode 的 API
+//         指向 http://localhost:8081/；若有 .env.dev.local，該檔會覆蓋 .env.dev，
+//         也必須確認其值。DB 再由本檔所選 profile 決定。
+//   ⚠ .env.dev 僅供 dev／地端測試使用；個人為連本機 8081 所做的暫時修改，
+//     未經團隊確認不得擅自 commit、push 或隨版本上板。
+//
 // --jwt.secret（只有 UAT 那組需要）
 //   application-localuat.yml 寫的是 ${JWT_SECRET:}，沒有 fallback 預設值，
 //   不注入就會是空字串，導致 JWT 簽章失敗、登入拿不到有效 token。

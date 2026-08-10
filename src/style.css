@@ -278,3 +278,49 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* 規範依據：讓官方來源與一般內文有明確的視覺區隔 */
+.official-source-links a[target="_blank"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  margin: 2px 3px 2px 0;
+  padding: 3px 9px;
+  border: 1px solid #93c5fd;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-decoration: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.official-source-links a[target="_blank"]::before {
+  content: "官方";
+  padding-right: 5px;
+  border-right: 1px solid #93c5fd;
+  color: #1e40af;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.official-source-links a[target="_blank"]::after {
+  content: "↗";
+  font-size: 0.72rem;
+}
+
+.official-source-links a[target="_blank"]:hover {
+  border-color: #2563eb;
+  background: #dbeafe;
+  color: #1e3a8a;
+}
+
+.official-source-links a[target="_blank"]:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.3);
+  outline-offset: 2px;
+}

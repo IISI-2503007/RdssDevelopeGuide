@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="official-source-links">
     <p class="muted" style="margin-bottom: 24px;">
       RDSS 新 API 只有無敏感資料、無副作用的簡單查詢使用 GET；敏感／複合查詢及新增、修改、刪除等業務動作使用 POST。SSDLC 並未要求所有 API 一律 POST，也未要求必須使用 PUT／PATCH／DELETE。
     </p>
@@ -27,6 +27,7 @@
               <th>情境</th>
               <th>method</th>
               <th>參數位置與條件</th>
+              <th>官方參考</th>
             </tr>
           </thead>
           <tbody>
@@ -34,39 +35,42 @@
               <td>無副作用、無敏感 URL 參數的簡單查詢</td>
               <td><code>GET</code></td>
               <td>Query string 或無參數；輸入仍須驗證</td>
+              <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.1" target="_blank" rel="noopener noreferrer">RFC 9110 §9.2.1</a><br><a href="https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP Input Validation</a></td>
             </tr>
             <tr>
               <td>含敏感資料、複合 DTO 或大量條件的查詢</td>
               <td><code>POST</code></td>
               <td>JSON Body + <code>@Valid @RequestBody</code></td>
+              <td><a href="https://cwe.mitre.org/data/definitions/598.html" target="_blank" rel="noopener noreferrer">CWE-598</a><br><a href="https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md" target="_blank" rel="noopener noreferrer">ASVS 14.2.1</a></td>
             </tr>
             <tr>
               <td>新增或觸發業務動作</td>
               <td><code>POST</code></td>
               <td>Body；不得使用 GET</td>
+              <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.1" target="_blank" rel="noopener noreferrer">RFC 9110 §9.2.1</a><br><a href="https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.3" target="_blank" rel="noopener noreferrer">RFC 9110 §9.3.3</a></td>
             </tr>
             <tr>
               <td>完整／局部修改</td>
               <td><code>POST</code></td>
               <td>RDSS 新 API 預設使用 action-style POST；既有 PUT／PATCH 契約可維持</td>
+              <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.3" target="_blank" rel="noopener noreferrer">RFC 9110 §9.3.3</a><br><span>POST 為 RDSS 落地決策</span></td>
             </tr>
             <tr>
               <td>刪除</td>
               <td><code>POST</code></td>
               <td>敏感識別資料放 Body，並做物件層級授權；既有 DELETE 契約可維持</td>
+              <td><a href="https://www.rfc-editor.org/rfc/rfc9110.html#section-9.3.3" target="_blank" rel="noopener noreferrer">RFC 9110 §9.3.3</a><br><a href="https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/" target="_blank" rel="noopener noreferrer">OWASP API1:2023 BOLA</a></td>
             </tr>
             <tr>
               <td>檔案下載</td>
               <td><code>GET</code> 或 <code>POST</code></td>
               <td>含敏感條件用 POST Body；敏感回應設 <code>no-store</code></td>
+              <td><a href="https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md" target="_blank" rel="noopener noreferrer">ASVS 14.2.1／14.3.2</a><br><a href="https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/" target="_blank" rel="noopener noreferrer">OWASP API1:2023 BOLA</a></td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p style="margin-top: 10px; color: #64748b; font-size: 0.88rem;">
-        依據：<a href="https://www.rfc-editor.org/rfc/rfc9110.html#section-9" target="_blank" rel="noopener noreferrer">RFC 9110 HTTP Methods</a>、
-        <a href="https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md" target="_blank" rel="noopener noreferrer">OWASP ASVS V14</a>
-      </p>
+      <p style="margin-top: 10px; color: #64748b; font-size: 0.88rem;">表內官方來源說明通用安全控制；新 API 預設採 action-style POST 是 RDSS 依現況制定的落地規則，不代表 RFC 或 OWASP 強制所有異動一律使用 POST。</p>
     </div>
 
     <div style="margin-bottom: 36px; padding: 20px; background: #fff7ed; border-left: 4px solid #f97316; border-radius: 8px;">

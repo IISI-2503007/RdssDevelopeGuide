@@ -29,6 +29,29 @@
     </div>
 
     <div style="margin-bottom: 32px;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">正確操作順序：前端指向 8081，再由後端選 DB</h3>
+      <ol style="line-height: 1.9; padding-left: 1.25rem;">
+        <li>
+          前端確認 dev mode 的 <code>VITE_API_BASE_URL_V2</code> 為 <code>http://localhost:8081/</code>：
+          可修改 <code>rdss_front/.env.dev</code>；若本機另有 <code>.env.dev.local</code>，Vite 會以後者為準，兩者不可互相矛盾。
+        </li>
+        <li>以前端 dev mode 啟動（<code>npm run dev</code>）；前端所有 API 會送到本機後端 8081。</li>
+        <li>
+          後端按 <code>Ctrl+Shift+D</code> 開啟 Run and Debug，下拉選擇：
+          <code>RDSS-SIT資料</code>（<code>local</code>／<code>rdss</code>）或
+          <code>RDSS-UAT資料</code>（<code>localuat</code>／<code>rdss_n</code>），再按 <code>F5</code>。
+        </li>
+        <li>需要切換 DB 時，先停止後端，再改選另一組 configuration 並重新按 <code>F5</code>；前端仍維持指向 8081，不必跟著切 URL。</li>
+      </ol>
+      <div class="callout" style="margin-top: 14px; background: #f0fdf4; border-color: #86efac;">
+        <p style="color: #166534; margin: 0;">
+          <strong>責任界線：</strong><code>.env.dev</code> 只決定「前端呼叫哪個後端位址」，不決定 DB；
+          <code>launch.json</code> 的 <code>--spring.profiles.active</code> 才決定後端連哪個 DB。
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 32px;">
       <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">VS Code 啟動方式</h3>
       <div class="table-wrap">
         <table>
@@ -73,7 +96,10 @@ UAT：--spring.profiles.active=localuat --server.port=8081 --jwt.secret=&lt;見�
             <code>application-localuat.yml</code> 寫的是 <code>${JWT_SECRET:}</code>（無 fallback），不注入會是空字串，導致 JWT 簽章失敗、登入拿不到有效 token。
           </div>
         </li>
-        <li>不需要 <code>envFile</code>，本專案沒有 <code>.env</code> 檔。</li>
+        <li>
+          後端 <code>launch.json</code> 不設定 <code>envFile</code>，profile、port 與 UAT 所需的 JWT secret 都由上述
+          <code>args</code> 傳入。這與前端必須使用的 <code>rdss_front/.env.dev</code> 是兩件事，請勿混淆。
+        </li>
         <li>存檔後下拉選單即出現「RDSS-SIT資料」「RDSS-UAT資料」兩組。</li>
       </ol>
 
@@ -95,9 +121,16 @@ UAT：--spring.profiles.active=localuat --server.port=8081 --jwt.secret=&lt;見�
       <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">前端地端啟動</h3>
       <ul style="line-height: 1.9; padding-left: 1.25rem;">
         <li><code>.env.dev</code> 的 <code>VITE_API_BASE_URL_V2</code> 指向 <code>http://localhost:8081/</code>。</li>
+        <li>若存在 <code>.env.dev.local</code>，其值會覆蓋 <code>.env.dev</code>；請同步確認該檔也指向 8081。</li>
         <li>若 5173 被其他工具占用，可用 <code>npx vite --mode dev --port 5180</code>。</li>
-        <li><code>.env.dev</code> 是 Git 追蹤檔；地端暫時修改不可跟著推版。</li>
+        <li><code>.env.dev</code> 是 Git 追蹤檔，地端暫時修改不可跟著推版；<code>.env.dev.local</code> 符合現有 <code>*.local</code> 忽略規則，可用於保留本機覆寫值。</li>
       </ul>
+      <div class="callout" style="margin-top: 14px; background: #fff7ed; border-color: #fb923c;">
+        <p style="color: #9a3412; margin: 0;">
+          <strong>上板警示：</strong><code>.env.dev</code> 僅供 dev／地端測試使用。個人為連接本機 8081 所做的暫時修改，
+          未經團隊確認不得擅自 commit、push 或隨版本上板；送版前必須以 <code>git status</code>／差異內容再次確認排除。
+        </p>
+      </div>
     </div>
 
     <div class="callout" style="background: #fef2f2; border-color: #f87171;">
@@ -110,4 +143,3 @@ UAT：--spring.profiles.active=localuat --server.port=8081 --jwt.secret=&lt;見�
     </div>
   </div>
 </template>
-
