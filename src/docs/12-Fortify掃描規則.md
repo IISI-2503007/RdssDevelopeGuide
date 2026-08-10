@@ -290,6 +290,27 @@ private static final String PASSCODE_FORMAT_PATTERN = "...";
 
 ### 2. Privacy Violation（CWE-200）— 日誌洩漏
 
+> 敏感資料的判定與 HTTP 傳遞規則以 `05-API呼叫方式.md` 第二章為準。把 API 從 GET 改成 POST 只會讓參數離開 URL，**不會阻止應用程式自行把 Request Body 寫入 log**。
+>
+> 官方對照：[CWE-532: Insertion of Sensitive Information into Log File](https://cwe.mitre.org/data/definitions/532.html)、[OWASP Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)。`Privacy Violation` 是掃描工具的 finding category；實際弱點應依掃描資料流與 CWE mapping 判定，不可只看 category 名稱。
+
+#### 核心規則：不得整包輸出 request / DTO / response
+
+DTO 未必只有目前看得到的欄位，日後新增個資或憑證欄位時，整包 `toString()` 會在沒有修改 log 程式的情況下開始洩漏。因此不論目前是否觸發 Fortify，一律禁止以下寫法：
+
+```java
+// ❌ Request Body 仍會被應用程式寫入 log
+log.info("收到查詢條件: {}", req);
+log.debug("response: {}", response);
+log.error("處理失敗, param: {}", param, e);
+
+// ✅ 僅記錄排錯所需的非敏感摘要
+log.info("查詢完成, year: {}, resultCount: {}", req.getYear(), resultCount);
+log.error("查詢失敗, correlationId: {}", correlationId, e);
+```
+
+允許記錄的內容限於功能代碼、結果狀態、筆數、耗時、非敏感 enum／年度與後端產生的 correlation ID。帳號、姓名、身分證號、email、電話、token、完整 URL 及可定位受保護案件的識別資訊均不得輸出；若無法判定，預設不記值。
+
 #### 案例一：e.printStackTrace() 洩漏堆疊
 
 `e.printStackTrace()` 會將完整 stack trace 輸出至 stderr，可能洩漏系統架構細節。統一改用 `log.error()`。

@@ -429,6 +429,14 @@ private static final String
               </template>
               <div style="padding:4px 0 8px;">
 
+                <div style="margin-bottom:20px;padding:14px;background:#fff7ed;border-left:4px solid #f97316;border-radius:6px;color:#9a3412;font-size:0.9rem;line-height:1.7;">
+                  敏感資料範圍依「5. API 呼叫方式」定義。把 API 從 GET 改成 POST 只會讓參數離開 URL，<strong>不會阻止應用程式自行把 Request Body 寫入 log</strong>。禁止整包輸出 request、DTO、response、Authorization header 或完整 URL。
+                  <div style="margin-top:8px;">
+                    官方對照：<a href="https://cwe.mitre.org/data/definitions/532.html" target="_blank" rel="noopener noreferrer">CWE-532</a>、
+                    <a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP Logging Cheat Sheet</a>。<code style="background:#ffedd5;padding:1px 3px;border-radius:3px;">Privacy Violation</code> 是掃描工具分類；實際弱點仍須依資料流與 CWE mapping 判定。
+                  </div>
+                </div>
+
                 <!-- 2-1 printStackTrace -->
                 <div style="margin-bottom:24px;">
                   <h4 style="font-size:1.05rem;margin-bottom:10px;color:#0369a1;">案例一：e.printStackTrace() 洩漏堆疊</h4>
@@ -460,12 +468,15 @@ private static final String
                 <div style="margin-bottom:8px;">
                   <h4 style="font-size:1.05rem;margin-bottom:10px;color:#0369a1;">案例二：Log 輸出敏感欄位值</h4>
                   <p style="margin-bottom:10px;color:#475569;font-size:0.9rem;">
-                    Log 內容不能包含 ISSN、密碼等敏感資料值，移除或改為輸出非敏感的業務識別資訊。
+                    DTO 日後可能新增個資或憑證欄位，因此即使目前未觸發 Fortify，也不得整包輸出。只記錄功能代碼、結果狀態、筆數、耗時、非敏感 enum／年度或後端產生的 correlation ID。
                   </p>
                   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
                     <div style="padding:16px;background:#fef2f2;border-radius:10px;border:1px solid #fecaca;">
                       <p style="margin:0 0 8px;font-size:0.9rem;font-weight:600;color:#991b1b;">❌ 觸發（Privacy Violation）</p>
-                      <pre style="background:#7f1d1d;color:#fecaca;padding:12px;border-radius:6px;font-size:0.83rem;overflow-x:auto;margin:0;">// Rem040b04Service.java
+                      <pre style="background:#7f1d1d;color:#fecaca;padding:12px;border-radius:6px;font-size:0.83rem;overflow-x:auto;margin:0;">// 整包 Request Body 仍會進 log
+log.info("收到查詢條件: {}", req);
+
+// Rem040b04Service.java
 log.info("查詢ISSN: {}", req.getIssn());  // ← 敏感
 
 // Rdp031a01Service.java
@@ -475,8 +486,9 @@ log.debug("Password for user {}: {}",
                     </div>
                     <div style="padding:16px;background:#f0fdf4;border-radius:10px;border:1px solid #bbf7d0;">
                       <p style="margin:0 0 8px;font-size:0.9rem;font-weight:600;color:#166534;">✅ 安全寫法</p>
-                      <pre style="background:#14532d;color:#d1fae5;padding:12px;border-radius:6px;font-size:0.83rem;overflow-x:auto;margin:0;">// 僅保留非敏感的業務識別資訊
-log.info("查詢年度: {}", req.getYear());
+                      <pre style="background:#14532d;color:#d1fae5;padding:12px;border-radius:6px;font-size:0.83rem;overflow-x:auto;margin:0;">// 僅保留非敏感摘要
+log.info("查詢完成, year: {}, count: {}",
+    req.getYear(), resultCount);
 
 // 含密碼的 log 整行刪除</pre>
                     </div>
