@@ -1,0 +1,64 @@
+// ─────────────────────────────────────────────────────────────
+// RDSS 後端地端啟動設定範本（去識別化）
+//
+// 放置位置：backend_new/.vscode/launch.json
+//           此路徑不在任何 git repo 內，不會進版控。
+//
+// 使用方式：整份複製後，依下方【填寫說明】把 <...> 的部分換成實際值。
+// ─────────────────────────────────────────────────────────────
+//
+// 【填寫說明】
+//
+// mainClass
+//   後端啟動類別的完整路徑。
+//   查法：在 rdss_backend_api_new 搜尋 @SpringBootApplication 所在的類別。
+//
+// projectName
+//   VS Code「Java Projects」面板顯示的專案名稱，通常等於 pom.xml 的 artifactId。
+//
+// --spring.profiles.active
+//   決定連哪個 DB，不要改 application-{profile}.yml 的 datasource 來切換。
+//     local     → 外網開發機 rdss    （SIT 測試團隊同一顆 DB）
+//     localuat  → 外網開發機 rdss_n  （UAT 測試團隊同一顆 DB）
+//   ⛔ 地端禁用 prod / rdssuat（內網主機，且屬正式環境）。
+//
+// --server.port
+//   固定 8081。各 profile 的預設 port 不一致，一律以參數覆寫，
+//   前端 .env.dev 的 VITE_API_BASE_URL_V2 也以 8081 為準。
+//
+// --jwt.secret（只有 UAT 那組需要）
+//   application-localuat.yml 寫的是 ${JWT_SECRET:}，沒有 fallback 預設值，
+//   不注入就會是空字串，導致 JWT 簽章失敗、登入拿不到有效 token。
+//   取值方式：打開 rdss_backend_api_new/src/main/resources/application-local.yml，
+//            找到 jwt.secret 那行 ${JWT_SECRET:○○○}，把 ○○○ 整段複製過來。
+//   SIT 那組不需要，因為 application-local.yml 已內建 fallback。
+//   ⚠ 不要改 application-localuat.yml 補 fallback：該行有 Fortify 註解，
+//     要求正式環境不得設 fallback 預設值。
+//
+// 【切換環境】
+//   Ctrl+Shift+D 開 Run and Debug → 下拉選要的那組 → F5
+//   ⚠ Spring Boot Dashboard 播放鍵永遠只跑第一組，下拉選了也不會生效。
+//   ⚠ 同時只能跑一個（8081 只有一個），換環境前先 Shift+F5 停掉。
+// ─────────────────────────────────────────────────────────────
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "RDSS-SIT資料 (local, rdss)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "<後端啟動類別完整路徑>",
+            "projectName": "<Java Projects 面板顯示的專案名稱>",
+            "args": "--spring.profiles.active=local --server.port=8081"
+        },
+        {
+            "type": "java",
+            "name": "RDSS-UAT資料 (localuat, rdss_n)",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "<後端啟動類別完整路徑>",
+            "projectName": "<Java Projects 面板顯示的專案名稱>",
+            "args": "--spring.profiles.active=localuat --server.port=8081 --jwt.secret=<見上方填寫說明，從 application-local.yml 複製>"
+        }
+    ]
+}

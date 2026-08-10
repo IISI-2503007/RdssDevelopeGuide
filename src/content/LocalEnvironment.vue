@@ -48,7 +48,46 @@
         </table>
       </div>
       <pre style="background: #1e293b; color: #f1f5f9; border-radius: 8px; padding: 14px; overflow-x: auto; font-size: 0.82rem; line-height: 1.7; margin-top: 14px;">SIT：--spring.profiles.active=local --server.port=8081
-UAT：--spring.profiles.active=localuat --server.port=8081</pre>
+UAT：--spring.profiles.active=localuat --server.port=8081 --jwt.secret=&lt;見下方說明&gt;</pre>
+      <div class="callout" style="margin-top: 14px; background: #fffbeb; border-color: #fcd34d;">
+        <p style="color: #92400e; margin: 0;">
+          Dashboard 播放鍵<strong>永遠只跑第一組</strong>，下拉選了也不會生效。要臨時切換環境一律走
+          <code>Ctrl+Shift+D</code> → 下拉選 → <code>F5</code>。
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 32px;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">首次設定 launch.json</h3>
+      <ol style="line-height: 1.9; padding-left: 1.25rem;">
+        <li>按 <code>Ctrl+Shift+D</code> 開啟 Run and Debug 面板。</li>
+        <li>沒有下拉選單時 → 點「<strong>建立 launch.json 檔案</strong>」→ 選 <strong>Java</strong>。</li>
+        <li>把範本內容整份覆蓋進 <code>backend_new/.vscode/launch.json</code>。</li>
+        <li>確認 <code>projectName</code> 與本機 Java 專案名稱相符（預設 <code>rdss-backend-api-new</code>）。</li>
+        <li>
+          <strong>UAT 那組必須帶 <code>--jwt.secret</code>。</strong>
+          <div style="margin-top: 4px;">
+            值請從後端 <code>application-local.yml</code> 的 <code>jwt.secret</code> fallback 預設值複製。
+          </div>
+          <div style="margin-top: 4px; color: #64748b;">
+            <code>application-localuat.yml</code> 寫的是 <code>${JWT_SECRET:}</code>（無 fallback），不注入會是空字串，導致 JWT 簽章失敗、登入拿不到有效 token。
+          </div>
+        </li>
+        <li>不需要 <code>envFile</code>，本專案沒有 <code>.env</code> 檔。</li>
+        <li>存檔後下拉選單即出現「RDSS-SIT資料」「RDSS-UAT資料」兩組。</li>
+      </ol>
+
+      <p style="margin: 12px 0 0; color: #475569; font-size: 0.9rem;">
+        📎 可直接取用的範本可於右上角按鈕<strong>下載規範MD檔</strong> 取得（已去識別化，依檔內中文說明填入即可）
+      </p>
+
+      <div class="callout" style="margin-top: 14px; background: #fef2f2; border-color: #f87171;">
+        <p style="color: #991b1b; margin: 0;">
+          <strong>只放一份。</strong>若根目錄與 <code>backend_new</code> 底下同時有 <code>launch.json</code>，
+          後者優先生效；兩份一旦不同步就會「以為在測 UAT、實際連到 SIT」，而且不會有任何錯誤訊息。
+          建議只保留 <code>backend_new/.vscode/launch.json</code>。
+        </p>
+      </div>
     </div>
 
     <div style="margin-bottom: 32px;">
@@ -70,3 +109,4 @@ UAT：--spring.profiles.active=localuat --server.port=8081</pre>
     </div>
   </div>
 </template>
+
