@@ -1,4 +1,4 @@
-import{_ as e,o as r,c as i,a as o}from"./index-CIb0hbJX.js";const a={};function s(c,t){return r(),i("div",null,[...t[0]||(t[0]=[o(`<p class="muted" style="margin-bottom:16px;"> RDSS 前端、後端共用的 commit、push 與上板規範。人員與 AI 使用同一份規則，不強制 Pull Request。 </p><div class="callout" style="margin-bottom:24px;background:#f0fdf4;border-color:#86efac;"><p style="color:#166534;margin:0;line-height:1.8;"><strong>核心原則：</strong>在個人分支整合最新 <code>main</code> 並完成驗證，只推送已驗證的 commit SHA；任何拒絕、衝突或異常差異都停止，絕不強制推送。 </p></div><pre style="margin-bottom:28px;">個人分支完成 commit
+import{_ as e,o as r,c as i,a as o}from"./index-Bqw0t-E7.js";const a={};function s(c,t){return r(),i("div",null,[...t[0]||(t[0]=[o(`<p class="muted" style="margin-bottom:16px;"> RDSS 前端、後端共用的 commit、push 與上板規範。人員與 AI 使用同一份規則，不強制 Pull Request。 </p><div class="callout" style="margin-bottom:24px;background:#f0fdf4;border-color:#86efac;"><p style="color:#166534;margin:0;line-height:1.8;"><strong>核心原則：</strong>在個人分支整合最新 <code>main</code> 並完成驗證，只推送已驗證的 commit SHA；任何拒絕、衝突或異常差異都停止，絕不強制推送。 </p></div><pre style="margin-bottom:28px;">個人分支完成 commit
   → 確認工作目錄乾淨
   → 合併最新 main
   → 驗證與審查差異
