@@ -18,6 +18,9 @@ import doc13 from '@/docs/13-權限模型與最大管理員規範.md?raw'
 import doc14 from '@/docs/14-地端啟動與環境DB切換.md?raw'
 import doc15 from '@/docs/15-Git上板流程.md?raw'
 
+// 附件：非 .md 的可取用範本
+import launchJson from '@/docs/assets/launch.json?raw'
+
 const docs = [
   { name: '01-API協作規則.md', content: doc01 },
   { name: '02-參數一致性.md', content: doc02 },
@@ -36,12 +39,22 @@ const docs = [
   { name: '15-Git上板流程.md', content: doc15 }
 ]
 
+// 非 .md 的附件，放在 ZIP 內的 assets/ 子資料夾
+const assets = [
+  { name: 'launch.json', content: launchJson }
+]
+
 export async function downloadAllDocs() {
   const zip = new JSZip()
   const folder = zip.folder('RDSS專案-前後端協作規範')
 
   for (const doc of docs) {
     folder.file(doc.name, doc.content)
+  }
+
+  const assetFolder = folder.folder('assets')
+  for (const asset of assets) {
+    assetFolder.file(asset.name, asset.content)
   }
 
   const blob = await zip.generateAsync({ type: 'blob' })

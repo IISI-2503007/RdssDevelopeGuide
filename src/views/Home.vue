@@ -22,7 +22,7 @@
             </svg>
             {{ isDownloading ? '打包中...' : '下載規範MD檔' }}
           </button>
-          <span class="text-xs sm:text-sm text-gray-500">最後編輯日期：2026-08-03</span>
+          <span class="text-xs sm:text-sm text-gray-500">最後編輯日期：2026-08-10</span>
         </div>
       </div>
     </header>

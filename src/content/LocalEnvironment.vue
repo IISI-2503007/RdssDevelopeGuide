@@ -78,7 +78,8 @@ UAT：--spring.profiles.active=localuat --server.port=8081 --jwt.secret=&lt;見�
       </ol>
 
       <p style="margin: 12px 0 0; color: #475569; font-size: 0.9rem;">
-        📎 可直接取用的範本可於右上角按鈕<strong>下載規範MD檔</strong> 取得（已去識別化，依檔內中文說明填入即可）
+        📎 可直接取用的範本：點右上角<strong>下載規範MD檔</strong>，解壓後在 <code>assets/launch.json</code>
+        （已去識別化，依檔內中文說明填入即可）
       </p>
 
       <div class="callout" style="margin-top: 14px; background: #fef2f2; border-color: #f87171;">
