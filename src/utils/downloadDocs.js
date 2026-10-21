@@ -17,6 +17,7 @@ import doc12 from '@/docs/12-Fortify掃描規則.md?raw'
 import doc13 from '@/docs/13-權限模型與最大管理員規範.md?raw'
 import doc14 from '@/docs/14-地端啟動與環境DB切換.md?raw'
 import doc15 from '@/docs/15-Git上板流程.md?raw'
+import doc16 from '@/docs/16-錯誤代碼與例外日誌.md?raw'
 
 // 附件：非 .md 的可取用範本
 import launchJson from '@/docs/assets/launch.json?raw'
@@ -36,7 +37,8 @@ const docs = [
   { name: '12-Fortify掃描規則.md', content: doc12 },
   { name: '13-權限模型與最大管理員規範.md', content: doc13 },
   { name: '14-地端啟動與環境DB切換.md', content: doc14 },
-  { name: '15-Git上板流程.md', content: doc15 }
+  { name: '15-Git上板流程.md', content: doc15 },
+  { name: '16-錯誤代碼與例外日誌.md', content: doc16 }
 ]
 
 // 非 .md 的附件，放在 ZIP 內的 assets/ 子資料夾

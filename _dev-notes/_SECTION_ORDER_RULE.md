@@ -18,7 +18,7 @@
 
 ---
 
-## 目前章節順序（2026-08-03）
+## 目前章節順序（2026-10-21）
 
 | 順序 | id | 標題 | 元件 |
 | --- | --- | --- | --- |
@@ -37,8 +37,9 @@
 | 13 | `section-13` | 權限模型與最大管理員規範 | PermissionModel.vue |
 | 14 | `section-14` | 地端啟動與環境 DB 切換 | LocalEnvironment.vue |
 | 15 | `section-15` | Git 上板流程 | GitWorkflow.vue |
-| **16（倒數第二）** | `appendix` | **測試環境** ⚠️ | TestEnvironment.vue |
-| **17（最後）** | `section-last` | **測試帳號** ⚠️ | TestAccounts.vue |
+| 16 | `section-16` | 錯誤代碼與例外日誌 | ErrorCodeLogging.vue |
+| **17（倒數第二）** | `appendix` | **測試環境** ⚠️ | TestEnvironment.vue |
+| **18（最後）** | `section-last` | **測試帳號** ⚠️ | TestAccounts.vue |
 
 ---
 
