@@ -18,7 +18,7 @@
 
 ---
 
-## 目前章節順序（2026-10-21）
+## 目前章節順序（2026-11-05）
 
 | 順序 | id | 標題 | 元件 |
 | --- | --- | --- | --- |
@@ -38,8 +38,9 @@
 | 14 | `section-14` | 地端啟動與環境 DB 切換 | LocalEnvironment.vue |
 | 15 | `section-15` | Git 上板流程 | GitWorkflow.vue |
 | 16 | `section-16` | 錯誤代碼與例外日誌 | ErrorCodeLogging.vue |
-| **17（倒數第二）** | `appendix` | **測試環境** ⚠️ | TestEnvironment.vue |
-| **18（最後）** | `section-last` | **測試帳號** ⚠️ | TestAccounts.vue |
+| 17 | `section-17` | SIT 資料匯入不覆蓋表（🔒 protected，無對應 .md） | NoOverwriteTables.vue |
+| **18（倒數第二）** | `appendix` | **測試環境** ⚠️ | TestEnvironment.vue |
+| **19（最後）** | `section-last` | **測試帳號** ⚠️ | TestAccounts.vue |
 
 ---
 
