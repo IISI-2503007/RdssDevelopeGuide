@@ -1,7 +1,7 @@
 <template>
-  <div class="min-w-0">
-    <!-- Header with responsive padding -->
-    <header class="hero sticky top-0 z-50 bg-gradient-to-b from-indigo-50 to-slate-50 border-b border-gray-200 px-3 py-2 sm:px-4 sm:py-3 md:px-6 lg:px-8">
+  <div class="flex flex-col h-screen min-w-0 overflow-hidden">
+    <!-- 版面:標題列固定高度,下方左目錄／右內容各自獨立;只有內容區會滾動 -->
+    <header class="hero shrink-0 z-20 bg-gradient-to-b from-indigo-50 to-slate-50 border-b border-gray-200 px-3 py-2 sm:px-4 sm:py-3 md:px-6 lg:px-8">
       <nav class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 mb-2 sm:mb-3">
         <div class="font-bold text-sm sm:text-base lg:text-lg tracking-wide break-words max-w-full">RDSS Development Guide</div>
       </nav>
@@ -28,9 +28,9 @@
     </header>
 
     <!-- Content wrapper with responsive layout -->
-    <div class="flex flex-col lg:flex-row gap-4 sm:gap-6 w-full px-3 py-4 sm:px-4 sm:py-6 md:px-6 md:py-8 lg:px-8">
-      <!-- Sidebar - hidden on mobile, visible on desktop -->
-      <aside class="hidden lg:block lg:flex-shrink-0 lg:w-64 lg:sticky lg:top-44 lg:self-start lg:max-h-[calc(100vh-11rem)] lg:overflow-y-auto">
+    <div class="flex-1 min-h-0 flex flex-col lg:flex-row gap-4 sm:gap-6 w-full px-3 pt-4 sm:px-4 sm:pt-6 md:px-6 md:pt-8 lg:px-8">
+      <!-- Sidebar - hidden on mobile, visible on desktop;佔滿高度、自己滾動,不跟內容一起動 -->
+      <aside class="hidden lg:block lg:shrink-0 lg:w-64 lg:h-full lg:overflow-y-auto lg:pb-8">
         <nav class="bg-white rounded-xl p-5 shadow-lg">
           <div class="text-xl font-bold mb-4 text-slate-600">目錄</div>
           <ul class="space-y-1">
@@ -105,7 +105,7 @@
       </div>
 
       <!-- Main content with responsive width -->
-      <main id="sections" class="flex-1 min-w-0 w-full max-w-full overflow-x-hidden">
+      <main id="sections" ref="mainRef" class="flex-1 min-w-0 min-h-0 w-full max-w-full overflow-y-auto overflow-x-hidden">
         <n-collapse v-model:expanded-names="expandedNames" display-directive="if" arrow-placement="right">
           <n-collapse-item 
             v-for="section in sections" 
@@ -130,13 +130,13 @@
             <component v-else :is="section.component" />
           </n-collapse-item>
         </n-collapse>
+
+        <!-- Footer 跟著內容區捲動 -->
+        <footer class="mt-8 py-8 md:py-10 px-4 text-center text-gray-500 border-t border-gray-200">
+          <p class="text-sm md:text-base">© 2026 RDSS Development Guide</p>
+        </footer>
       </main>
     </div>
-
-    <!-- Footer with responsive padding -->
-    <footer class="py-8 md:py-10 px-4 text-center text-gray-500 border-t border-gray-200">
-      <p class="text-sm md:text-base">© 2026 RDSS Development Guide</p>
-    </footer>
   </div>
 </template>
 
@@ -195,6 +195,8 @@ const sections = [
 
 const activeSection = ref(sections[0]?.id || '')
 const showMobileMenu = ref(false)
+// 內容區是唯一的滾動容器(不是 window),捲動與章節定位都以它為準
+const mainRef = ref(null)
 let onScrollHandler
 let rafId = null
 
@@ -210,23 +212,23 @@ const toggleMobileMenu = () => {
 const scrollToSection = (sectionId) => {
   activeSection.value = sectionId
   const element = document.getElementById(sectionId)
-  if (element) {
+  const container = mainRef.value
+  if (element && container) {
     // 如果是第一個section，直接滾動到頂部
     if (sectionId === 'section-1') {
-      window.scrollTo({
+      container.scrollTo({
         top: 0,
         behavior: 'smooth'
       })
       return
     }
-    
-    // 其他section對齊sidebar位置
-    const sidebarTop = 110
-    const collapseItemMargin = 20
-    const elementPosition = element.getBoundingClientRect().top
-    const offsetPosition = elementPosition + window.pageYOffset - sidebarTop
-    
-    window.scrollTo({
+
+    // 其他 section 對齊內容區頂端,留一點邊距
+    const topGap = 8
+    const elementPosition = element.getBoundingClientRect().top - container.getBoundingClientRect().top
+    const offsetPosition = elementPosition + container.scrollTop - topGap
+
+    container.scrollTo({
       top: offsetPosition,
       behavior: 'smooth'
     })
@@ -240,7 +242,10 @@ const scrollToSectionMobile = (sectionId) => {
 }
 
 const updateActiveSection = () => {
-  const offsetTop = 140
+  const container = mainRef.value
+  if (!container) return
+  const containerTop = container.getBoundingClientRect().top
+  const offsetTop = 40
   const sectionElements = sections
     .map(section => document.getElementById(section.id))
     .filter(Boolean)
@@ -249,7 +254,7 @@ const updateActiveSection = () => {
 
   let current = sectionElements[0]
   for (const el of sectionElements) {
-    if (el.getBoundingClientRect().top - offsetTop <= 0) {
+    if (el.getBoundingClientRect().top - containerTop - offsetTop <= 0) {
       current = el
     } else {
       break
@@ -268,7 +273,7 @@ onMounted(() => {
     })
   }
 
-  window.addEventListener('scroll', onScrollHandler, { passive: true })
+  mainRef.value?.addEventListener('scroll', onScrollHandler, { passive: true })
   window.addEventListener('resize', onScrollHandler, { passive: true })
   updateActiveSection()
 
@@ -283,7 +288,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   if (onScrollHandler) {
-    window.removeEventListener('scroll', onScrollHandler)
+    mainRef.value?.removeEventListener('scroll', onScrollHandler)
     window.removeEventListener('resize', onScrollHandler)
   }
   if (rafId) {
@@ -308,21 +313,25 @@ onBeforeUnmount(() => {
   @apply p-5;
 }
 
-/* 自定義滾動條樣式 */
-aside::-webkit-scrollbar {
+/* 自定義滾動條樣式(目錄與內容區各自的捲軸) */
+aside::-webkit-scrollbar,
+main::-webkit-scrollbar {
   width: 6px;
 }
 
-aside::-webkit-scrollbar-track {
+aside::-webkit-scrollbar-track,
+main::-webkit-scrollbar-track {
   background: transparent;
 }
 
-aside::-webkit-scrollbar-thumb {
+aside::-webkit-scrollbar-thumb,
+main::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 3px;
 }
 
-aside::-webkit-scrollbar-thumb:hover {
+aside::-webkit-scrollbar-thumb:hover,
+main::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 </style>
