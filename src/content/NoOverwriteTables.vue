@@ -9,7 +9,8 @@
         <ul style="margin: 0; padding-left: 20px; line-height: 1.9; color: #991b1b;">
           <li><strong>DBA 執行 SIT 倒資料、資料匯入或環境資料更新時，下列 18 張表不得由來源環境資料覆蓋</strong>，保留 SIT 既有內容，以專案團隊在 SIT 建立及維護的資料為基準。</li>
           <li>這些表承載系統參數、權限設定、首頁輪播、單位代碼、排程、郵件與檔案管理等基礎設定資料。</li>
-          <li>紀錄日期 2026-09-04；最後更新 2026-10-14（依後端確認移除 11 張 QRTZ_* 表，由 29 張改為 18 張）。來源：<code>RDSS_WORK_HELPER/RDSS_Task_Tracker/dba/20260904_SIT資料匯入不覆蓋表清單.md</code>。</li>
+          <li>另 11 張 <code>QRTZ_*</code> 表沿用 DBA 既有排除腳本一併排除，但新後端 Quartz 以記憶體 JobStore 執行、不讀不寫這 11 張，不需固化（合計 29 張，與 DBA 排除腳本一致）。</li>
+          <li>紀錄日期 2026-09-04；最後更新 2026-11-05（新增戶役政系統資料交換選單複查；2026-10-30 新增受訓前役男 24 角色複查；2026-10-13 QRTZ_* 改列不需固化、補排程開關 SCHEDULE_* 複查）。來源：<code>RDSS_WORK_HELPER/RDSS_Task_Tracker/dba/20261105_SIT資料匯入不覆蓋表清單.md</code>。</li>
         </ul>
       </article>
     </div>
@@ -188,6 +189,39 @@ WHERE S_CODE = '【S_CODE】';</code></pre>
       </ul>
     </div>
 
+    <!-- 倒資料後要複查的三項新增紀錄 -->
+    <div style="margin-bottom: 32px;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">倒資料後另外要複查的三項（2026-10-13 ～ 2026-11-05 新增）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 220px;">項目</th>
+              <th>內容</th>
+              <th>倒資料後怎麼查</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>排程開關 <code>SCHEDULE_*</code></strong>（2026-10-13，KAN-901）</td>
+              <td>總開關、執行主機、各排程開關存在 RDSYS_CONFIG，由「系統管理 &gt; 網站內容管理 &gt; 排程作業狀態」切換；yml 的 <code>scheduling.*.enabled</code> 已停用。觸發前依序檢查總開關 ON → 本機 hostname 等於 <code>SCHEDULE_RUN_HOST</code> → 該排程開關 ON，缺列視為 OFF。</td>
+              <td><code>SCHEDULE_RUN_HOST</code> 必須是該環境主機自己的 hostname；被倒成別台會讓所有排程靜悄悄停掉。</td>
+            </tr>
+            <tr>
+              <td><strong>受訓前役男(24) 角色與六項選單</strong>（2026-10-30，KAN-2054）</td>
+              <td>轉入資料漏了角色 24：六項選單（甄選作業、錄取通知書列印、役男自願放棄錄取申請、役男入營梯次選填登記、釋出作業、轉調役男協調進用）在 RDSYS_PERMISSION_USER 被掛成 19，入營排程只處理有 24 的帳號。SIT 已修：RDSYS_USER_TO_RXLE 補 24、ACCOUNT 入營者 19→18、六筆權限 19→24，順序固定。</td>
+              <td>RDSYS_USER_TO_RXLE 與 RDSYS_PERMISSION_USER 受保護，用清單第 6 點 SQL 複查；<strong>ACCOUNT 不受保護</strong>，倒完要重跑 19→18 與補 24。正式轉檔腳本要補帶舊系統 24 角色。</td>
+            </tr>
+            <tr>
+              <td><strong>戶役政系統資料交換選單 <code>PTM_0906</code></strong>（2026-11-05，合約 C277）</td>
+              <td>新畫面 PTM092B03 的選單與角色 2 授權為 SIT 手動建立；舊系統 NCA_PERMISSION 無此筆（當年 insertPermission 已註解），轉檔不會帶入。UAT／正式用上線 SQL 補建：SN 取 MAX+1、父節點以 FUNC_CODE <code>PTM_09</code> 查，不可寫死。</td>
+              <td>RDSYS_PERMISSION 應有一筆 FUNC_CODE PTM_0906、父節點 PTM_09，RDSYS_PERMISSION_USER 掛 USER_TYPE 2；客戶端角色待 PM 指定後再補。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- 執行原則 -->
     <div style="margin-bottom: 32px;">
       <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">執行原則</h3>
@@ -196,7 +230,8 @@ WHERE S_CODE = '【S_CODE】';</code></pre>
           <li>DBA 製作或執行 SIT 資料匯入腳本時，將 18 張表排除在覆蓋範圍之外。</li>
           <li>「不覆蓋」是指不可因一般倒資料而以其他環境內容取代 SIT 既有資料；經核准的功能異動或專案資料調整不在此限。</li>
           <li>若作業方式無法直接排除，先備份 SIT 既有內容，作業後完整還原並驗證，不可直接沿用來源環境資料。</li>
-          <li>作業完成後至少複查兩件事：<code>IS_TESTING</code> 仍為 Y、兩筆 <code>PTM_*_WEB_API_URL</code> 仍為 ncauat 測試機網址。</li>
+          <li>作業完成後至少複查五件事：<code>IS_TESTING</code> 仍為 Y、兩筆 <code>PTM_*_WEB_API_URL</code> 仍為 ncauat 測試機網址、<code>SCHEDULE_RUN_HOST</code> 仍為該環境主機 hostname、六項選單權限仍掛 24 且受訓役男帳號皆有 24 角色、戶役政系統資料交換選單（<code>PTM_0906</code>）仍存在且掛角色 2。</li>
+          <li><code>ACCOUNT</code> 不在不覆蓋清單，倒資料後要重跑一次「入營日已過的受訓役男 19→18」修正並對新進來的未入營 19 帳號補 24，否則 KAN-2054 現象會回來。</li>
           <li>清單有增減時，同步更新來源 md 與本頁並註記異動日期。</li>
         </ol>
       </article>
@@ -217,7 +252,7 @@ const tables = [
   { name: 'CODE_UNIT_RANGE1', purpose: '單位代碼' },
   { name: 'CODE_UNIT_RANGE2', purpose: '單位代碼' },
   { name: 'CODE_UNIT_COM', purpose: '單位代碼（單位別）' },
-  { name: 'JOB_QUARTZ', purpose: '排程定義' },
+  { name: 'JOB_QUARTZ', purpose: '舊格式 Quartz 排程定義；程式未使用，8 筆 STATUS 全 N，有資料、保留無害，沿用保護。實際排程走 Spring @Scheduled，開關在 RDSYS_CONFIG 的 SCHEDULE_*' },
   { name: 'MAIL_ATTACHMENTLIST', purpose: '郵件附件' },
   { name: 'MAIL_INFO', purpose: '郵件記錄，量大，覆蓋會混入來源環境的寄信紀錄' },
   { name: 'MAIL_TEMPLATE', purpose: '郵件範本' },
