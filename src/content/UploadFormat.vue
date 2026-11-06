@@ -3,7 +3,7 @@
     <p class="muted" style="margin-bottom: 24px;">依檔案大小選擇 FormData 或 Base64。</p>
 
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">上傳格式：</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">上傳格式：</h3>
       
       <div class="table-wrap" style="margin-bottom: 24px;">
         <table>
@@ -23,13 +23,13 @@
                 </ul>
                 
                 <div style="margin-top: 16px;">
-                  <strong style="color: #1f2a37;">有包物件</strong>
+                  <strong style="color: var(--c-text-slate-800);">有包物件</strong>
                   <pre style="margin-top: 8px;">formData.set('req', new Blob([JSON.stringify(omit(modelValue, ['files']))], { type: 'application/json' }))
 formData.set('file', modelValue.files[0])</pre>
                 </div>
 
                 <div style="margin-top: 16px;">
-                  <strong style="color: #1f2a37;">沒包物件</strong>
+                  <strong style="color: var(--c-text-slate-800);">沒包物件</strong>
                   <pre style="margin-top: 8px;">formData.set('newsSubject', model.value.newsSubject)
 formData.set('newsContent', model.value.newsContent)
 formData.set('newsStartDate', useFormatDate(model.value.newsStartDate))</pre>

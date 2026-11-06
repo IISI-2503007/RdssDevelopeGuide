@@ -4,13 +4,13 @@
       RDSS 新 API 只有無敏感資料、無副作用的簡單查詢使用 GET；敏感／複合查詢及新增、修改、刪除等業務動作使用 POST。SSDLC 並未要求所有 API 一律 POST，也未要求必須使用 PUT／PATCH／DELETE。
     </p>
 
-    <p style="margin-bottom: 24px; padding: 12px 16px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; color: #475569; font-size: 0.9rem; line-height: 1.7;">
+    <p style="margin-bottom: 24px; padding: 12px 16px; background: var(--c-bg-slate-50); border: 1px solid var(--c-border-slate-300); border-radius: 8px; color: var(--c-text-slate-600); font-size: 0.9rem; line-height: 1.7;">
       <strong>引用說明：</strong>外部連結是安全控制依據；RDSS 的 method 決策、生效範圍與過渡順序，是依現有架構制定的落地方式，不代表外部規範逐字指定 RDSS 的 endpoint 或程式寫法。
     </p>
 
-    <div style="margin-bottom: 32px; padding: 20px; background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 8px;">
-      <h4 style="margin-bottom: 12px; color: #1e40af; font-size: 1.1rem;">規範更正</h4>
-      <ul style="color: #1e40af; line-height: 1.8; margin-left: 20px;">
+    <div style="margin-bottom: 32px; padding: 20px; background: var(--c-bg-blue-50); border-left: 4px solid var(--c-border-blue-500); border-radius: 8px;">
+      <h4 style="margin-bottom: 12px; color: var(--c-text-blue-800); font-size: 1.1rem;">規範更正</h4>
+      <ul style="color: var(--c-text-blue-800); line-height: 1.8; margin-left: 20px;">
         <li>NIST SSDF 是可依風險、成本與可行性調整的安全開發流程框架，沒有指定 HTTP method。（<a href="https://csrc.nist.gov/pubs/sp/800/218/final" target="_blank" rel="noopener noreferrer">NIST SP 800-218</a>）</li>
         <li>CWE-598 與 OWASP ASVS 管制的是敏感資料不得出現在 URL，不是禁止 GET。（<a href="https://cwe.mitre.org/data/definitions/598.html" target="_blank" rel="noopener noreferrer">CWE-598</a>、<a href="https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md" target="_blank" rel="noopener noreferrer">ASVS 14.2.1</a>）</li>
         <li>GET 與 POST 都必須使用 HTTPS；POST Body 的優點是資料不成為 URL 的一部分，不是只有 POST 才受加密。（<a href="https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html#https" target="_blank" rel="noopener noreferrer">OWASP REST Security</a>）</li>
@@ -70,21 +70,21 @@
           </tbody>
         </table>
       </div>
-      <p style="margin-top: 10px; color: #64748b; font-size: 0.88rem;">表內官方來源說明通用安全控制；新 API 預設採 action-style POST 是 RDSS 依現況制定的落地規則，不代表 RFC 或 OWASP 強制所有異動一律使用 POST。</p>
+      <p style="margin-top: 10px; color: var(--c-text-slate-500); font-size: 0.88rem;">表內官方來源說明通用安全控制；新 API 預設採 action-style POST 是 RDSS 依現況制定的落地規則，不代表 RFC 或 OWASP 強制所有異動一律使用 POST。</p>
     </div>
 
-    <div style="margin-bottom: 36px; padding: 20px; background: #fff7ed; border-left: 4px solid #f97316; border-radius: 8px;">
-      <h4 style="margin-bottom: 10px; color: #9a3412;">敏感資料不得出現在 URL</h4>
-      <p style="color: #9a3412; line-height: 1.8; margin-bottom: 10px;">
+    <div style="margin-bottom: 36px; padding: 20px; background: var(--c-bg-orange-50); border-left: 4px solid var(--c-border-orange-500); border-radius: 8px;">
+      <h4 style="margin-bottom: 10px; color: var(--c-text-orange-800);">敏感資料不得出現在 URL</h4>
+      <p style="color: var(--c-text-orange-800); line-height: 1.8; margin-bottom: 10px;">
         最低範圍包含姓名、身分證號、生日、電話、email、地址、學經歷、薪資、申請／審查資料，以及 password、token、API key、session ID、OTP、驗證碼等憑證。path 與 query string 都受限制。
       </p>
-      <pre style="background: #7c2d12; color: #ffedd5; margin-bottom: 0;">// ❌ POST 仍把敏感資料放在 URL
+      <pre style="background: var(--c-bg-orange-900); color: var(--c-text-orange-100); margin-bottom: 0;">// ❌ POST 仍把敏感資料放在 URL
 POST /QSP020B01/query?idNo=A123456789
 
 // ✅ 敏感查詢條件放在 Body（以下為示意端點）
 POST /QSP020B01/query
 { "idNo": "A123456789", "pageNo": 1, "pageSize": 15 }</pre>
-      <p style="margin-top: 10px; margin-bottom: 0; color: #9a3412; font-size: 0.88rem;">
+      <p style="margin-top: 10px; margin-bottom: 0; color: var(--c-text-orange-800); font-size: 0.88rem;">
         依據：<a href="https://cwe.mitre.org/data/definitions/598.html" target="_blank" rel="noopener noreferrer">CWE-598</a>、
         <a href="https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md" target="_blank" rel="noopener noreferrer">OWASP ASVS 14.2.1</a>
       </p>
@@ -92,7 +92,7 @@ POST /QSP020B01/query
 
     <div class="grid" style="margin-bottom: 36px;">
       <article class="card">
-        <h4 style="margin-bottom: 12px; color: #059669;">✓ 非敏感只讀查詢</h4>
+        <h4 style="margin-bottom: 12px; color: var(--c-text-emerald-600);">✓ 非敏感只讀查詢</h4>
         <pre>GET /RDP011A03/parentType</pre>
         <ul>
           <li>不得修改資料、寄信、送審或產生一次性狀態</li>
@@ -101,7 +101,7 @@ POST /QSP020B01/query
         </ul>
       </article>
       <article class="card">
-        <h4 style="margin-bottom: 12px; color: #2563eb;">✓ 含敏感／複合條件查詢</h4>
+        <h4 style="margin-bottom: 12px; color: var(--c-text-blue-600);">✓ 含敏感／複合條件查詢</h4>
         <pre># 示意端點，非既有 API 契約
 POST /QSP020B01/query
 
@@ -135,9 +135,9 @@ POST /QSP020B01/query
       </p>
     </div>
 
-    <div style="margin-bottom: 36px; padding: 20px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px;">
-      <h4 style="margin-bottom: 10px; color: #334155;">HTTP method 之外仍須遵守的控制</h4>
-      <ul style="color: #475569; line-height: 1.8; margin-left: 20px;">
+    <div style="margin-bottom: 36px; padding: 20px; background: var(--c-bg-slate-50); border: 1px solid var(--c-border-slate-300); border-radius: 8px;">
+      <h4 style="margin-bottom: 10px; color: var(--c-text-slate-700);">HTTP method 之外仍須遵守的控制</h4>
+      <ul style="color: var(--c-text-slate-600); line-height: 1.8; margin-left: 20px;">
         <li>敏感資料不得寫入 request／DTO／response log。（<a href="https://cwe.mitre.org/data/definitions/532.html" target="_blank" rel="noopener noreferrer">CWE-532</a>、<a href="https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP Logging</a>）</li>
         <li>敏感回應與下載須使用 <code>Cache-Control: no-store</code>。（<a href="https://github.com/OWASP/ASVS/blob/v5.0.0_release/5.0/en/0x23-V14-Data-Protection.md" target="_blank" rel="noopener noreferrer">OWASP ASVS 14.3.2</a>）</li>
         <li>CSRF 依瀏覽器是否自動附帶認證資訊判斷，不以 POST 作為防護。（<a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener noreferrer">OWASP CSRF</a>）</li>
@@ -149,8 +149,8 @@ POST /QSP020B01/query
       <n-collapse-item name="backend-validation">
         <template #header>
           <div style="display: flex; align-items: center; gap: 12px;">
-            <span style="font-size: 1.3rem; font-weight: 700; color: #7c3aed;">後端輸入驗證實作</span>
-            <span style="font-size: 0.9rem; color: #6b7280; font-weight: normal;">（點擊展開）</span>
+            <span style="font-size: 1.3rem; font-weight: 700; color: var(--c-text-violet-600);">後端輸入驗證實作</span>
+            <span style="font-size: 0.9rem; color: var(--c-text-gray-500); font-weight: normal;">（點擊展開）</span>
           </div>
         </template>
         <BackendValidation />

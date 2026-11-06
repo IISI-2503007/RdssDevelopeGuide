@@ -4,9 +4,9 @@
 
     <!-- 結論 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">結論</h3>
-      <article class="card" style="background: #fef2f2; border-color: #fca5a5;">
-        <ul style="margin: 0; padding-left: 20px; line-height: 1.9; color: #991b1b;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">結論</h3>
+      <article class="card" style="background: var(--c-bg-red-50); border-color: var(--c-border-red-300);">
+        <ul style="margin: 0; padding-left: 20px; line-height: 1.9; color: var(--c-text-red-800);">
           <li><strong>DBA 執行 SIT 倒資料、資料匯入或環境資料更新時，下列 18 張表不得由來源環境資料覆蓋</strong>，保留 SIT 既有內容，以專案團隊在 SIT 建立及維護的資料為基準。</li>
           <li>這些表承載系統參數、權限設定、首頁輪播、單位代碼、排程、郵件與檔案管理等基礎設定資料。</li>
           <li>另 11 張 <code>QRTZ_*</code> 表沿用 DBA 既有排除腳本一併排除，但新後端 Quartz 以記憶體 JobStore 執行、不讀不寫這 11 張，不需固化（合計 29 張，與 DBA 排除腳本一致）。</li>
@@ -17,7 +17,7 @@
 
     <!-- 18 張表 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">不覆蓋表清單（18 張）</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">不覆蓋表清單（18 張）</h3>
       <div class="table-wrap">
         <table>
           <thead>
@@ -41,7 +41,7 @@
 
     <!-- PG 怎麼用 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">PG 要怎麼用這份清單</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">PG 要怎麼用這份清單</h3>
       <p style="margin-bottom: 12px;">DBA 平常用「固化」（把 SIT 資料倒進板橋 UAT／資服司 UAT）更新測試環境。同一支 SQL 在 SIT 跑完後要不要再去其他環境跑，看目標表在不在這 18 張裡：</p>
       <div class="table-wrap">
         <table>
@@ -66,14 +66,14 @@
           </tbody>
         </table>
       </div>
-      <article class="card" style="background: #fef3c7; border-color: #fbbf24; margin-top: 16px;">
-        <p style="margin: 0; color: #92400e;"><strong>📌 常見踩雷：</strong>選單權限（RDSYS_PERMISSION 系列）與郵件範本（MAIL_TEMPLATE）在 SIT 改好就以為各環境都有。它們都在 18 張裡，沒給 DBA 執行單去 UAT 跑，UAT 就會看不到選單或寄舊內容。</p>
+      <article class="card" style="background: var(--c-bg-amber-100); border-color: var(--c-border-amber-400); margin-top: 16px;">
+        <p style="margin: 0; color: var(--c-text-amber-800);"><strong>📌 常見踩雷：</strong>選單權限（RDSYS_PERMISSION 系列）與郵件範本（MAIL_TEMPLATE）在 SIT 改好就以為各環境都有。它們都在 18 張裡，沒給 DBA 執行單去 UAT 跑，UAT 就會看不到選單或寄舊內容。</p>
       </article>
     </div>
 
     <!-- RDSYS_CONFIG 重要註記 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">RDSYS_CONFIG 重要註記</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">RDSYS_CONFIG 重要註記</h3>
 
       <h4 style="font-size: 1.05rem; margin-bottom: 10px;">1. <code>IS_TESTING</code> 絕對不能改成 N</h4>
       <ul style="margin: 0 0 12px; padding-left: 20px; line-height: 1.8;">
@@ -180,7 +180,7 @@ WHERE S_CODE = '【S_CODE】';</code></pre>
 
     <!-- 2026-10-14 異動 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">2026-10-14 異動：11 張 Quartz 表退出不覆蓋範圍</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">2026-10-14 異動：11 張 Quartz 表退出不覆蓋範圍</h3>
       <p style="margin-bottom: 12px;">後端確認下列 11 張 Quartz 表不再使用，由原 29 張清單移除；其餘 18 張維持原保留規則。</p>
       <p style="margin-bottom: 12px;"><code>QRTZ_BLOB_TRIGGERS</code>、<code>QRTZ_CALENDARS</code>、<code>QRTZ_CRON_TRIGGERS</code>、<code>QRTZ_FIRED_TRIGGERS</code>、<code>QRTZ_JOB_DETAILS</code>、<code>QRTZ_LOCKS</code>、<code>QRTZ_PAUSED_TRIGGER_GRPS</code>、<code>QRTZ_SCHEDULER_STATE</code>、<code>QRTZ_SIMPLE_TRIGGERS</code>、<code>QRTZ_SIMPROP_TRIGGERS</code>、<code>QRTZ_TRIGGERS</code></p>
       <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
@@ -191,7 +191,7 @@ WHERE S_CODE = '【S_CODE】';</code></pre>
 
     <!-- 倒資料後要複查的三項新增紀錄 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">倒資料後另外要複查的三項（2026-10-13 ～ 2026-11-05 新增）</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">倒資料後另外要複查的三項（2026-10-13 ～ 2026-11-05 新增）</h3>
       <div class="table-wrap">
         <table>
           <thead>
@@ -224,8 +224,8 @@ WHERE S_CODE = '【S_CODE】';</code></pre>
 
     <!-- 執行原則 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">執行原則</h3>
-      <article class="card" style="background: #f0fdf4; border-color: #86efac;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">執行原則</h3>
+      <article class="card" style="background: var(--c-bg-green-50); border-color: var(--c-border-green-300);">
         <ol style="margin: 0; padding-left: 20px; line-height: 1.9;">
           <li>DBA 製作或執行 SIT 資料匯入腳本時，將 18 張表排除在覆蓋範圍之外。</li>
           <li>「不覆蓋」是指不可因一般倒資料而以其他環境內容取代 SIT 既有資料；經核准的功能異動或專案資料調整不在此限。</li>

@@ -3,7 +3,7 @@
     <p class="muted" style="margin-bottom: 24px;">支援回傳檔名或直接二進位串流。</p>
 
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">回傳格式：</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">回傳格式：</h3>
       
       <div class="table-wrap" style="margin-bottom: 24px;">
         <table>
@@ -18,7 +18,7 @@
               <td><strong style="font-size: 1.1rem;">Base64</strong></td>
               <td>
                 <div style="margin-bottom: 16px;">
-                  <strong style="color: #10b981;">適合小型檔案下載</strong>
+                  <strong style="color: var(--c-text-emerald-500);">適合小型檔案下載</strong>
                 </div>
                 
                 <div style="margin-bottom: 12px;">
@@ -37,7 +37,7 @@
                 </div>
 
                 <div style="margin-top: 16px;">
-                  <strong style="color: #1f2a37;">回傳範例格式：</strong>
+                  <strong style="color: var(--c-text-slate-800);">回傳範例格式：</strong>
                   <pre style="margin-top: 8px;">{
   "statusCode": "200",
   "messageCode": null,
@@ -54,7 +54,7 @@
               <td><strong style="font-size: 1.1rem;">application/octet-stream</strong></td>
               <td>
                 <div style="margin-bottom: 16px;">
-                  <strong style="color: #10b981;">適合大型檔案下載(需要額外處理 response header Content-Disposition 來取得檔名)</strong>
+                  <strong style="color: var(--c-text-emerald-500);">適合大型檔案下載(需要額外處理 response header Content-Disposition 來取得檔名)</strong>
                 </div>
                 
                 <div style="margin-bottom: 12px;">
@@ -79,10 +79,10 @@
       </div>
     </div>
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">ODS（ODF）匯出：</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">ODS（ODF）匯出：</h3>
 
-      <div class="callout" style="margin-bottom: 20px; background: #eff6ff; border-color: #93c5fd;">
-        <p style="color: #1e40af; margin: 0;">
+      <div class="callout" style="margin-bottom: 20px; background: var(--c-bg-blue-50); border-color: var(--c-border-blue-300);">
+        <p style="color: var(--c-text-blue-800); margin: 0;">
           <strong>快速結論：</strong>需要產 ODS 一律呼叫共用元件
           <code>ReportResponseEntityUtils.writeOds(fileName, workbook)</code>，不要各自去接 LibreOffice。
         </p>
@@ -127,8 +127,8 @@
           </tbody>
         </table>
       </div>
-      <div class="callout" style="margin-bottom: 24px; background: #fffbeb; border-color: #fcd34d;">
-        <p style="color: #92400e; margin: 0;">
+      <div class="callout" style="margin-bottom: 24px; background: var(--c-bg-amber-50); border-color: var(--c-border-amber-300);">
+        <p style="color: var(--c-text-amber-800); margin: 0;">
           <strong>測試提醒：</strong>測 ODS 下載時，順便比對「舊系統既有報表」與「新產出的 ODS」版面是否相同，有落差回報後端。
         </p>
       </div>

@@ -3,17 +3,17 @@
     <p class="muted" style="margin-bottom: 8px;">
       說明系統頁面權限的多層防護機制、核心資料表結構，以及新增頁面時的標準實作流程。
     </p>
-    <div class="callout" style="margin-bottom: 24px; background: #eff6ff; border-color: #93c5fd;">
-      <p style="color: #1e40af; margin: 0;">
+    <div class="callout" style="margin-bottom: 24px; background: var(--c-bg-blue-50); border-color: var(--c-border-blue-300);">
+      <p style="color: var(--c-text-blue-800); margin: 0;">
         <strong>📌 適用對象：</strong>所有後端工程師，包含接手新功能開發者。新增任何頁面前請先閱讀本章節，尤其是 <strong>Step 1～5 的 SOP</strong> 與 <strong>normalization 比對規則</strong>。
       </p>
     </div>
 
     <!-- 整體架構 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">整體架構</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">整體架構</h3>
       <p style="margin-bottom: 12px;">系統的頁面權限採用多層防護機制，由前往後依序為：</p>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.9;">HTTP 請求
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.9;">HTTP 請求
     │
     ▼
 [1] JwtTokenFilter              → 驗證 JWT Token，解析使用者身份，注入 SecurityContext
@@ -30,10 +30,10 @@
 
     <!-- 核心資料表 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">核心資料表</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">核心資料表</h3>
 
       <p style="margin-bottom: 8px; font-weight: 600;">RDSYS_PERMISSION（功能頁面主檔）</p>
-      <p style="margin-bottom: 10px; color: #475569; font-size: 0.9rem;">Entity：<code>moi.rdss.platform.entity.RdsysPermission</code></p>
+      <p style="margin-bottom: 10px; color: var(--c-text-slate-600); font-size: 0.9rem;">Entity：<code>moi.rdss.platform.entity.RdsysPermission</code></p>
       <div class="table-wrap" style="margin-bottom: 24px;">
         <table>
           <thead>
@@ -54,9 +54,9 @@
       </div>
 
       <p style="margin-bottom: 8px; font-weight: 600;">RDSYS_PERMISSION_USER（角色與功能對應表）</p>
-      <p style="margin-bottom: 10px; color: #475569; font-size: 0.9rem;">Entity：<code>moi.rdss.platform.entity.RdsysPermissionUser</code></p>
-      <div class="callout" style="margin-bottom: 12px; background: #fef2f2; border-color: #f87171;">
-        <p style="color: #991b1b; margin: 0;">
+      <p style="margin-bottom: 10px; color: var(--c-text-slate-600); font-size: 0.9rem;">Entity：<code>moi.rdss.platform.entity.RdsysPermissionUser</code></p>
+      <div class="callout" style="margin-bottom: 12px; background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+        <p style="color: var(--c-text-red-800); margin: 0;">
           <strong>⚠️ 重要：</strong>
           <code>ACCOUNT</code> 欄位儲存字串 <code>'NULL'</code>（4個字元），不是 SQL NULL，代表「適用整個 USER_TYPE」。<br />
           <code>S_TIME_ZONE</code> / <code>E_TIME_ZONE</code> 欄位設定為 NOT NULL，無時區限制時必須填字串 <code>'NULL'</code>，不可填 SQL NULL 或空字串。
@@ -78,7 +78,7 @@
       </div>
 
       <p style="margin-top: 24px; margin-bottom: 8px; font-weight: 600;">RDSYS_PERMISSION_SETUP（帳號功能代碼設定表）</p>
-      <p style="margin-bottom: 10px; color: #475569; font-size: 0.9rem;">Entity：<code>moi.rdss.platform.entity.RdsysPermissionSetup</code>　記錄特定帳號被指派的 FUNC_CODE，用於個人化頁面權限設定。</p>
+      <p style="margin-bottom: 10px; color: var(--c-text-slate-600); font-size: 0.9rem;">Entity：<code>moi.rdss.platform.entity.RdsysPermissionSetup</code>　記錄特定帳號被指派的 FUNC_CODE，用於個人化頁面權限設定。</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>欄位</th><th>說明</th></tr></thead>
@@ -94,8 +94,8 @@
 
     <!-- 角色系統 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">角色（Role）系統</h3>
-      <p style="margin-bottom: 10px; color: #475569; font-size: 0.9rem;">位置：<code>moi.rdss.platform.enumeration.Role</code></p>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">角色（Role）系統</h3>
+      <p style="margin-bottom: 10px; color: var(--c-text-slate-600); font-size: 0.9rem;">位置：<code>moi.rdss.platform.enumeration.Role</code></p>
       <p style="margin-bottom: 8px; font-weight: 600;">主要角色（RoleType = T）</p>
       <div class="table-wrap" style="margin-bottom: 20px;">
         <table>
@@ -133,8 +133,8 @@
       </div>
 
       <p style="margin-top: 24px; margin-bottom: 8px; font-weight: 600;">角色如何被載入</p>
-      <p style="margin-bottom: 10px; color: #475569; font-size: 0.9rem;">登入時，<code>AuthenticationService.loadUserByUsername()</code> 查 <code>AccountRepository.selectRolesByAccount()</code> 回傳使用者擁有的所有 ACC_TYPE（ACCOUNT 表主角色 + RDSYS_USER_TO_RXLE 附加角色），每個 ACC_TYPE 轉換成 Role enum 存入 <code>AccountDetails.authorities</code>。</p>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; overflow-x: auto; font-size: 0.82rem; line-height: 1.7;">-- selectRolesByAccount SQL
+      <p style="margin-bottom: 10px; color: var(--c-text-slate-600); font-size: 0.9rem;">登入時，<code>AuthenticationService.loadUserByUsername()</code> 查 <code>AccountRepository.selectRolesByAccount()</code> 回傳使用者擁有的所有 ACC_TYPE（ACCOUNT 表主角色 + RDSYS_USER_TO_RXLE 附加角色），每個 ACC_TYPE 轉換成 Role enum 存入 <code>AccountDetails.authorities</code>。</p>
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 14px; overflow-x: auto; font-size: 0.82rem; line-height: 1.7;">-- selectRolesByAccount SQL
 SELECT DISTINCT T.ACC_TYPE FROM (
   SELECT -1 AS ACC_TYPE   -- 所有已登入使用者都有 ROLE_ALL
   UNION ALL
@@ -146,18 +146,18 @@ SELECT DISTINCT T.ACC_TYPE FROM (
 
     <!-- URI 比對規則 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">URI 比對規則（normalization）</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">URI 比對規則（normalization）</h3>
       <p style="margin-bottom: 12px;">
         <code>WebUriAuthorizationFilter</code> 將請求 URI 正規化後，與 FUNC_CODE 前 6 碼做 <code>startsWith</code> 比對。
       </p>
-      <div class="callout" style="margin-bottom: 16px; background: #fef3c7; border-color: #fbbf24;">
-        <p style="color: #92400e; margin: 0;">
+      <div class="callout" style="margin-bottom: 16px; background: var(--c-bg-amber-100); border-color: var(--c-border-amber-400);">
+        <p style="color: var(--c-text-amber-800); margin: 0;">
           <strong>⚠️ 關鍵：</strong>只取 FUNC_CODE 前 6 碼比對，代表同模組下所有子頁面共用模組前綴授權。<br />
           例如 FUNC_CODE = <code>QSP042B02</code>，前 6 碼為 <code>QSP042</code>，<code>/QSP042B02/xxx</code> 和 <code>/QSP042B03/xxx</code> 都會被比對到。
         </p>
       </div>
-      <div class="callout" style="margin-bottom: 16px; background: #fef2f2; border-color: #f87171;">
-        <p style="color: #991b1b; margin: 0;">
+      <div class="callout" style="margin-bottom: 16px; background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+        <p style="color: var(--c-text-red-800); margin: 0;">
           <strong>⚠️ 個人 ACCOUNT 權限限制：</strong>
           目前 <code>RdsysPermissionRepository.selectFunctionCodeByRole</code> 只依
           <code>USER_TYPE</code> 查 FUNC_CODE，沒有依 <code>ACCOUNT</code> 過濾。
@@ -166,7 +166,7 @@ SELECT DISTINCT T.ACC_TYPE FROM (
           <code>functionCodesCacheStore</code> 的 cache key，不能只改 DB。
         </p>
       </div>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">// 例：/adm_011b04/showPermissions
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">// 例：/adm_011b04/showPermissions
 // 1. 去除開頭 '/'   → adm_011b04/showPermissions
 // 2. 轉大寫         → ADM_011B04/SHOWPERMISSIONS
 // 3. 去除第 4 位 '_' → ADM011B04/SHOWPERMISSIONS
@@ -182,9 +182,9 @@ private String normalization(String str) {
 
     <!-- 快取機制 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">快取機制</h3>
-      <div class="callout" style="background: #fef2f2; border-color: #f87171;">
-        <p style="color: #991b1b; margin: 0;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">快取機制</h3>
+      <div class="callout" style="background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+        <p style="color: var(--c-text-red-800); margin: 0;">
           <strong>⚠️ 重要：</strong><code>functionCodesCacheStore</code> 過期時間為 <strong>7 天</strong>，登出登入不會清除。<br />
           修改 <code>RDSYS_PERMISSION_USER</code> 後，只有新增<strong>全新 FUNC_CODE 前綴</strong>的 API 時才需要重啟服務（Jenkins 重新部署）。若前端呼叫的是已存在的 API，不需要重啟。
         </p>
@@ -214,10 +214,10 @@ private String normalization(String str) {
 
     <!-- Menu Tree 顯示邏輯 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">Menu Tree 顯示邏輯</h3>
-      <p style="margin-bottom: 12px; color: #475569;">Menu Tree 是前端依據後端回傳的頁面清單動態組合的，後端提供的資料來源為：</p>
-      <p style="margin-bottom: 10px; color: #475569; font-size: 0.9rem;">API：<code>POST /ADM_011B04/showPermissions</code>　Service：<code>Adm011b04Service.getShowPermissions()</code></p>
-      <ul style="margin: 0; padding-left: 20px; line-height: 2; color: #475569;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">Menu Tree 顯示邏輯</h3>
+      <p style="margin-bottom: 12px; color: var(--c-text-slate-600);">Menu Tree 是前端依據後端回傳的頁面清單動態組合的，後端提供的資料來源為：</p>
+      <p style="margin-bottom: 10px; color: var(--c-text-slate-600); font-size: 0.9rem;">API：<code>POST /ADM_011B04/showPermissions</code>　Service：<code>Adm011b04Service.getShowPermissions()</code></p>
+      <ul style="margin: 0; padding-left: 20px; line-height: 2; color: var(--c-text-slate-600);">
         <li>所有 RDSYS_PERMISSION 中的頁面節點（遞迴樹狀結構）</li>
         <li>每個節點附帶哪些 USER_TYPE 有存取權限（roles 欄位）</li>
         <li>前端根據當前登入使用者的 USER_TYPE，過濾出可見節點後組成 Menu Tree</li>
@@ -226,7 +226,7 @@ private String normalization(String str) {
 
     <!-- 新增頁面 SOP -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">新增頁面權限 SOP</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">新增頁面權限 SOP</h3>
       <p style="margin-bottom: 16px;">適用兩種情境：</p>
       <div class="table-wrap" style="margin-bottom: 20px;">
         <table>
@@ -243,9 +243,9 @@ private String normalization(String str) {
       <div style="display: flex; flex-direction: column; gap: 16px;">
 
         <!-- 前置 -->
-        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 0 8px 8px 0; padding: 16px;">
-          <p style="margin: 0 0 10px 0; font-weight: 700; color: #1d4ed8;">前置　與前端協調確認命名</p>
-          <p style="margin: 0 0 10px 0; color: #475569; font-size: 0.9rem;">在開始任何 DB 操作前，必須先和前端確認：</p>
+        <div style="background: var(--c-bg-blue-50); border-left: 4px solid var(--c-border-blue-500); border-radius: 0 8px 8px 0; padding: 16px;">
+          <p style="margin: 0 0 10px 0; font-weight: 700; color: var(--c-text-blue-700);">前置　與前端協調確認命名</p>
+          <p style="margin: 0 0 10px 0; color: var(--c-text-slate-600); font-size: 0.9rem;">在開始任何 DB 操作前，必須先和前端確認：</p>
           <div class="table-wrap">
             <table>
               <thead><tr><th>項目</th><th>誰決定</th><th>說明</th></tr></thead>
@@ -255,15 +255,15 @@ private String normalization(String str) {
               </tbody>
             </table>
           </div>
-          <div class="callout" style="margin-top: 12px; background: #fef2f2; border-color: #f87171;">
-            <p style="color: #991b1b; margin: 0; font-size: 0.9rem;">⚠️ 未與前端確認就自行決定 ACTION_PATH，會導致前端路由比對不到，出現 403。</p>
+          <div class="callout" style="margin-top: 12px; background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+            <p style="color: var(--c-text-red-800); margin: 0; font-size: 0.9rem;">⚠️ 未與前端確認就自行決定 ACTION_PATH，會導致前端路由比對不到，出現 403。</p>
           </div>
         </div>
 
         <!-- Step 1 -->
-        <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; padding: 16px;">
-          <p style="margin: 0 0 10px 0; font-weight: 700; color: #4f46e5;">Step 1　確認 FUNC_CODE 命名</p>
-          <p style="margin: 0 0 10px 0; color: #475569; font-size: 0.9rem;">格式：<code>{模組前綴 3碼}{功能群組 3碼}{頁面代碼 3碼}</code>，例如 <code>QSP042B03</code></p>
+        <div style="background: var(--c-bg-slate-50); border-left: 4px solid var(--c-border-indigo-600); border-radius: 0 8px 8px 0; padding: 16px;">
+          <p style="margin: 0 0 10px 0; font-weight: 700; color: var(--c-text-indigo-600);">Step 1　確認 FUNC_CODE 命名</p>
+          <p style="margin: 0 0 10px 0; color: var(--c-text-slate-600); font-size: 0.9rem;">格式：<code>{模組前綴 3碼}{功能群組 3碼}{頁面代碼 3碼}</code>，例如 <code>QSP042B03</code></p>
           <div class="table-wrap" style="margin-bottom: 12px;">
             <table>
               <thead><tr><th>前綴</th><th>模組說明</th></tr></thead>
@@ -280,27 +280,27 @@ private String normalization(String str) {
               </tbody>
             </table>
           </div>
-          <p style="margin: 0 0 6px 0; color: #475569; font-size: 0.9rem;"><strong>情境 B — 查詢未使用的群組代碼：</strong></p>
-          <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0;">SELECT DISTINCT SUBSTRING(FUNC_CODE, 1, 6) AS GROUP_CODE
+          <p style="margin: 0 0 6px 0; color: var(--c-text-slate-600); font-size: 0.9rem;"><strong>情境 B — 查詢未使用的群組代碼：</strong></p>
+          <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0;">SELECT DISTINCT SUBSTRING(FUNC_CODE, 1, 6) AS GROUP_CODE
 FROM RDSYS_PERMISSION
 WHERE FUNC_CODE LIKE 'QSP%'  -- 換成目標模組前綴
 ORDER BY GROUP_CODE;</pre>
         </div>
 
         <!-- Step 2 -->
-        <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; padding: 16px;">
-          <p style="margin: 0 0 10px 0; font-weight: 700; color: #4f46e5;">Step 2　在 RDSYS_PERMISSION 新增頁面資料</p>
-          <div class="callout" style="margin-bottom: 12px; background: #eff6ff; border-color: #93c5fd;">
-            <p style="color: #1e40af; margin: 0; font-size: 0.9rem;">
+        <div style="background: var(--c-bg-slate-50); border-left: 4px solid var(--c-border-indigo-600); border-radius: 0 8px 8px 0; padding: 16px;">
+          <p style="margin: 0 0 10px 0; font-weight: 700; color: var(--c-text-indigo-600);">Step 2　在 RDSYS_PERMISSION 新增頁面資料</p>
+          <div class="callout" style="margin-bottom: 12px; background: var(--c-bg-blue-50); border-color: var(--c-border-blue-300);">
+            <p style="color: var(--c-text-blue-800); margin: 0; font-size: 0.9rem;">
               <strong>★ ACTION_PATH 由前端資料夾結構決定，後端照填。</strong><br />
               格式：<code>/{模組前綴}/{頁面名稱}Action.do</code>，必須以 <code>/</code> 開頭。<br />
               填錯格式會導致前端 Local Storage 比對不到路由（前端 403）。
             </p>
           </div>
-          <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0 0 10px 0;">-- 先確認 SN 及不重複
+          <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0 0 10px 0;">-- 先確認 SN 及不重複
 SELECT MAX(SN) FROM RDSYS_PERMISSION;
 SELECT * FROM RDSYS_PERMISSION WHERE FUNC_CODE = 'QSP042B03';</pre>
-          <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0;">INSERT INTO RDSYS_PERMISSION (
+          <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0;">INSERT INTO RDSYS_PERMISSION (
     SN, FUNC_CODE, ACTION_PATH, NAME_TEXT, DESCRIPTION,
     PARENT_SN, ITEM_ORDER, VISIBILITY, LINK_DISABLE, LINK_PARAMETER, CERT_USAGE
 ) VALUES (
@@ -315,13 +315,13 @@ SELECT * FROM RDSYS_PERMISSION WHERE FUNC_CODE = 'QSP042B03';</pre>
         </div>
 
         <!-- Step 3 -->
-        <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; padding: 16px;">
-          <p style="margin: 0 0 10px 0; font-weight: 700; color: #4f46e5;">Step 3　在 RDSYS_PERMISSION_USER 新增角色權限</p>
-          <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0 0 10px 0;">-- 先確認不重複
+        <div style="background: var(--c-bg-slate-50); border-left: 4px solid var(--c-border-indigo-600); border-radius: 0 8px 8px 0; padding: 16px;">
+          <p style="margin: 0 0 10px 0; font-weight: 700; color: var(--c-text-indigo-600);">Step 3　在 RDSYS_PERMISSION_USER 新增角色權限</p>
+          <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0 0 10px 0;">-- 先確認不重複
 SELECT * FROM RDSYS_PERMISSION_USER
 WHERE PERMISSION_SN = (SELECT SN FROM RDSYS_PERMISSION WHERE FUNC_CODE = 'QSP042B03')
   AND USER_TYPE = 17;</pre>
-          <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0;">INSERT INTO RDSYS_PERMISSION_USER (
+          <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0;">INSERT INTO RDSYS_PERMISSION_USER (
     PERMISSION_SN, USER_TYPE, ACCOUNT,
     START_TIME, STOP_TIME, S_TIME_ZONE, E_TIME_ZONE
 ) VALUES (
@@ -335,10 +335,10 @@ WHERE PERMISSION_SN = (SELECT SN FROM RDSYS_PERMISSION WHERE FUNC_CODE = 'QSP042
         </div>
 
         <!-- Step 4 -->
-        <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; padding: 16px;">
-          <p style="margin: 0 0 10px 0; font-weight: 700; color: #4f46e5;">Step 4　建立 Controller</p>
-          <p style="margin: 0 0 8px 0; color: #475569; font-size: 0.9rem;"><code>@RequestMapping</code> 路徑必須與 FUNC_CODE 對應，normalization 比對才能通過：</p>
-          <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0;">// normalization('/QSP042B03/queryList') → 'QSP042B03/QUERYLIST'
+        <div style="background: var(--c-bg-slate-50); border-left: 4px solid var(--c-border-indigo-600); border-radius: 0 8px 8px 0; padding: 16px;">
+          <p style="margin: 0 0 10px 0; font-weight: 700; color: var(--c-text-indigo-600);">Step 4　建立 Controller</p>
+          <p style="margin: 0 0 8px 0; color: var(--c-text-slate-600); font-size: 0.9rem;"><code>@RequestMapping</code> 路徑必須與 FUNC_CODE 對應，normalization 比對才能通過：</p>
+          <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0;">// normalization('/QSP042B03/queryList') → 'QSP042B03/QUERYLIST'
 // findFunctionCodesByRole 回傳前 6 碼：'QSP042'
 // 'QSP042B03/QUERYLIST'.startsWith('QSP042') → true ✅
 
@@ -352,10 +352,10 @@ public class Qsp042b03Controller {
         </div>
 
         <!-- Step 5 -->
-        <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; padding: 16px;">
-          <p style="margin: 0 0 10px 0; font-weight: 700; color: #4f46e5;">Step 5　Service 內的角色細分（選用）</p>
-          <p style="margin: 0 0 8px 0; color: #475569; font-size: 0.9rem;">若同一頁面對不同角色有不同行為，在 Service 層使用 <code>AccountDetails</code> 判斷：</p>
-          <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0 0 12px 0;">AccountDetails accountDetails = (AccountDetails) authentication.getPrincipal();
+        <div style="background: var(--c-bg-slate-50); border-left: 4px solid var(--c-border-indigo-600); border-radius: 0 8px 8px 0; padding: 16px;">
+          <p style="margin: 0 0 10px 0; font-weight: 700; color: var(--c-text-indigo-600);">Step 5　Service 內的角色細分（選用）</p>
+          <p style="margin: 0 0 8px 0; color: var(--c-text-slate-600); font-size: 0.9rem;">若同一頁面對不同角色有不同行為，在 Service 層使用 <code>AccountDetails</code> 判斷：</p>
+          <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0 0 12px 0;">AccountDetails accountDetails = (AccountDetails) authentication.getPrincipal();
 
 if (accountDetails.isRdssOffice()) {
     // 專案辦公室：可看全部資料
@@ -383,7 +383,7 @@ if (accountDetails.isRdssOffice()) {
 
     <!-- VISIBILITY vs RDSYS_PERMISSION_USER -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">VISIBILITY vs RDSYS_PERMISSION_USER 使用時機</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">VISIBILITY vs RDSYS_PERMISSION_USER 使用時機</h3>
       <div class="table-wrap">
         <table>
           <thead><tr><th>需求</th><th>應調整的位置</th></tr></thead>
@@ -395,8 +395,8 @@ if (accountDetails.isRdssOffice()) {
           </tbody>
         </table>
       </div>
-      <div class="callout" style="margin-top: 14px; background: #fef2f2; border-color: #f87171;">
-        <p style="color: #991b1b; margin: 0;">
+      <div class="callout" style="margin-top: 14px; background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+        <p style="color: var(--c-text-red-800); margin: 0;">
           <strong>🔴 注意：</strong>不要用 <code>VISIBILITY = 0</code> 來調整單一角色權限，這是全域關閉，所有角色都會看不到。應優先調整 <code>RDSYS_PERMISSION_USER</code>。
         </p>
       </div>
@@ -404,7 +404,7 @@ if (accountDetails.isRdssOffice()) {
 
     <!-- 常見錯誤 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">常見錯誤排查</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">常見錯誤排查</h3>
       <div class="table-wrap">
         <table>
           <thead><tr><th>症狀</th><th>可能原因</th><th>解法</th></tr></thead>
@@ -441,14 +441,14 @@ if (accountDetails.isRdssOffice()) {
 
     <!-- 驗證 Checklist -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">異動驗證 Checklist</h3>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">-- 確認頁面主檔
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">異動驗證 Checklist</h3>
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">-- 確認頁面主檔
 SELECT * FROM RDSYS_PERMISSION WHERE FUNC_CODE = 'QSP042B03';
 
 -- 確認角色權限對應
 SELECT * FROM RDSYS_PERMISSION_USER
 WHERE PERMISSION_SN = (SELECT SN FROM RDSYS_PERMISSION WHERE FUNC_CODE = 'QSP042B03');</pre>
-      <ul style="margin: 16px 0 0 0; padding-left: 20px; line-height: 2; color: #475569;">
+      <ul style="margin: 16px 0 0 0; padding-left: 20px; line-height: 2; color: var(--c-text-slate-600);">
         <li><strong>重新登入</strong>（刷新前端 Local Storage 的 permissions，ACTION_PATH 異動後必做）</li>
         <li>確認 Menu Tree 是否正確顯示新頁面</li>
         <li>點擊頁面確認不再 403</li>
@@ -459,10 +459,10 @@ WHERE PERMISSION_SN = (SELECT SN FROM RDSYS_PERMISSION WHERE FUNC_CODE = 'QSP042
 
     <!-- 前端權限對應機制 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">前端權限與頁面路由對應機制</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">前端權限與頁面路由對應機制</h3>
 
       <p style="margin-bottom: 12px; font-weight: 600;">整體流程</p>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.9;">登入
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.9;">登入
  ↓
 後端 /RDP022A01/permission 回傳 permissions 陣列
  ↓
@@ -475,7 +475,7 @@ WHERE PERMISSION_SN = (SELECT SN FROM RDSYS_PERMISSION WHERE FUNC_CODE = 'QSP042
 相符 → 有權限；不符 → 顯示 403</pre>
 
       <p style="margin-bottom: 8px; font-weight: 600; margin-top: 20px;">前端轉換邏輯（src/store/auth.js）</p>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">// actionPath 轉換成 href
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">// actionPath 轉換成 href
 href: permission.actionPath?.replace('Action.do', '')
 
 // 比對方式
@@ -495,7 +495,7 @@ hasPermission = path =>
       </div>
 
       <p style="margin-bottom: 8px; font-weight: 600;">後端 actionPath 填寫規則</p>
-      <p style="margin-bottom: 10px; color: #475569; font-size: 0.9rem;">格式：<code>/{模組前綴}/{頁面名稱}Action.do</code>，replace 後必須與前端路由<strong>完全相符</strong>。</p>
+      <p style="margin-bottom: 10px; color: var(--c-text-slate-600); font-size: 0.9rem;">格式：<code>/{模組前綴}/{頁面名稱}Action.do</code>，replace 後必須與前端路由<strong>完全相符</strong>。</p>
       <div class="table-wrap" style="margin-bottom: 20px;">
         <table>
           <thead><tr><th>後端 actionPath</th><th>前端 replace 後</th><th>對應前端檔案</th></tr></thead>
@@ -541,14 +541,14 @@ hasPermission = path =>
         </table>
       </div>
 
-      <div class="callout" style="margin-bottom: 16px; background: #fef3c7; border-color: #fbbf24;">
-        <p style="color: #92400e; margin: 0;">
+      <div class="callout" style="margin-bottom: 16px; background: var(--c-bg-amber-100); border-color: var(--c-border-amber-400);">
+        <p style="color: var(--c-text-amber-800); margin: 0;">
           <strong>⚠️ 新增模組前綴時：</strong>前端 <code>src/router/index.js</code> 的 <code>authPaths</code> 需同步加入該前綴，否則路由不受權限保護。
         </p>
       </div>
 
       <p style="margin-bottom: 8px; font-weight: 600;">actionPath 常見錯誤（以 TST001A01 為例）</p>
-      <pre style="background: #fef2f2; color: #1e293b; border: 1px solid #fca5a5; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">// ❌ 錯誤：後端 actionPath = "TST001A01"
+      <pre style="background: var(--c-bg-red-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-red-300); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">// ❌ 錯誤：後端 actionPath = "TST001A01"
 "TST001A01"
  ↓ replace('Action.do', '')
 "TST001A01"   ← 無 / 開頭，永遠無法比對到前端路由 → 403
@@ -559,7 +559,7 @@ hasPermission = path =>
 "/test/tst001a01"  ← 完全符合前端路由 → 通過</pre>
 
       <p style="margin-bottom: 8px; font-weight: 600; margin-top: 16px;">修正後同步事項</p>
-      <ul style="margin: 0; padding-left: 20px; line-height: 2; color: #475569;">
+      <ul style="margin: 0; padding-left: 20px; line-height: 2; color: var(--c-text-slate-600);">
         <li>後端將 <code>actionPath</code> 改為正確格式（<code>/模組/頁面Action.do</code>）</li>
         <li>前端建立對應路由檔案（例如 <code>src/private/test/tst001a01/index.vue</code>）</li>
         <li>前端 <code>src/router/index.js</code> 的 <code>authPaths</code> 加入新模組前綴</li>
@@ -569,7 +569,7 @@ hasPermission = path =>
 
     <!-- 程式碼位置速查 -->
     <div style="margin-bottom: 0;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">主要程式碼位置速查</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">主要程式碼位置速查</h3>
       <div class="table-wrap">
         <table>
           <thead><tr><th>元件</th><th>路徑</th></tr></thead>
@@ -598,8 +598,8 @@ hasPermission = path =>
 
     <!-- 資料關聯圖 -->
     <div style="margin-bottom: 0;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">資料關聯圖</h3>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.82rem; line-height: 1.8;">ACCOUNT（使用者帳號）
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">資料關聯圖</h3>
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.82rem; line-height: 1.8;">ACCOUNT（使用者帳號）
   │ accType
   ├── RDSYS_USER_TO_RXLE（附加角色）
   │     └── accType

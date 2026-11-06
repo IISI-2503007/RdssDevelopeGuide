@@ -9,7 +9,7 @@
       <h3 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--text);">📋 適用範圍</h3>
       <div class="grid">
         <article class="card">
-          <h4 style="margin-bottom: 12px; font-size: 1rem; color: #059669;">業務驗證失敗：照原本做法</h4>
+          <h4 style="margin-bottom: 12px; font-size: 1rem; color: var(--c-text-emerald-600);">業務驗證失敗：照原本做法</h4>
           <ul>
             <li>必填、超長、狀態不符、找不到資料</li>
             <li>直接回明確原因，例如「主要營業項目不可超過200字」</li>
@@ -17,9 +17,9 @@
           </ul>
         </article>
         <article class="card">
-          <h4 style="margin-bottom: 12px; font-size: 1rem; color: #dc2626;">程式沒預期的例外：走錯誤代碼</h4>
+          <h4 style="margin-bottom: 12px; font-size: 1rem; color: var(--c-text-red-600);">程式沒預期的例外：走錯誤代碼</h4>
           <ul>
-            <li><code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">catch (Exception e)</code> 抓到的東西</li>
+            <li><code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">catch (Exception e)</code> 抓到的東西</li>
             <li>使用者看到「系統處理失敗，請稍後再試（錯誤代碼 261021-K7M2QX）」</li>
             <li>原因只進 log</li>
           </ul>
@@ -37,8 +37,8 @@
 261021-K7M2QX</pre>
       <ul>
         <li>前 6 碼是西元日期，維運直接知道要開哪一天的 log 檔</li>
-        <li>後 6 碼隨機大寫英數，字元集去掉 <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">0 O 1 I</code>，避免口述或抄寫混淆</li>
-        <li>代碼由後端 <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">ErrorRef</code> 產生，前端不產生、不解析</li>
+        <li>後 6 碼隨機大寫英數，字元集去掉 <code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">0 O 1 I</code>，避免口述或抄寫混淆</li>
+        <li>代碼由後端 <code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">ErrorRef</code> 產生，前端不產生、不解析</li>
       </ul>
     </div>
 
@@ -56,18 +56,18 @@
     { "moduleName": "公司簡介", "success": false, "message": "系統處理失敗，請稍後再試（錯誤代碼 261021-K7M2QX）" }
   ]
 }</pre>
-      <p style="margin-bottom: 12px; color: var(--text);">全站最後防線（<code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">RestApiExceptionHandler</code>）也附代碼：</p>
+      <p style="margin-bottom: 12px; color: var(--text);">全站最後防線（<code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">RestApiExceptionHandler</code>）也附代碼：</p>
       <pre style="margin: 0 0 20px 0;">操作失敗，請確認資料後重試（錯誤代碼 261021-K7M2QX）
 系統發生錯誤，請稍後再試（錯誤代碼 261021-K7M2QX）</pre>
 
-      <div style="padding: 20px; background: #fee2e2; border-left: 4px solid #dc2626; border-radius: 8px;">
-        <h4 style="margin-bottom: 12px; color: #991b1b; font-size: 1.1rem;">❌ 禁止出現在回應裡的東西</h4>
-        <ul style="color: #991b1b;">
-          <li><code style="background: #fecaca; padding: 2px 6px; border-radius: 4px;">e.getMessage()</code>、SQL 錯誤原文、例外類別名稱、堆疊</li>
+      <div style="padding: 20px; background: var(--c-bg-red-100); border-left: 4px solid var(--c-border-red-600); border-radius: 8px;">
+        <h4 style="margin-bottom: 12px; color: var(--c-text-red-800); font-size: 1.1rem;">❌ 禁止出現在回應裡的東西</h4>
+        <ul style="color: var(--c-text-red-800);">
+          <li><code style="background: var(--c-bg-red-200); padding: 2px 6px; border-radius: 4px;">e.getMessage()</code>、SQL 錯誤原文、例外類別名稱、堆疊</li>
           <li>資料表或欄位名稱</li>
           <li>「成功 N 個、失敗 M 個」這種統計句（使用者要的是哪裡錯，不是幾個錯）</li>
         </ul>
-        <p style="color: #991b1b; margin-top: 8px;">這也是 Fortify「資訊外洩」類的掃描項目，見第 12 章。</p>
+        <p style="color: var(--c-text-red-800); margin-top: 8px;">這也是 Fortify「資訊外洩」類的掃描項目，見第 12 章。</p>
       </div>
     </div>
 
@@ -79,37 +79,37 @@
     at ...</pre>
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
         <thead>
-          <tr style="background: #f3f4f6;">
-            <th style="text-align: left; padding: 8px; border: 1px solid #e5e7eb;">欄位</th>
-            <th style="text-align: left; padding: 8px; border: 1px solid #e5e7eb;">內容</th>
-            <th style="text-align: left; padding: 8px; border: 1px solid #e5e7eb;">來源</th>
+          <tr style="background: var(--c-bg-gray-100);">
+            <th style="text-align: left; padding: 8px; border: 1px solid var(--c-border-gray-200);">欄位</th>
+            <th style="text-align: left; padding: 8px; border: 1px solid var(--c-border-gray-200);">內容</th>
+            <th style="text-align: left; padding: 8px; border: 1px solid var(--c-border-gray-200);">來源</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;"><code>[ERR 代碼]</code></td><td style="padding: 8px; border: 1px solid #e5e7eb;">固定前綴，搜 log 用</td><td style="padding: 8px; border: 1px solid #e5e7eb;">ErrorRef 自動加</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;">第二段</td><td style="padding: 8px; border: 1px solid #e5e7eb;">哪個功能、哪個模組（程式自己寫，用中文）</td><td style="padding: 8px; border: 1px solid #e5e7eb;">呼叫端傳入</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;"><code>user=</code></td><td style="padding: 8px; border: 1px solid #e5e7eb;">登入帳號</td><td style="padding: 8px; border: 1px solid #e5e7eb;">ErrorRef 從 Spring Security 取</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;"><code>uri=</code></td><td style="padding: 8px; border: 1px solid #e5e7eb;">當次請求路徑</td><td style="padding: 8px; border: 1px solid #e5e7eb;">ErrorRef 從 request 取</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;">第三段</td><td style="padding: 8px; border: 1px solid #e5e7eb;">例外類別與原文</td><td style="padding: 8px; border: 1px solid #e5e7eb;">ErrorRef 自動加</td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);"><code>[ERR 代碼]</code></td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">固定前綴，搜 log 用</td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">ErrorRef 自動加</td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">第二段</td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">哪個功能、哪個模組（程式自己寫，用中文）</td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">呼叫端傳入</td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);"><code>user=</code></td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">登入帳號</td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">ErrorRef 從 Spring Security 取</td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);"><code>uri=</code></td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">當次請求路徑</td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">ErrorRef 從 request 取</td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">第三段</td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">例外類別與原文</td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">ErrorRef 自動加</td></tr>
         </tbody>
       </table>
-      <div style="padding: 16px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px; margin-bottom: 20px;">
-        <p style="color: #92400e; line-height: 1.8;">同一個例外<strong>只記一次</strong>：catch 裡呼叫 ErrorRef 之後，不要再另外 <code style="background: #fde68a; padding: 2px 6px; border-radius: 4px;">log.error(..., e)</code>，否則堆疊會出現兩遍。</p>
+      <div style="padding: 16px; background: var(--c-bg-amber-100); border-left: 4px solid var(--c-border-amber-500); border-radius: 8px; margin-bottom: 20px;">
+        <p style="color: var(--c-text-amber-800); line-height: 1.8;">同一個例外<strong>只記一次</strong>：catch 裡呼叫 ErrorRef 之後，不要再另外 <code style="background: var(--c-bg-amber-200); padding: 2px 6px; border-radius: 4px;">log.error(..., e)</code>，否則堆疊會出現兩遍。</p>
       </div>
 
       <h4 style="margin-bottom: 12px; font-size: 1rem; color: var(--text);">各環境 log 位置</h4>
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
         <thead>
-          <tr style="background: #f3f4f6;">
-            <th style="text-align: left; padding: 8px; border: 1px solid #e5e7eb;">環境</th>
-            <th style="text-align: left; padding: 8px; border: 1px solid #e5e7eb;">位置</th>
+          <tr style="background: var(--c-bg-gray-100);">
+            <th style="text-align: left; padding: 8px; border: 1px solid var(--c-border-gray-200);">環境</th>
+            <th style="text-align: left; padding: 8px; border: 1px solid var(--c-border-gray-200);">位置</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;">本機</td><td style="padding: 8px; border: 1px solid #e5e7eb;">後端 console；若有設 <code>logging.file.name</code> 則看該檔</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;">SIT</td><td style="padding: 8px; border: 1px solid #e5e7eb;"><code>/home/rdss/api/logs/rdss-api.log</code></td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;">資服司 UAT（rdssuat）</td><td style="padding: 8px; border: 1px solid #e5e7eb;">比照 SIT 路徑（設定檔裡的 <code>C:/rdss</code> 是舊值，不要照抄）</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;">正式</td><td style="padding: 8px; border: 1px solid #e5e7eb;">兩台 AP active-standby，<strong>兩台都要搜</strong></td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">本機</td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">後端 console；若有設 <code>logging.file.name</code> 則看該檔</td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">SIT</td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);"><code>/home/rdss/api/logs/rdss-api.log</code></td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">資服司 UAT（rdssuat）</td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">比照 SIT 路徑（設定檔裡的 <code>C:/rdss</code> 是舊值，不要照抄）</td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">正式</td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">兩台 AP active-standby，<strong>兩台都要搜</strong></td></tr>
         </tbody>
       </table>
       <pre style="margin: 0;">grep -n "ERR 261021-K7M2QX" rdss-api.log</pre>
@@ -118,18 +118,18 @@
     <!-- 後端寫法 -->
     <div style="margin-bottom: 48px;">
       <h3 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--text);">☕ 後端寫法</h3>
-      <p style="margin-bottom: 12px; color: var(--text);">工具類：<code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">moi.rdss.platform.utils.ErrorRef</code></p>
+      <p style="margin-bottom: 12px; color: var(--text);">工具類：<code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">moi.rdss.platform.utils.ErrorRef</code></p>
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
         <thead>
-          <tr style="background: #f3f4f6;">
-            <th style="text-align: left; padding: 8px; border: 1px solid #e5e7eb;">方法</th>
-            <th style="text-align: left; padding: 8px; border: 1px solid #e5e7eb;">用途</th>
+          <tr style="background: var(--c-bg-gray-100);">
+            <th style="text-align: left; padding: 8px; border: 1px solid var(--c-border-gray-200);">方法</th>
+            <th style="text-align: left; padding: 8px; border: 1px solid var(--c-border-gray-200);">用途</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;"><code>ErrorRef.logAndMessage(log, "哪個功能", e)</code></td><td style="padding: 8px; border: 1px solid #e5e7eb;">記 log 並回傳給使用者的整句訊息（最常用）</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;"><code>ErrorRef.log(log, "哪個功能", e)</code></td><td style="padding: 8px; border: 1px solid #e5e7eb;">只記 log，回傳代碼，自己組訊息時用</td></tr>
-          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;"><code>ErrorRef.userMessage(code)</code></td><td style="padding: 8px; border: 1px solid #e5e7eb;">用代碼組固定句型</td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);"><code>ErrorRef.logAndMessage(log, "哪個功能", e)</code></td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">記 log 並回傳給使用者的整句訊息（最常用）</td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);"><code>ErrorRef.log(log, "哪個功能", e)</code></td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">只記 log，回傳代碼，自己組訊息時用</td></tr>
+          <tr><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);"><code>ErrorRef.userMessage(code)</code></td><td style="padding: 8px; border: 1px solid var(--c-border-gray-200);">用代碼組固定句型</td></tr>
         </tbody>
       </table>
 
@@ -169,9 +169,9 @@ response.addDetail("公司簡介", false, ErrorRef.logAndMessage(log, "更新公
 
       <h4 style="margin-bottom: 12px; font-size: 1rem; color: var(--text);">什麼時候不用 ErrorRef</h4>
       <ul>
-        <li>業務驗證：直接回原因，例如 <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">failure("資料驗證失敗", errorMessages)</code></li>
+        <li>業務驗證：直接回原因，例如 <code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">failure("資料驗證失敗", errorMessages)</code></li>
         <li>可預期且使用者能處理的狀況：例如「查無報名資料，請先完成報名」</li>
-        <li>查詢 API 的例外：直接 <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">throw</code>，交給 RestApiExceptionHandler 統一處理即可</li>
+        <li>查詢 API 的例外：直接 <code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">throw</code>，交給 RestApiExceptionHandler 統一處理即可</li>
       </ul>
     </div>
 
@@ -179,17 +179,17 @@ response.addDetail("公司簡介", false, ErrorRef.logAndMessage(log, "更新公
     <div style="margin-bottom: 48px;">
       <h3 style="font-size: 1.25rem; margin-bottom: 20px; color: var(--text);">🖥️ 前端規則</h3>
       <ul>
-        <li>照後端 <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">message</code> 顯示，不自行改寫、不拆解代碼</li>
-        <li>模組化儲存回應（<code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">details[]</code> 內有 <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">moduleName</code>）：<code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">success:false</code> 一律紅叉顯示，message 以換行拆成多行；main.js 全站處理器已實作，頁面不要再自己跳第二個提示</li>
-        <li>不要把 axios error 的 <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">error.message</code>（例如 Request failed with status code 500）顯示給使用者</li>
-        <li>需要客製訊息的頁面，在 mutation 加 <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">meta: { includeGlobalSuccess: false }</code> 自己接，但訊息內容仍須遵守本章規則</li>
+        <li>照後端 <code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">message</code> 顯示，不自行改寫、不拆解代碼</li>
+        <li>模組化儲存回應（<code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">details[]</code> 內有 <code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">moduleName</code>）：<code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">success:false</code> 一律紅叉顯示，message 以換行拆成多行；main.js 全站處理器已實作，頁面不要再自己跳第二個提示</li>
+        <li>不要把 axios error 的 <code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">error.message</code>（例如 Request failed with status code 500）顯示給使用者</li>
+        <li>需要客製訊息的頁面，在 mutation 加 <code style="background: var(--c-bg-gray-100); padding: 2px 6px; border-radius: 4px;">meta: { includeGlobalSuccess: false }</code> 自己接，但訊息內容仍須遵守本章規則</li>
       </ul>
     </div>
 
     <!-- 檢查清單 -->
-    <div style="margin-bottom: 48px; padding: 20px; background: #ecfdf5; border-left: 4px solid #059669; border-radius: 8px;">
-      <h4 style="margin-bottom: 12px; color: #065f46; font-size: 1.1rem;">✅ 檢查清單</h4>
-      <ul style="color: #065f46;">
+    <div style="margin-bottom: 48px; padding: 20px; background: var(--c-bg-emerald-50); border-left: 4px solid var(--c-border-emerald-600); border-radius: 8px;">
+      <h4 style="margin-bottom: 12px; color: var(--c-text-emerald-800); font-size: 1.1rem;">✅ 檢查清單</h4>
+      <ul style="color: var(--c-text-emerald-800);">
         <li>catch (Exception e) 裡沒有 e.getMessage() 進回應</li>
         <li>使用者訊息是固定句型加代碼，不是「處理失敗」四個字</li>
         <li>同一個例外只有一行 [ERR ...] log，沒有重複的 log.error</li>
@@ -199,7 +199,7 @@ response.addDetail("公司簡介", false, ErrorRef.logAndMessage(log, "更新公
     </div>
 
     <!-- 現況 -->
-    <div style="padding: 16px; background: #f3f4f6; border-radius: 8px;">
+    <div style="padding: 16px; background: var(--c-bg-gray-100); border-radius: 8px;">
       <h4 style="margin-bottom: 8px; font-size: 1rem; color: var(--text);">📌 現況（2026-10-21）</h4>
       <ul>
         <li>已套用：營運計畫書各章節儲存 API（1A／1B／1C／2A／3A／3B，一般、新申請、原用人、自創）、RestApiExceptionHandler 的 RuntimeException 與 Exception 兩個最後防線</li>

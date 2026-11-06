@@ -16,7 +16,7 @@
     <div style="border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
       <table style="width: 100%; border-collapse: collapse;">
         <thead>
-          <tr style="background: #f8fafc; border-bottom: 1px solid var(--border);">
+          <tr style="background: var(--c-bg-slate-50); border-bottom: 1px solid var(--border);">
             <th style="text-align: left; padding: 12px; font-size: 0.95rem; color: var(--text);">環境</th>
             <th style="text-align: left; padding: 12px; font-size: 0.95rem; color: var(--text);">用人單位</th>
             <th style="text-align: left; padding: 12px; font-size: 0.95rem; color: var(--text);">帳號</th>
@@ -1270,6 +1270,6 @@ const copyAccount = async account => {
 
 <style scoped>
 .account-row:hover {
-  background: #eef0f3;
+  background: var(--c-bg-gray-100);
 }
 </style>

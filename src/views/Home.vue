@@ -155,7 +155,7 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent, onBeforeUnmount, onMounted, ref } from 'vue'
+import { defineAsyncComponent, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { NCollapse, NCollapseItem } from 'naive-ui'
 import { downloadAllDocs } from '@/utils/downloadDocs'
 import { isDark, toggleTheme } from '@/utils/theme'
@@ -301,6 +301,16 @@ onMounted(() => {
   mainRef.value?.addEventListener('scroll', onScrollHandler, { passive: true })
   window.addEventListener('resize', onScrollHandler, { passive: true })
   updateActiveSection()
+
+  // 網址帶 ?expand=all 或 ?expand=section-3,section-5 可直接展開章節(檢視版面、截圖用)
+  const expandParam = new URLSearchParams(window.location.search).get('expand')
+  if (expandParam) {
+    const ids = expandParam === 'all'
+      ? sections.map(section => section.id)
+      : expandParam.split(',').filter(id => sections.some(section => section.id === id))
+    expandedNames.value = ids
+    if (ids.length) nextTick(() => scrollToSection(ids[0]))
+  }
 
   // Restore auth if still within the same browser session (not yet refreshed)
   const _stored = localStorage.getItem(_pk)

@@ -6,12 +6,12 @@
 
     <!-- 正確範例 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #10b981;">✓ 正確範例</h3>
-      <div style="background: #f0fdf4; border: 2px solid #86efac; padding: 24px; border-radius: 12px;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-emerald-500);">✓ 正確範例</h3>
+      <div style="background: var(--c-bg-green-50); border: 2px solid var(--c-border-green-300); padding: 24px; border-radius: 12px;">
         <div style="display: flex; gap: 24px; flex-wrap: wrap;">
         <div style="flex: 1; min-width: 260px;">
-          <h4 style="color: #15803d; margin-bottom: 12px;">查詢 API 回傳格式</h4>
-          <p style="margin: -6px 0 10px; color: #166534;">若使用駝峰命名，大小寫需一致（含縮寫字母大小寫）。</p>
+          <h4 style="color: var(--c-text-green-700); margin-bottom: 12px;">查詢 API 回傳格式</h4>
+          <p style="margin: -6px 0 10px; color: var(--c-text-green-800);">若使用駝峰命名，大小寫需一致（含縮寫字母大小寫）。</p>
     <pre>{
   "userId": 123,
   "userName": "Jane",
@@ -20,8 +20,8 @@
         </div>
 
         <div style="flex: 1; min-width: 260px;">
-          <h4 style="color: #15803d; margin-bottom: 12px;">新增/編輯 API request 格式</h4>
-          <p style="margin: -6px 0 10px; color: #166534;">使用駝峰命名，大小寫需一致（含縮寫字母大小寫）。</p>
+          <h4 style="color: var(--c-text-green-700); margin-bottom: 12px;">新增/編輯 API request 格式</h4>
+          <p style="margin: -6px 0 10px; color: var(--c-text-green-800);">使用駝峰命名，大小寫需一致（含縮寫字母大小寫）。</p>
           <pre>{
   "userId": 123,
   "userName": "Jane",
@@ -30,9 +30,9 @@
         </div>
         </div>
 
-        <div style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px; border-left: 4px solid #10b981;">
-          <strong style="color: #15803d;">優點：</strong>
-          <ul style="margin: 8px 0; padding-left: 20px; color: #166534;">
+        <div style="margin-top: 16px; padding: 12px; background: var(--c-bg-white); border-radius: 8px; border-left: 4px solid var(--c-border-emerald-500);">
+          <strong style="color: var(--c-text-green-700);">優點：</strong>
+          <ul style="margin: 8px 0; padding-left: 20px; color: var(--c-text-green-800);">
             <li>參數名稱完全一致，可直接使用查詢結果</li>
             <li>不需要額外的欄位名稱轉換邏輯</li>
             <li>降低串接錯誤率，提升開發效率</li>
@@ -44,11 +44,11 @@
 
     <!-- 錯誤範例 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #ef4444;">✗ 錯誤範例</h3>
-      <div style="background: #fef2f2; border: 2px solid #fca5a5; padding: 24px; border-radius: 12px;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-red-500);">✗ 錯誤範例</h3>
+      <div style="background: var(--c-bg-red-50); border: 2px solid var(--c-border-red-300); padding: 24px; border-radius: 12px;">
         <div style="display: flex; gap: 24px; flex-wrap: wrap;">
         <div style="flex: 1; min-width: 260px;">
-          <h4 style="color: #991b1b; margin-bottom: 12px;">查詢 API 回傳格式</h4>
+          <h4 style="color: var(--c-text-red-800); margin-bottom: 12px;">查詢 API 回傳格式</h4>
           <pre>{
   "name": "Jane",
   "age": 25,
@@ -57,7 +57,7 @@
         </div>
 
         <div style="flex: 1; min-width: 260px;">
-          <h4 style="color: #991b1b; margin-bottom: 12px;">新增/編輯 API request 格式</h4>
+          <h4 style="color: var(--c-text-red-800); margin-bottom: 12px;">新增/編輯 API request 格式</h4>
           <pre>{
   "userName": "Jane",
   "userAge": 25,
@@ -66,9 +66,9 @@
         </div>
         </div>
 
-        <div style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px; border-left: 4px solid #ef4444;">
-          <strong style="color: #991b1b;">問題：</strong>
-          <ul style="margin: 8px 0; padding-left: 20px; color: #7f1d1d;">
+        <div style="margin-top: 16px; padding: 12px; background: var(--c-bg-white); border-radius: 8px; border-left: 4px solid var(--c-border-red-500);">
+          <strong style="color: var(--c-text-red-800);">問題：</strong>
+          <ul style="margin: 8px 0; padding-left: 20px; color: var(--c-text-red-900);">
             <li>參數名稱不一致（name vs userName、age vs userAge）</li>
             <li>需要額外撰寫欄位轉換邏輯</li>
             <li>容易因遺漏轉換導致串接錯誤</li>
@@ -80,8 +80,8 @@
 
     <!-- 為何要做到一致性 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">為何要做到一致性？</h3>
-      <article class="card" style="background: #eff6ff; border-color: #93c5fd;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">為何要做到一致性？</h3>
+      <article class="card" style="background: var(--c-bg-blue-50); border-color: var(--c-border-blue-300);">
         <ul style="margin: 0; padding-left: 20px; line-height: 2;">
           <li><strong>簡化前端開發流程：</strong>查詢後可直接將資料綁定到表單，不需額外轉換欄位名稱</li>
           <li><strong>降低出錯機率：</strong>避免因欄位名稱對應錯誤導致的 bug</li>
@@ -93,17 +93,17 @@
 
     <!-- 什麼情況可以做到一致性 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">什麼情況下可以做到一致性？</h3>
-      <article class="card" style="background: #f0fdf4; border-color: #86efac;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">什麼情況下可以做到一致性？</h3>
+      <article class="card" style="background: var(--c-bg-green-50); border-color: var(--c-border-green-300);">
         <ul style="margin: 0; padding-left: 20px; line-height: 2;">
           <li><strong>新開發的功能：</strong>在設計階段就統一前後端欄位名稱規範</li>
           <li><strong>重構既有功能：</strong>在大規模重構時，同步調整前後端欄位命名</li>
           <li><strong>後端使用 DTO 轉換：</strong>後端可透過 Data Transfer Object 統一查詢與儲存的欄位結構</li>
           <li><strong>前後端協作良好：</strong>團隊有共識且願意遵循統一的命名規範</li>
         </ul>
-        <div style="margin-top: 16px; padding: 12px; background: #fef3c7; border-radius: 8px; border-left: 4px solid #fbbf24;">
-          <strong style="color: #92400e;">⚠️ 例外情況：</strong>
-          <span style="color: #92400e;">當頁面邏輯較複雜，或需整合多支查詢 API 的資料時，可不強制對齊參數名稱。</span>
+        <div style="margin-top: 16px; padding: 12px; background: var(--c-bg-amber-100); border-radius: 8px; border-left: 4px solid var(--c-border-amber-400);">
+          <strong style="color: var(--c-text-amber-800);">⚠️ 例外情況：</strong>
+          <span style="color: var(--c-text-amber-800);">當頁面邏輯較複雜，或需整合多支查詢 API 的資料時，可不強制對齊參數名稱。</span>
         </div>
       </article>
     </div>

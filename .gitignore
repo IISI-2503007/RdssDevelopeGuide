@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# 版面檢查截圖(scripts 說明見 _dev-notes)
+.shots

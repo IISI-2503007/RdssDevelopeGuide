@@ -3,15 +3,15 @@
     <p class="muted" style="margin-bottom: 8px;">
       後端透過 Microsoft Graph API（OAuth 2.0 Client Credentials）寄信的共用架構規範。
     </p>
-    <div class="callout" style="margin-bottom: 24px; background: #eff6ff; border-color: #93c5fd;">
-      <p style="color: #1e40af; margin: 0;">
+    <div class="callout" style="margin-bottom: 24px; background: var(--c-bg-blue-50); border-color: var(--c-border-blue-300);">
+      <p style="color: var(--c-text-blue-800); margin: 0;">
         <strong>📌 定位說明：</strong>本功能是系統共用寄信架構，不是單一 API 專用。後續任何需要寄信的業務功能，都應沿用此流程，不應在各業務 API 中自行呼叫 Graph API 或自行取得 OAuth Token。
       </p>
     </div>
 
     <!-- 背景說明 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">背景說明</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">背景說明</h3>
       <p style="margin-bottom: 12px;">原本系統使用 SMTP（Gmail）寄信，改為透過 Microsoft Graph API 以 OAuth 2.0 Client Credentials 流程寄信。</p>
       <div class="table-wrap">
         <table>
@@ -31,9 +31,9 @@
 
     <!-- 架構定位 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">架構定位</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">架構定位</h3>
       <p style="margin-bottom: 12px;">後續只要系統有新的寄信功能，原則上都應沿用既有流程：</p>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">業務 API / Service
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">業務 API / Service
     ↓
 建立 MailInfo
     ↓
@@ -56,9 +56,9 @@ GraphMailSender 透過 Microsoft Graph API 寄出</pre>
 
     <!-- 架構概覽 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">架構概覽</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">架構概覽</h3>
       <p style="margin-bottom: 12px; font-weight: 600;">寄信流程</p>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">業務功能呼叫（例如 sendMailToUnit，或其他需要寄信的 Service）
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">業務功能呼叫（例如 sendMailToUnit，或其他需要寄信的 Service）
         ↓
 建立 MailInfo
         ↓
@@ -129,9 +129,9 @@ MAIL_INFO status 更新為 'Y' ✅</pre>
 
     <!-- Azure AD -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">Azure AD App Registration 資訊</h3>
-      <div class="callout" style="margin-bottom: 16px; background: #fef2f2; border-color: #f87171;">
-        <p style="color: #991b1b; margin: 0;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">Azure AD App Registration 資訊</h3>
+      <div class="callout" style="margin-bottom: 16px; background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+        <p style="color: var(--c-text-red-800); margin: 0;">
           <strong>🔴 client-secret 為機敏資訊，請勿 commit 進 Git。</strong>
           完整憑證清單請參閱 <strong>《azure_graph_mail_server_credentials_inventory_full.md》</strong>，向 <strong>PG Leader 或 PM</strong> 取得。
         </p>
@@ -184,15 +184,15 @@ MAIL_INFO status 更新為 'Y' ✅</pre>
 
     <!-- 環境設定 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">環境設定</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">環境設定</h3>
 
       <p style="margin-bottom: 8px; font-weight: 600;">本機開發（application-local.yml）</p>
-      <div class="callout" style="margin-bottom: 12px; background: #fef3c7; border-color: #fbbf24;">
-        <p style="color: #92400e; margin: 0;">
+      <div class="callout" style="margin-bottom: 12px; background: var(--c-bg-amber-100); border-color: var(--c-border-amber-400);">
+        <p style="color: var(--c-text-amber-800); margin: 0;">
           <strong>⚠️ 注意：</strong><code>application-local.yml</code> 已加入 <code>.gitignore</code>，不會被 commit。
         </p>
       </div>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">microsoft:
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">microsoft:
   graph:
     enabled: true
     tenant-id: 54aa2fea-ecb3-4c71-80b3-de9a356e77c1
@@ -207,12 +207,12 @@ scheduling:
     enabled: true   # 開啟後排程才會自動寄信，測試完建議改回 false</pre>
 
       <p style="margin-bottom: 8px; font-weight: 600; margin-top: 20px;">SIT / UAT 環境（application-sit.yml）</p>
-      <div class="callout" style="margin-bottom: 12px; background: #fef3c7; border-color: #fbbf24;">
-        <p style="color: #92400e; margin: 0;">
+      <div class="callout" style="margin-bottom: 12px; background: var(--c-bg-amber-100); border-color: var(--c-border-amber-400);">
+        <p style="color: var(--c-text-amber-800); margin: 0;">
           <strong>⚠️ 注意：</strong>SIT 環境排程預設關閉（<code>scheduling.mail.enabled: false</code>），避免誤發信；部署時由 IT / DevOps 手動開啟。
         </p>
       </div>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">microsoft:
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">microsoft:
   graph:
     enabled: true
     tenant-id: 54aa2fea-ecb3-4c71-80b3-de9a356e77c1
@@ -227,8 +227,8 @@ scheduling:
     enabled: false   # SIT 預設關閉，避免誤發信</pre>
 
       <p style="margin-bottom: 8px; font-weight: 600; margin-top: 20px;">排程開關說明</p>
-      <div class="callout" style="margin-bottom: 12px; background: #fef3c7; border-color: #fbbf24;">
-        <p style="color: #92400e; margin: 0;">
+      <div class="callout" style="margin-bottom: 12px; background: var(--c-bg-amber-100); border-color: var(--c-border-amber-400);">
+        <p style="color: var(--c-text-amber-800); margin: 0;">
           <strong>⚠️ 重要：</strong>排程啟動後，只要 <code>MAIL_INFO</code> 有 <code>status='N'</code> 的記錄，每次重啟都會繼續寄出，直到 <code>status='Y'</code> 或被人工作廢為止。
         </p>
       </div>
@@ -247,25 +247,25 @@ scheduling:
 
     <!-- 新增寄信功能實作順序 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">新增寄信功能實作順序</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">新增寄信功能實作順序</h3>
       <p style="margin-bottom: 16px;">其他業務功能需要寄信時，沿用此流程，不需要直接呼叫 Graph API。</p>
 
       <div style="display: flex; flex-direction: column; gap: 12px;">
-        <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; padding: 14px 16px;">
-          <p style="margin: 0 0 4px 0; font-weight: 700; color: #4f46e5;">Step 1　確認寄信觸發點</p>
-          <p style="margin: 0; color: #475569; font-size: 0.9rem;">確認哪一個業務事件需要寄信：使用者送出申請、案件審核完成、退件 / 補件通知、批次通知、帳號開通…等</p>
+        <div style="background: var(--c-bg-slate-50); border-left: 4px solid var(--c-border-indigo-600); border-radius: 0 8px 8px 0; padding: 14px 16px;">
+          <p style="margin: 0 0 4px 0; font-weight: 700; color: var(--c-text-indigo-600);">Step 1　確認寄信觸發點</p>
+          <p style="margin: 0; color: var(--c-text-slate-600); font-size: 0.9rem;">確認哪一個業務事件需要寄信：使用者送出申請、案件審核完成、退件 / 補件通知、批次通知、帳號開通…等</p>
         </div>
-        <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; padding: 14px 16px;">
-          <p style="margin: 0 0 4px 0; font-weight: 700; color: #4f46e5;">Step 2　確認收件人來源</p>
-          <p style="margin: 0; color: #475569; font-size: 0.9rem;">確認 TO / CC / BCC 從哪裡取得（帳號 email、單位窗口、系統參數、DB 查詢…）。<strong>查無收件人時直接回傳訊息，不寫入 MAIL_INFO。</strong></p>
+        <div style="background: var(--c-bg-slate-50); border-left: 4px solid var(--c-border-indigo-600); border-radius: 0 8px 8px 0; padding: 14px 16px;">
+          <p style="margin: 0 0 4px 0; font-weight: 700; color: var(--c-text-indigo-600);">Step 2　確認收件人來源</p>
+          <p style="margin: 0; color: var(--c-text-slate-600); font-size: 0.9rem;">確認 TO / CC / BCC 從哪裡取得（帳號 email、單位窗口、系統參數、DB 查詢…）。<strong>查無收件人時直接回傳訊息，不寫入 MAIL_INFO。</strong></p>
         </div>
-        <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; padding: 14px 16px;">
-          <p style="margin: 0 0 4px 0; font-weight: 700; color: #4f46e5;">Step 3　建立 MailInfo</p>
-          <p style="margin: 0; color: #475569; font-size: 0.9rem;"><code>mailTo</code> 必填；CC / BCC 可選；CC 不可拆成獨立一筆沒有 TO 的 MailInfo；若有附件需先取得 mailInfo.id。</p>
+        <div style="background: var(--c-bg-slate-50); border-left: 4px solid var(--c-border-indigo-600); border-radius: 0 8px 8px 0; padding: 14px 16px;">
+          <p style="margin: 0 0 4px 0; font-weight: 700; color: var(--c-text-indigo-600);">Step 3　建立 MailInfo</p>
+          <p style="margin: 0; color: var(--c-text-slate-600); font-size: 0.9rem;"><code>mailTo</code> 必填；CC / BCC 可選；CC 不可拆成獨立一筆沒有 TO 的 MailInfo；若有附件需先取得 mailInfo.id。</p>
         </div>
-        <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; padding: 14px 16px;">
-          <p style="margin: 0 0 8px 0; font-weight: 700; color: #4f46e5;">Step 4　寫入 MAIL_INFO</p>
-          <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0;">// 不需要 ID
+        <div style="background: var(--c-bg-slate-50); border-left: 4px solid var(--c-border-indigo-600); border-radius: 0 8px 8px 0; padding: 14px 16px;">
+          <p style="margin: 0 0 8px 0; font-weight: 700; color: var(--c-text-indigo-600);">Step 4　寫入 MAIL_INFO</p>
+          <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0;">// 不需要 ID
 databaseMailService.apply(mailInfo);
 
 // 需要 ID（例如要新增附件）
@@ -274,40 +274,40 @@ databaseMailService.applyReturnId(mailInfo);
 // 使用信件模板
 mailProcess.execute("TemplateName", dataMap);</pre>
         </div>
-        <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; padding: 14px 16px;">
-          <p style="margin: 0 0 4px 0; font-weight: 700; color: #4f46e5;">Step 5　由排程自動寄出</p>
-          <p style="margin: 0; color: #475569; font-size: 0.9rem;">業務功能不需直接呼叫 <code>GraphMailSender</code>。寫入後排程自動掃描，成功 → <code>status='Y'</code>，異常可人工改為 <code>status='X'</code>。</p>
+        <div style="background: var(--c-bg-slate-50); border-left: 4px solid var(--c-border-indigo-600); border-radius: 0 8px 8px 0; padding: 14px 16px;">
+          <p style="margin: 0 0 4px 0; font-weight: 700; color: var(--c-text-indigo-600);">Step 5　由排程自動寄出</p>
+          <p style="margin: 0; color: var(--c-text-slate-600); font-size: 0.9rem;">業務功能不需直接呼叫 <code>GraphMailSender</code>。寫入後排程自動掃描，成功 → <code>status='Y'</code>，異常可人工改為 <code>status='X'</code>。</p>
         </div>
-        <div style="background: #f8fafc; border-left: 4px solid #4f46e5; border-radius: 0 8px 8px 0; padding: 14px 16px;">
-          <p style="margin: 0 0 8px 0; font-weight: 700; color: #4f46e5;">Step 6　測試與驗證</p>
-          <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0 0 8px 0;">SELECT ID, MAIL_TO, MAIL_CC, MAIL_SUBJECT, STATUS, CREATION_DATE, MODIFY_DATE
+        <div style="background: var(--c-bg-slate-50); border-left: 4px solid var(--c-border-indigo-600); border-radius: 0 8px 8px 0; padding: 14px 16px;">
+          <p style="margin: 0 0 8px 0; font-weight: 700; color: var(--c-text-indigo-600);">Step 6　測試與驗證</p>
+          <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin: 0 0 8px 0;">SELECT ID, MAIL_TO, MAIL_CC, MAIL_SUBJECT, STATUS, CREATION_DATE, MODIFY_DATE
 FROM MAIL_INFO
 ORDER BY CREATION_DATE DESC;</pre>
-          <p style="margin: 0; color: #475569; font-size: 0.9rem;">確認：MAIL_TO 正確、CC 未被拆成空 TO 的資料、STATUS 由 N → Y、實際信箱收到信、Log 無機敏資訊。</p>
+          <p style="margin: 0; color: var(--c-text-slate-600); font-size: 0.9rem;">確認：MAIL_TO 正確、CC 未被拆成空 TO 的資料、STATUS 由 N → Y、實際信箱收到信、Log 無機敏資訊。</p>
         </div>
       </div>
     </div>
 
     <!-- 開發規範 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">開發規範</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">開發規範</h3>
 
       <p style="margin-bottom: 8px; font-weight: 600;">✅ 正確的 MailInfo 設定方式</p>
-      <pre style="background: #f0fdf4; color: #1e293b; border: 1px solid #86efac; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">// ✅ 正確：一筆 MailInfo，TO 和 CC 寫在同一筆
+      <pre style="background: var(--c-bg-green-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-green-300); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">// ✅ 正確：一筆 MailInfo，TO 和 CC 寫在同一筆
 MailInfo mailInfo = new MailInfo();
 mailInfo.setMailTo("receiver@example.com");
 mailInfo.setMailCc("cc@example.com");
 databaseMailService.setCommonMailInfo(mailInfo);
 databaseMailService.apply(mailInfo);</pre>
 
-      <pre style="background: #fef2f2; color: #1e293b; border: 1px solid #fca5a5; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7; margin-top: 12px;">// ❌ 錯誤：將 CC 拆成獨立一筆，且沒有 mailTo
+      <pre style="background: var(--c-bg-red-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-red-300); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7; margin-top: 12px;">// ❌ 錯誤：將 CC 拆成獨立一筆，且沒有 mailTo
 // → mailTo=null 的那筆永遠寄不出去，排程無限重試！
 MailInfo ccMailInfo = new MailInfo();
 ccMailInfo.setMailCc("cc@example.com");
 databaseMailService.apply(ccMailInfo);  // ← 沒有 mailTo</pre>
 
       <p style="margin-bottom: 8px; font-weight: 600; margin-top: 20px;">防呆規範（必須加入）</p>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">// 防呆1：查無收件對象時，提早回傳
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">// 防呆1：查無收件對象時，提早回傳
 if (receiverList == null || receiverList.isEmpty()) {
     log.warn("查無符合條件的收件者，不寄出任何信件");
     return ReturnMessage.getFailedInstance("查無符合條件的收件者，未寄出任何信件", null);
@@ -323,7 +323,7 @@ for (Receiver receiver : receiverList) {
 }</pre>
 
       <p style="margin-bottom: 8px; font-weight: 600; margin-top: 20px;">使用 MailProcess 的流程</p>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">Supplier&lt;List&lt;MailInfo&gt;&gt; mailInfoProcessor = () -> {
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">Supplier&lt;List&lt;MailInfo&gt;&gt; mailInfoProcessor = () -> {
     List&lt;MailInfo&gt; list = new ArrayList&lt;&gt;();
     MailInfo mailInfo = new MailInfo();
     mailInfo.setMailTo(receiver.getEmail());
@@ -346,7 +346,7 @@ try {
 
     <!-- 常見錯誤 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">常見錯誤與排除方式</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">常見錯誤與排除方式</h3>
 
       <p style="margin-bottom: 8px; font-weight: 600;">Graph API 錯誤碼</p>
       <div class="table-wrap" style="margin-bottom: 20px;">
@@ -390,7 +390,7 @@ try {
       </div>
 
       <p style="margin-bottom: 8px; font-weight: 600;">排程無限重試（MAIL_INFO 有 mailTo=null）</p>
-      <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">-- 查看待寄出記錄
+      <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; line-height: 1.7;">-- 查看待寄出記錄
 SELECT ID, MAIL_TO, MAIL_CC, STATUS, CREATION_DATE
 FROM MAIL_INFO
 WHERE STATUS = 'N'
@@ -405,13 +405,13 @@ WHERE STATUS = 'N'
 
     <!-- 資安注意 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">資安注意事項</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">資安注意事項</h3>
 
-      <div class="callout" style="margin-bottom: 16px; background: #fef2f2; border-color: #f87171;">
-        <p style="color: #991b1b; margin: 0 0 10px 0;">
+      <div class="callout" style="margin-bottom: 16px; background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+        <p style="color: var(--c-text-red-800); margin: 0 0 10px 0;">
           <strong>🔴 正式提交、截圖、貼 Issue / PR / Teams 或貼給 AI 工具前，請確認不含以下資訊：</strong>
         </p>
-        <ul style="margin: 0; padding-left: 20px; color: #991b1b;">
+        <ul style="margin: 0; padding-left: 20px; color: var(--c-text-red-800);">
           <li>實際 <code>client-secret</code></li>
           <li>完整 <code>access_token</code></li>
           <li>完整 Graph API token response</li>
@@ -439,7 +439,7 @@ WHERE STATUS = 'N'
 
     <!-- 同事交接 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">同事交接清單</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">同事交接清單</h3>
       <div class="table-wrap" style="margin-bottom: 20px;">
         <table>
           <thead>
@@ -478,7 +478,7 @@ WHERE STATUS = 'N'
 
     <!-- 測試驗收 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">測試驗收記錄</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">測試驗收記錄</h3>
       <div class="table-wrap" style="margin-bottom: 16px;">
         <table>
           <thead>
@@ -512,8 +512,8 @@ WHERE STATUS = 'N'
           </tbody>
         </table>
       </div>
-      <div class="callout" style="background: #f0fdf4; border-color: #86efac;">
-        <p style="color: #166534; margin: 0;">
+      <div class="callout" style="background: var(--c-bg-green-50); border-color: var(--c-border-green-300);">
+        <p style="color: var(--c-text-green-800); margin: 0;">
           <strong>📌 說明：</strong><code>sendMailToUnit</code> 是本次驗收使用的業務 API 範例，後續其他寄信功能仍應沿用相同的共用流程。
         </p>
       </div>
@@ -521,18 +521,18 @@ WHERE STATUS = 'N'
 
     <!-- 測試操作補充說明 -->
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">測試操作補充說明</h3>
-      <p style="margin-bottom: 4px; color: #475569; font-size: 0.85rem;">版本：1.0.3　更新日期：2026-07-29　適用環境：local / SIT / UAT</p>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">測試操作補充說明</h3>
+      <p style="margin-bottom: 4px; color: var(--c-text-slate-600); font-size: 0.85rem;">版本：1.0.3　更新日期：2026-07-29　適用環境：local / SIT / UAT</p>
 
       <!-- Exchange Online 寄件者授權 -->
-      <div class="callout" style="margin-top: 20px; margin-bottom: 24px; background: #fef3c7; border-color: #f59e0b;">
-        <p style="color: #92400e; margin: 0 0 8px 0; font-weight: 700;">⚠️ 本機寄信測試：寄件者不可使用 NCATEST</p>
-        <p style="color: #92400e; margin: 0 0 8px 0; font-size: 0.9rem;">
+      <div class="callout" style="margin-top: 20px; margin-bottom: 24px; background: var(--c-bg-amber-100); border-color: var(--c-border-amber-500);">
+        <p style="color: var(--c-text-amber-800); margin: 0 0 8px 0; font-weight: 700;">⚠️ 本機寄信測試：寄件者不可使用 NCATEST</p>
+        <p style="color: var(--c-text-amber-800); margin: 0 0 8px 0; font-size: 0.9rem;">
           <code>NCATEST@iisigroup.com</code> 目前未被 Exchange Online 授權作為外寄寄件者；
           將它設成 <code>microsoft.graph.sender-address</code> 時，即使 OAuth Token 與
           <code>Mail.Send</code> 權限正常，郵件仍可能被系統阻擋。
         </p>
-        <ul style="color: #92400e; margin: 0; padding-left: 20px; line-height: 1.8; font-size: 0.9rem;">
+        <ul style="color: var(--c-text-amber-800); margin: 0; padding-left: 20px; line-height: 1.8; font-size: 0.9rem;">
           <li>寄件者：改成測試人員自己、且已獲外寄授權的公司信箱。</li>
           <li>收件者：可以維持既有測試帳號／測試信箱。</li>
           <li>個人信箱只放本機設定，不可 commit 進 Git；測試後應還原。</li>
@@ -542,14 +542,14 @@ WHERE STATUS = 'N'
 
       <!-- 排程運作機制 -->
       <div style="margin-bottom: 28px; margin-top: 20px;">
-        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: #1e293b;">排程運作機制釐清</p>
-        <p style="margin-bottom: 8px; color: #475569; font-size: 0.9rem;">排程（<code>ScheduledMailSendJob</code>）<strong>不負責產生信件</strong>，只負責把已寫入 DB 的信寄出。</p>
-        <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; overflow-x: auto; font-size: 0.82rem; line-height: 1.8;">按下 API 按鈕
+        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: var(--c-text-slate-800);">排程運作機制釐清</p>
+        <p style="margin-bottom: 8px; color: var(--c-text-slate-600); font-size: 0.9rem;">排程（<code>ScheduledMailSendJob</code>）<strong>不負責產生信件</strong>，只負責把已寫入 DB 的信寄出。</p>
+        <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 14px; overflow-x: auto; font-size: 0.82rem; line-height: 1.8;">按下 API 按鈕
   → 信件寫入 MAIL_INFO（status='N'）  ← 同步，立即完成
   → 排程每 20 秒掃描一次 status='N'   ← 非同步，背景執行
   → 撈到後透過 Graph API 寄出
   → 寄成功 → status 更新為 'Y'</pre>
-        <p style="margin-top: 10px; margin-bottom: 10px; color: #475569; font-size: 0.9rem;">對使用者來說感覺是「按了就寄」，但底層實際上是非同步排程，最長等待約 20～30 秒。</p>
+        <p style="margin-top: 10px; margin-bottom: 10px; color: var(--c-text-slate-600); font-size: 0.9rem;">對使用者來說感覺是「按了就寄」，但底層實際上是非同步排程，最長等待約 20～30 秒。</p>
         <div class="table-wrap" style="margin-bottom: 10px;">
           <table>
             <thead><tr><th><code>scheduling.mail.enabled</code></th><th>按下 API</th><th>信件最終狀態</th></tr></thead>
@@ -559,8 +559,8 @@ WHERE STATUS = 'N'
             </tbody>
           </table>
         </div>
-        <div class="callout" style="background: #fef2f2; border-color: #f87171;">
-          <p style="color: #991b1b; margin: 0; font-size: 0.9rem;">
+        <div class="callout" style="background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+          <p style="color: var(--c-text-red-800); margin: 0; font-size: 0.9rem;">
             <strong>⚠️ 重要：</strong><code>enabled=true</code> 重啟服務後，排程會自動撈出 DB 裡所有 <code>status='N'</code> 的舊資料寄出，包含歷史測試殘留的資料。<br />
             正式上線後 <code>scheduling.mail.enabled</code> 應常駐 <code>true</code>，使用者按下按鈕後排程才能自動把信寄出。
           </p>
@@ -569,20 +569,20 @@ WHERE STATUS = 'N'
 
       <!-- 測試前置作業 -->
       <div style="margin-bottom: 28px;">
-        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: #1e293b;">測試前置作業</p>
-        <p style="margin-bottom: 8px; font-weight: 600; color: #475569;">每次測試前必做：確認 DB 乾淨</p>
-        <p style="margin-bottom: 8px; color: #475569; font-size: 0.9rem;">每次測試前，必須先確認 DB 裡沒有殘留的 <code>status='N'</code> 舊資料，否則開啟排程時會把舊資料一起寄出。</p>
-        <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin-bottom: 10px;">-- 確認目前 status='N' 的筆數
+        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: var(--c-text-slate-800);">測試前置作業</p>
+        <p style="margin-bottom: 8px; font-weight: 600; color: var(--c-text-slate-600);">每次測試前必做：確認 DB 乾淨</p>
+        <p style="margin-bottom: 8px; color: var(--c-text-slate-600); font-size: 0.9rem;">每次測試前，必須先確認 DB 裡沒有殘留的 <code>status='N'</code> 舊資料，否則開啟排程時會把舊資料一起寄出。</p>
+        <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin-bottom: 10px;">-- 確認目前 status='N' 的筆數
 SELECT COUNT(*), MIN(ID), MAX(ID), MIN(CREATION_DATE), MAX(CREATION_DATE)
 FROM MAIL_INFO
 WHERE STATUS = 'N';</pre>
-        <div class="callout" style="margin-bottom: 12px; background: #eff6ff; border-color: #60a5fa;">
-          <p style="color: #1e40af; margin: 0; font-size: 0.9rem;">
+        <div class="callout" style="margin-bottom: 12px; background: var(--c-bg-blue-50); border-color: var(--c-border-blue-400);">
+          <p style="color: var(--c-text-blue-800); margin: 0; font-size: 0.9rem;">
             <strong>狀態語意：</strong><code>X</code> 是暫時作廢／排除，不是已發送；已發送狀態是
             <code>Y</code>。必須先保存原始 ID 清單，測試後才能精準還原。
           </p>
         </div>
-        <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.65; margin-bottom: 16px;">-- 步驟 1：先保存 CNT 與 ID_LIST
+        <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.65; margin-bottom: 16px;">-- 步驟 1：先保存 CNT 與 ID_LIST
 SELECT COUNT(*) AS CNT,
        STRING_AGG(CAST(ID AS VARCHAR(MAX)), ',') AS ID_LIST
 FROM dbo.MAIL_INFO
@@ -619,23 +619,23 @@ END;
 
 COMMIT;</pre>
 
-        <p style="margin-bottom: 8px; font-weight: 600; color: #475569;">測試時只寄給測試信箱的做法</p>
+        <p style="margin-bottom: 8px; font-weight: 600; color: var(--c-text-slate-600);">測試時只寄給測試信箱的做法</p>
         <div style="display: flex; flex-direction: column; gap: 10px;">
-          <div style="background: #f8fafc; border-left: 3px solid #4f46e5; padding: 10px 14px; border-radius: 0 6px 6px 0;">
-            <p style="margin: 0 0 6px 0; font-size: 0.88rem; font-weight: 600; color: #4f46e5;">Step 1　呼叫 API，讓信件寫入 DB</p>
+          <div style="background: var(--c-bg-slate-50); border-left: 3px solid var(--c-border-indigo-600); padding: 10px 14px; border-radius: 0 6px 6px 0;">
+            <p style="margin: 0 0 6px 0; font-size: 0.88rem; font-weight: 600; color: var(--c-text-indigo-600);">Step 1　呼叫 API，讓信件寫入 DB</p>
           </div>
-          <div style="background: #f8fafc; border-left: 3px solid #4f46e5; padding: 10px 14px; border-radius: 0 6px 6px 0;">
-            <p style="margin: 0 0 6px 0; font-size: 0.88rem; font-weight: 600; color: #4f46e5;">Step 2　查出剛才 API 寫入的這批信</p>
-            <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 10px; font-size: 0.82rem; line-height: 1.6; margin: 0;">SELECT ID, MAIL_TO, MAIL_SUBJECT, STATUS, CREATION_DATE
+          <div style="background: var(--c-bg-slate-50); border-left: 3px solid var(--c-border-indigo-600); padding: 10px 14px; border-radius: 0 6px 6px 0;">
+            <p style="margin: 0 0 6px 0; font-size: 0.88rem; font-weight: 600; color: var(--c-text-indigo-600);">Step 2　查出剛才 API 寫入的這批信</p>
+            <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 10px; font-size: 0.82rem; line-height: 1.6; margin: 0;">SELECT ID, MAIL_TO, MAIL_SUBJECT, STATUS, CREATION_DATE
 FROM MAIL_INFO
 WHERE STATUS = 'N'
   AND MAIL_SUBJECT LIKE '%114%'        -- 依年度調整
   AND CREATION_DATE >= '2026-05-11'    -- 依測試日期調整
 ORDER BY CREATION_DATE DESC;</pre>
           </div>
-          <div style="background: #f8fafc; border-left: 3px solid #4f46e5; padding: 10px 14px; border-radius: 0 6px 6px 0;">
-            <p style="margin: 0 0 6px 0; font-size: 0.88rem; font-weight: 600; color: #4f46e5;">Step 3　選定一筆改成測試信箱，其餘作廢</p>
-            <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 10px; font-size: 0.82rem; line-height: 1.6; margin: 0 0 8px 0;">-- 將選定的那筆改成測試信箱
+          <div style="background: var(--c-bg-slate-50); border-left: 3px solid var(--c-border-indigo-600); padding: 10px 14px; border-radius: 0 6px 6px 0;">
+            <p style="margin: 0 0 6px 0; font-size: 0.88rem; font-weight: 600; color: var(--c-text-indigo-600);">Step 3　選定一筆改成測試信箱，其餘作廢</p>
+            <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 10px; font-size: 0.82rem; line-height: 1.6; margin: 0 0 8px 0;">-- 將選定的那筆改成測試信箱
 UPDATE MAIL_INFO
 SET MAIL_TO = 'NCATEST@iisigroup.com',
     MAIL_CC = NULL,
@@ -652,9 +652,9 @@ WHERE STATUS = 'N'
   AND CREATION_DATE >= '2026-05-11'
   AND ID &lt;&gt; {ID};</pre>
           </div>
-          <div style="background: #f8fafc; border-left: 3px solid #4f46e5; padding: 10px 14px; border-radius: 0 6px 6px 0;">
-            <p style="margin: 0 0 6px 0; font-size: 0.88rem; font-weight: 600; color: #4f46e5;">Step 4　確認只剩一筆 status='N'</p>
-            <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 10px; font-size: 0.82rem; line-height: 1.6; margin: 0;">SELECT COUNT(*) FROM MAIL_INFO WHERE STATUS = 'N';
+          <div style="background: var(--c-bg-slate-50); border-left: 3px solid var(--c-border-indigo-600); padding: 10px 14px; border-radius: 0 6px 6px 0;">
+            <p style="margin: 0 0 6px 0; font-size: 0.88rem; font-weight: 600; color: var(--c-text-indigo-600);">Step 4　確認只剩一筆 status='N'</p>
+            <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 10px; font-size: 0.82rem; line-height: 1.6; margin: 0;">SELECT COUNT(*) FROM MAIL_INFO WHERE STATUS = 'N';
 -- 結果應為 1</pre>
           </div>
         </div>
@@ -662,8 +662,8 @@ WHERE STATUS = 'N'
 
       <!-- 完整測試流程 -->
       <div style="margin-bottom: 28px;">
-        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: #1e293b;">本機測試完整流程（以 sendMailToUnit 為例）</p>
-        <pre style="background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; overflow-x: auto; font-size: 0.82rem; line-height: 1.9;">1. 確認 DB 乾淨（status='N' 為 0 筆）
+        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: var(--c-text-slate-800);">本機測試完整流程（以 sendMailToUnit 為例）</p>
+        <pre style="background: var(--c-bg-slate-50); color: var(--c-text-slate-800); border: 1px solid var(--c-border-slate-200); border-radius: 8px; padding: 14px; overflow-x: auto; font-size: 0.82rem; line-height: 1.9;">1. 確認 DB 乾淨（status='N' 為 0 筆）
         ↓
 2. 將 scheduling.mail.enabled 改為 false，重啟後端
         ↓
@@ -692,16 +692,16 @@ WHERE STATUS = 'N'
             </tbody>
           </table>
         </div>
-        <div class="callout" style="margin-top: 10px; background: #fef3c7; border-color: #fbbf24;">
-          <p style="color: #92400e; margin: 0; font-size: 0.9rem;">⚠️ 修改 yml 後必須重啟後端才會生效。</p>
+        <div class="callout" style="margin-top: 10px; background: var(--c-bg-amber-100); border-color: var(--c-border-amber-400);">
+          <p style="color: var(--c-text-amber-800); margin: 0; font-size: 0.9rem;">⚠️ 修改 yml 後必須重啟後端才會生效。</p>
         </div>
       </div>
 
       <!-- 常用查詢 SQL -->
       <div style="margin-bottom: 28px;">
-        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: #1e293b;">常用查詢 SQL</p>
-        <p style="margin-bottom: 6px; font-weight: 600; color: #475569; font-size: 0.9rem;">查各 yy/batch 的符合單位筆數（找最少的來測試）</p>
-        <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin-bottom: 14px;">SELECT
+        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: var(--c-text-slate-800);">常用查詢 SQL</p>
+        <p style="margin-bottom: 6px; font-weight: 600; color: var(--c-text-slate-600); font-size: 0.9rem;">查各 yy/batch 的符合單位筆數（找最少的來測試）</p>
+        <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin-bottom: 14px;">SELECT
     AP.YY,
     AP.BATCH_REGISTER AS BATCH,
     COUNT(DISTINCT AU.ACCOUNT) AS UNIT_COUNT
@@ -721,8 +721,8 @@ WHERE AP.APPLY_STATUS = 2        -- STATUS_APPLY_CONFIRM
 GROUP BY AP.YY, AP.BATCH_REGISTER
 ORDER BY UNIT_COUNT ASC;         -- 筆數最少的排最上面</pre>
 
-        <p style="margin-bottom: 6px; font-weight: 600; color: #475569; font-size: 0.9rem;">MAIL_INFO 狀態查詢</p>
-        <pre style="background: #1e293b; color: #f1f5f9; border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin-bottom: 10px;">-- 查待寄出（status='N'）
+        <p style="margin-bottom: 6px; font-weight: 600; color: var(--c-text-slate-600); font-size: 0.9rem;">MAIL_INFO 狀態查詢</p>
+        <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 6px; padding: 12px; font-size: 0.82rem; line-height: 1.6; margin-bottom: 10px;">-- 查待寄出（status='N'）
 SELECT ID, MAIL_TO, MAIL_CC, MAIL_SUBJECT, STATUS, CREATION_DATE
 FROM MAIL_INFO
 WHERE STATUS = 'N'
@@ -753,13 +753,13 @@ ORDER BY ID ASC;</pre>
 
       <!-- 踩雷記錄 -->
       <div style="margin-bottom: 28px;">
-        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: #1e293b;">注意事項與踩雷記錄</p>
-        <div class="callout" style="margin-bottom: 12px; background: #fef2f2; border-color: #f87171;">
-          <p style="color: #991b1b; margin: 0 0 8px 0; font-size: 0.9rem;"><strong>⚠️ 重啟時舊資料會被一起寄出</strong></p>
-          <p style="color: #991b1b; margin: 0 0 6px 0; font-size: 0.9rem;">將 <code>scheduling.mail.enabled</code> 改為 <code>true</code> 重啟後，DB 裡所有歷史殘留的 <code>status='N'</code> 資料會被排程一次全部寄出。</p>
-          <p style="color: #991b1b; margin: 0; font-size: 0.9rem;"><strong>2026-05-11 實際發生：</strong>DB 裡有 54,008 筆歷史殘留資料（ID 707 ～ 57934），重啟後排程在幾分鐘內全部寄出，實際寄出數千封至真實單位信箱。預防方式：每次開啟排程前務必先執行上方清查步驟。</p>
+        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: var(--c-text-slate-800);">注意事項與踩雷記錄</p>
+        <div class="callout" style="margin-bottom: 12px; background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+          <p style="color: var(--c-text-red-800); margin: 0 0 8px 0; font-size: 0.9rem;"><strong>⚠️ 重啟時舊資料會被一起寄出</strong></p>
+          <p style="color: var(--c-text-red-800); margin: 0 0 6px 0; font-size: 0.9rem;">將 <code>scheduling.mail.enabled</code> 改為 <code>true</code> 重啟後，DB 裡所有歷史殘留的 <code>status='N'</code> 資料會被排程一次全部寄出。</p>
+          <p style="color: var(--c-text-red-800); margin: 0; font-size: 0.9rem;"><strong>2026-05-11 實際發生：</strong>DB 裡有 54,008 筆歷史殘留資料（ID 707 ～ 57934），重啟後排程在幾分鐘內全部寄出，實際寄出數千封至真實單位信箱。預防方式：每次開啟排程前務必先執行上方清查步驟。</p>
         </div>
-        <ul style="margin: 0; padding-left: 20px; line-height: 2; color: #475569; font-size: 0.9rem;">
+        <ul style="margin: 0; padding-left: 20px; line-height: 2; color: var(--c-text-slate-600); font-size: 0.9rem;">
           <li><code>status='N'</code> 是很短暫的過渡狀態，按下 API 後排程 20～30 秒就會改成 <code>'Y'</code>，需要在幾秒內立刻查 DB 才能觀察到。</li>
           <li>若 DB 裡查無 <code>BatchSettingCompleteNotifyMail_TO_UNIT</code> 模板，系統會 fallback 使用程式碼內硬編碼的主旨與內文，仍然可以正常寄出。</li>
           <li><code>NCATEST@iisigroup.com</code> 對應多個測試帳號，無法單靠信箱反查是哪個單位，需透過 <code>MAIL_INFO.MAIL_CONTENT</code> 內文中的單位名稱判斷。</li>
@@ -768,7 +768,7 @@ ORDER BY ID ASC;</pre>
 
       <!-- 補充驗收記錄 -->
       <div>
-        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: #1e293b;">2026-05-11 完整排程流程測試驗收記錄</p>
+        <p style="font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: var(--c-text-slate-800);">2026-05-11 完整排程流程測試驗收記錄</p>
         <div class="table-wrap">
           <table>
             <thead><tr><th>項目</th><th>結果</th></tr></thead>
@@ -790,8 +790,8 @@ ORDER BY ID ASC;</pre>
 
     <!-- 一句話總結 -->
     <div style="margin-bottom: 0;">
-      <div class="callout" style="background: #eff6ff; border-color: #93c5fd;">
-        <p style="color: #1e40af; margin: 0;">
+      <div class="callout" style="background: var(--c-bg-blue-50); border-color: var(--c-border-blue-300);">
+        <p style="color: var(--c-text-blue-800); margin: 0;">
           <strong>💡 一句話總結：</strong>後續任何需要寄信的業務功能，建立 <code>MailInfo</code> 並寫入 <code>MAIL_INFO</code>，由排程與 <code>GraphMailSender</code> 統一透過 Microsoft Graph API 寄送即可，不需在各業務 API 中自行呼叫 Graph API 或取得 OAuth Token。
         </p>
       </div>

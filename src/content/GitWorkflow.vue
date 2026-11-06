@@ -4,8 +4,8 @@
       RDSS 前端、後端共用的 commit、push 與上板規範。人員與 AI 使用同一份規則，不強制 Pull Request。
     </p>
 
-    <div class="callout" style="margin-bottom: 24px; background: #f0fdf4; border-color: #86efac;">
-      <p style="color: #166534; margin: 0; line-height: 1.8;">
+    <div class="callout" style="margin-bottom: 24px; background: var(--c-bg-green-50); border-color: var(--c-border-green-300);">
+      <p style="color: var(--c-text-green-800); margin: 0; line-height: 1.8;">
         <strong>核心原則：</strong>在個人分支整合最新 <code>main</code> 並完成驗證，只推送已驗證的 commit SHA；任何拒絕、衝突或異常差異都停止，絕不強制推送。
       </p>
     </div>
@@ -20,7 +20,7 @@
   → 確認 SHA 已進入 main</pre>
 
     <section style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">第一次使用</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">第一次使用</h3>
       <div class="grid">
         <article class="card">
           <h3>個人設定</h3>
@@ -45,19 +45,19 @@ git config --local rdss.developerName "&lt;開發者姓名&gt;"</pre>
     </section>
 
     <section style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">請 AI 執行</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">請 AI 執行</h3>
       <div class="callout" style="margin-bottom: 12px;">
-        <p style="margin: 0; color: #3730a3;">
+        <p style="margin: 0; color: var(--c-text-indigo-800);">
           請先完整讀取開發指南的 <code>15-Git上板流程.md</code>，依規範幫我上板前端及後端，並分別回報驗證與上板結果。
         </p>
       </div>
-      <p style="color: #64748b; line-height: 1.8;">
+      <p style="color: var(--c-text-slate-500); line-height: 1.8;">
         只有明確要求「上板」、「併版」或「push」才代表允許遠端 push；僅要求修改、檢查、測試或 commit 時，不代表允許 push。
       </p>
     </section>
 
     <section style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">標準上板流程</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">標準上板流程</h3>
 
       <article class="card" style="margin-bottom: 18px;">
         <h3>1. 確認 repository 與分支</h3>
@@ -142,7 +142,7 @@ git rev-parse main</pre>
     </section>
 
     <section style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">必須停止的情況</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">必須停止的情況</h3>
       <div class="table-wrap">
         <table>
           <thead><tr><th>情況</th><th>處理</th></tr></thead>
@@ -161,8 +161,8 @@ git rev-parse main</pre>
       </div>
     </section>
 
-    <div class="callout" style="background: #fff7ed; border-color: #fdba74;">
-      <p style="color: #9a3412; margin: 0; line-height: 1.8;">
+    <div class="callout" style="background: var(--c-bg-orange-50); border-color: var(--c-border-orange-300);">
+      <p style="color: var(--c-text-orange-800); margin: 0; line-height: 1.8;">
         <strong>不使用 PR 的界線：</strong>這套流程能防止一般 push 蓋掉別人的 commit，但不等於程式碼審查。Git 無法判斷一個合法 fast-forward commit 的業務內容是否正確，因此差異審查、必要驗證與遠端禁止 force push 都不能省略。
       </p>
     </div>

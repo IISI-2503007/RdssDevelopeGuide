@@ -1,0 +1,251 @@
+/* 由 scripts/color-tokens.py 產生,不要手改;白天值 = Tailwind 色票,夜晚值依同色相換深淺 */
+
+:root {
+  --c-bg-amber-100: #fef3c7;
+  --c-bg-amber-200: #fde68a;
+  --c-bg-amber-50: #fffbeb;
+  --c-bg-blue-100: #dbeafe;
+  --c-bg-blue-200: #bfdbfe;
+  --c-bg-blue-50: #eff6ff;
+  --c-bg-emerald-50: #ecfdf5;
+  --c-bg-gray-100: #f3f4f6;
+  --c-bg-gray-50: #f9fafb;
+  --c-bg-green-100: #dcfce7;
+  --c-bg-green-200: #bbf7d0;
+  --c-bg-green-50: #f0fdf4;
+  --c-bg-green-900: #14532d;
+  --c-bg-indigo-600: #4f46e5;
+  --c-bg-neutral-50: #fafafa;
+  --c-bg-orange-100: #ffedd5;
+  --c-bg-orange-50: #fff7ed;
+  --c-bg-orange-900: #7c2d12;
+  --c-bg-red-100: #fee2e2;
+  --c-bg-red-200: #fecaca;
+  --c-bg-red-50: #fef2f2;
+  --c-bg-red-900: #7f1d1d;
+  --c-bg-sky-100: #e0f2fe;
+  --c-bg-sky-50: #f0f9ff;
+  --c-bg-slate-100: #f1f5f9;
+  --c-bg-slate-50: #f8fafc;
+  --c-bg-slate-800: #1e293b;
+  --c-bg-white: #ffffff;
+  --c-border-amber-300: #fcd34d;
+  --c-border-amber-400: #fbbf24;
+  --c-border-amber-500: #f59e0b;
+  --c-border-blue-300: #93c5fd;
+  --c-border-blue-400: #60a5fa;
+  --c-border-blue-500: #3b82f6;
+  --c-border-emerald-500: #10b981;
+  --c-border-emerald-600: #059669;
+  --c-border-gray-200: #e5e7eb;
+  --c-border-green-200: #bbf7d0;
+  --c-border-green-300: #86efac;
+  --c-border-green-500: #22c55e;
+  --c-border-indigo-600: #4f46e5;
+  --c-border-orange-300: #fdba74;
+  --c-border-orange-400: #fb923c;
+  --c-border-orange-500: #f97316;
+  --c-border-red-200: #fecaca;
+  --c-border-red-300: #fca5a5;
+  --c-border-red-400: #f87171;
+  --c-border-red-500: #ef4444;
+  --c-border-red-600: #dc2626;
+  --c-border-sky-300: #7dd3fc;
+  --c-border-sky-400: #38bdf8;
+  --c-border-sky-500: #0ea5e9;
+  --c-border-slate-200: #e2e8f0;
+  --c-border-slate-300: #cbd5e1;
+  --c-text-amber-800: #92400e;
+  --c-text-amber-900: #78350f;
+  --c-text-blue-600: #2563eb;
+  --c-text-blue-700: #1d4ed8;
+  --c-text-blue-800: #1e40af;
+  --c-text-blue-900: #1e3a8a;
+  --c-text-emerald-100: #d1fae5;
+  --c-text-emerald-500: #10b981;
+  --c-text-emerald-600: #059669;
+  --c-text-emerald-800: #065f46;
+  --c-text-gray-500: #6b7280;
+  --c-text-green-700: #15803d;
+  --c-text-green-800: #166534;
+  --c-text-indigo-600: #4f46e5;
+  --c-text-indigo-800: #3730a3;
+  --c-text-orange-100: #ffedd5;
+  --c-text-orange-800: #9a3412;
+  --c-text-red-200: #fecaca;
+  --c-text-red-500: #ef4444;
+  --c-text-red-600: #dc2626;
+  --c-text-red-800: #991b1b;
+  --c-text-red-900: #7f1d1d;
+  --c-text-sky-700: #0369a1;
+  --c-text-sky-900: #0c4a6e;
+  --c-text-slate-100: #f1f5f9;
+  --c-text-slate-500: #64748b;
+  --c-text-slate-600: #475569;
+  --c-text-slate-700: #334155;
+  --c-text-slate-800: #1e293b;
+  --c-text-violet-600: #7c3aed;
+  --c-text-white: #ffffff;
+}
+
+:root.dark {
+  --c-bg-amber-100: #78350f;
+  --c-bg-amber-200: #92400e;
+  --c-bg-amber-50: #451a03;
+  --c-bg-blue-100: #1e3a8a;
+  --c-bg-blue-200: #1e40af;
+  --c-bg-blue-50: #172554;
+  --c-bg-emerald-50: #022c22;
+  --c-bg-gray-100: #273449;
+  --c-bg-gray-50: #1e293b;
+  --c-bg-green-100: #14532d;
+  --c-bg-green-200: #166534;
+  --c-bg-green-50: #052e16;
+  --c-bg-green-900: #14532d;
+  --c-bg-indigo-600: #4f46e5;
+  --c-bg-neutral-50: #1e293b;
+  --c-bg-orange-100: #7c2d12;
+  --c-bg-orange-50: #431407;
+  --c-bg-orange-900: #7c2d12;
+  --c-bg-red-100: #7f1d1d;
+  --c-bg-red-200: #991b1b;
+  --c-bg-red-50: #450a0a;
+  --c-bg-red-900: #7f1d1d;
+  --c-bg-sky-100: #0c4a6e;
+  --c-bg-sky-50: #082f49;
+  --c-bg-slate-100: #273449;
+  --c-bg-slate-50: #1e293b;
+  --c-bg-slate-800: #1e293b;
+  --c-bg-white: #1e293b;
+  --c-border-amber-300: #b45309;
+  --c-border-amber-400: #fbbf24;
+  --c-border-amber-500: #f59e0b;
+  --c-border-blue-300: #1d4ed8;
+  --c-border-blue-400: #60a5fa;
+  --c-border-blue-500: #3b82f6;
+  --c-border-emerald-500: #10b981;
+  --c-border-emerald-600: #059669;
+  --c-border-gray-200: #334155;
+  --c-border-green-200: #15803d;
+  --c-border-green-300: #15803d;
+  --c-border-green-500: #22c55e;
+  --c-border-indigo-600: #4f46e5;
+  --c-border-orange-300: #c2410c;
+  --c-border-orange-400: #fb923c;
+  --c-border-orange-500: #f97316;
+  --c-border-red-200: #b91c1c;
+  --c-border-red-300: #b91c1c;
+  --c-border-red-400: #f87171;
+  --c-border-red-500: #ef4444;
+  --c-border-red-600: #dc2626;
+  --c-border-sky-300: #0369a1;
+  --c-border-sky-400: #38bdf8;
+  --c-border-sky-500: #0ea5e9;
+  --c-border-slate-200: #334155;
+  --c-border-slate-300: #475569;
+  --c-text-amber-800: #fcd34d;
+  --c-text-amber-900: #fcd34d;
+  --c-text-blue-600: #93c5fd;
+  --c-text-blue-700: #93c5fd;
+  --c-text-blue-800: #93c5fd;
+  --c-text-blue-900: #93c5fd;
+  --c-text-emerald-100: #d1fae5;
+  --c-text-emerald-500: #34d399;
+  --c-text-emerald-600: #6ee7b7;
+  --c-text-emerald-800: #6ee7b7;
+  --c-text-gray-500: #94a3b8;
+  --c-text-green-700: #86efac;
+  --c-text-green-800: #86efac;
+  --c-text-indigo-600: #a5b4fc;
+  --c-text-indigo-800: #a5b4fc;
+  --c-text-orange-100: #ffedd5;
+  --c-text-orange-800: #fdba74;
+  --c-text-red-200: #fecaca;
+  --c-text-red-500: #f87171;
+  --c-text-red-600: #fca5a5;
+  --c-text-red-800: #fca5a5;
+  --c-text-red-900: #fca5a5;
+  --c-text-sky-700: #7dd3fc;
+  --c-text-sky-900: #7dd3fc;
+  --c-text-slate-100: #f1f5f9;
+  --c-text-slate-500: #94a3b8;
+  --c-text-slate-600: #94a3b8;
+  --c-text-slate-700: #e2e8f0;
+  --c-text-slate-800: #e2e8f0;
+  --c-text-violet-600: #c4b5fd;
+  --c-text-white: #ffffff;
+}
+
+/* Tailwind 工具類在夜晚模式的對應(只列內容頁實際用到的) */
+.dark .bg-amber-100 { background-color: #78350f; }
+.dark .bg-amber-200 { background-color: #92400e; }
+.dark .bg-amber-50 { background-color: #451a03; }
+.dark .bg-blue-100 { background-color: #1e3a8a; }
+.dark .bg-blue-200 { background-color: #1e40af; }
+.dark .bg-blue-50 { background-color: #172554; }
+.dark .bg-emerald-50 { background-color: #022c22; }
+.dark .bg-gray-100 { background-color: #273449; }
+.dark .hover\:bg-gray-100:hover { background-color: #273449; }
+.dark .bg-gray-50 { background-color: #1e293b; }
+.dark .bg-green-100 { background-color: #14532d; }
+.dark .bg-green-200 { background-color: #166534; }
+.dark .bg-green-50 { background-color: #052e16; }
+.dark .bg-indigo-100 { background-color: #312e81; }
+.dark .bg-neutral-50 { background-color: #1e293b; }
+.dark .bg-orange-100 { background-color: #7c2d12; }
+.dark .bg-orange-50 { background-color: #431407; }
+.dark .bg-red-100 { background-color: #7f1d1d; }
+.dark .bg-red-200 { background-color: #991b1b; }
+.dark .bg-red-50 { background-color: #450a0a; }
+.dark .bg-rose-50 { background-color: #4c0519; }
+.dark .bg-sky-100 { background-color: #0c4a6e; }
+.dark .bg-sky-50 { background-color: #082f49; }
+.dark .bg-slate-100 { background-color: #273449; }
+.dark .hover\:bg-slate-100:hover { background-color: #273449; }
+.dark .bg-slate-50 { background-color: #1e293b; }
+.dark .bg-white { background-color: #1e293b; }
+.dark .border-amber-300 { border-color: #b45309; }
+.dark .border-blue-300 { border-color: #1d4ed8; }
+.dark .border-gray-200 { border-color: #334155; }
+.dark .border-green-200 { border-color: #15803d; }
+.dark .border-green-300 { border-color: #15803d; }
+.dark .border-orange-300 { border-color: #c2410c; }
+.dark .border-red-200 { border-color: #b91c1c; }
+.dark .border-red-300 { border-color: #b91c1c; }
+.dark .border-rose-200 { border-color: #be123c; }
+.dark .border-sky-300 { border-color: #0369a1; }
+.dark .border-slate-200 { border-color: #334155; }
+.dark .border-slate-300 { border-color: #475569; }
+.dark .text-amber-800 { color: #fcd34d; }
+.dark .text-amber-900 { color: #fcd34d; }
+.dark .text-blue-600 { color: #93c5fd; }
+.dark .text-blue-700 { color: #93c5fd; }
+.dark .text-blue-800 { color: #93c5fd; }
+.dark .text-blue-900 { color: #93c5fd; }
+.dark .text-emerald-500 { color: #34d399; }
+.dark .text-emerald-600 { color: #6ee7b7; }
+.dark .text-emerald-800 { color: #6ee7b7; }
+.dark .text-gray-500 { color: #94a3b8; }
+.dark .text-gray-600 { color: #94a3b8; }
+.dark .text-gray-800 { color: #e2e8f0; }
+.dark .text-green-700 { color: #86efac; }
+.dark .text-green-800 { color: #86efac; }
+.dark .text-indigo-600 { color: #a5b4fc; }
+.dark .text-indigo-700 { color: #a5b4fc; }
+.dark .text-indigo-800 { color: #a5b4fc; }
+.dark .text-orange-700 { color: #fdba74; }
+.dark .text-orange-800 { color: #fdba74; }
+.dark .text-red-500 { color: #f87171; }
+.dark .text-red-600 { color: #fca5a5; }
+.dark .text-red-700 { color: #fca5a5; }
+.dark .text-red-800 { color: #fca5a5; }
+.dark .text-red-900 { color: #fca5a5; }
+.dark .text-rose-900 { color: #fda4af; }
+.dark .text-sky-700 { color: #7dd3fc; }
+.dark .text-sky-900 { color: #7dd3fc; }
+.dark .text-slate-500 { color: #94a3b8; }
+.dark .text-slate-600 { color: #94a3b8; }
+.dark .text-slate-700 { color: #e2e8f0; }
+.dark .hover\:text-slate-700:hover { color: #e2e8f0; }
+.dark .text-slate-800 { color: #e2e8f0; }
+.dark .text-violet-600 { color: #c4b5fd; }

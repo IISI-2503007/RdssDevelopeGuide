@@ -4,8 +4,8 @@
       地端啟動後端 API 時，使用 Spring Profile 選擇 SIT 或 UAT 資料庫；切換環境不應修改 datasource 本身。
     </p>
 
-    <div class="callout" style="margin-bottom: 24px; background: #eff6ff; border-color: #93c5fd;">
-      <p style="color: #1e40af; margin: 0;">
+    <div class="callout" style="margin-bottom: 24px; background: var(--c-bg-blue-50); border-color: var(--c-border-blue-300);">
+      <p style="color: var(--c-text-blue-800); margin: 0;">
         <strong>快速結論：</strong>地端測 SIT 資料使用 <code>local</code>；地端測 UAT 資料使用
         <code>localuat</code>。兩者都以 <code>--server.port=8081</code> 啟動，前端
         <code>.env.dev</code> 指向 <code>http://localhost:8081/</code>。
@@ -13,7 +13,7 @@
     </div>
 
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">Profile 與資料庫對照</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">Profile 與資料庫對照</h3>
       <div class="table-wrap">
         <table>
           <thead>
@@ -29,7 +29,7 @@
     </div>
 
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">正確操作順序：前端指向 8081，再由後端選 DB</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">正確操作順序：前端指向 8081，再由後端選 DB</h3>
       <ol style="line-height: 1.9; padding-left: 1.25rem;">
         <li>
           前端確認 dev mode 的 <code>VITE_API_BASE_URL_V2</code> 為 <code>http://localhost:8081/</code>：
@@ -43,8 +43,8 @@
         </li>
         <li>需要切換 DB 時，先停止後端，再改選另一組 configuration 並重新按 <code>F5</code>；前端仍維持指向 8081，不必跟著切 URL。</li>
       </ol>
-      <div class="callout" style="margin-top: 14px; background: #f0fdf4; border-color: #86efac;">
-        <p style="color: #166534; margin: 0;">
+      <div class="callout" style="margin-top: 14px; background: var(--c-bg-green-50); border-color: var(--c-border-green-300);">
+        <p style="color: var(--c-text-green-800); margin: 0;">
           <strong>責任界線：</strong><code>.env.dev</code> 只決定「前端呼叫哪個後端位址」，不決定 DB；
           <code>launch.json</code> 的 <code>--spring.profiles.active</code> 才決定後端連哪個 DB。
         </p>
@@ -52,7 +52,7 @@
     </div>
 
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">VS Code 啟動方式</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">VS Code 啟動方式</h3>
       <div class="table-wrap">
         <table>
           <thead><tr><th>入口</th><th>使用設定</th><th>適合情境</th></tr></thead>
@@ -70,10 +70,10 @@
           </tbody>
         </table>
       </div>
-      <pre style="background: #1e293b; color: #f1f5f9; border-radius: 8px; padding: 14px; overflow-x: auto; font-size: 0.82rem; line-height: 1.7; margin-top: 14px;">SIT：--spring.profiles.active=local --server.port=8081
+      <pre style="background: var(--c-bg-slate-800); color: var(--c-text-slate-100); border-radius: 8px; padding: 14px; overflow-x: auto; font-size: 0.82rem; line-height: 1.7; margin-top: 14px;">SIT：--spring.profiles.active=local --server.port=8081
 UAT：--spring.profiles.active=localuat --server.port=8081 --jwt.secret=&lt;見下方說明&gt;</pre>
-      <div class="callout" style="margin-top: 14px; background: #fffbeb; border-color: #fcd34d;">
-        <p style="color: #92400e; margin: 0;">
+      <div class="callout" style="margin-top: 14px; background: var(--c-bg-amber-50); border-color: var(--c-border-amber-300);">
+        <p style="color: var(--c-text-amber-800); margin: 0;">
           Dashboard 播放鍵<strong>永遠只跑第一組</strong>，下拉選了也不會生效。要臨時切換環境一律走
           <code>Ctrl+Shift+D</code> → 下拉選 → <code>F5</code>。
         </p>
@@ -81,7 +81,7 @@ UAT：--spring.profiles.active=localuat --server.port=8081 --jwt.secret=&lt;見�
     </div>
 
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">首次設定 launch.json</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">首次設定 launch.json</h3>
       <ol style="line-height: 1.9; padding-left: 1.25rem;">
         <li>按 <code>Ctrl+Shift+D</code> 開啟 Run and Debug 面板。</li>
         <li>沒有下拉選單時 → 點「<strong>建立 launch.json 檔案</strong>」→ 選 <strong>Java</strong>。</li>
@@ -92,7 +92,7 @@ UAT：--spring.profiles.active=localuat --server.port=8081 --jwt.secret=&lt;見�
           <div style="margin-top: 4px;">
             值請從後端 <code>application-local.yml</code> 的 <code>jwt.secret</code> fallback 預設值複製。
           </div>
-          <div style="margin-top: 4px; color: #64748b;">
+          <div style="margin-top: 4px; color: var(--c-text-slate-500);">
             <code>application-localuat.yml</code> 寫的是 <code>${JWT_SECRET:}</code>（無 fallback），不注入會是空字串，導致 JWT 簽章失敗、登入拿不到有效 token。
           </div>
         </li>
@@ -103,13 +103,13 @@ UAT：--spring.profiles.active=localuat --server.port=8081 --jwt.secret=&lt;見�
         <li>存檔後下拉選單即出現「RDSS-SIT資料」「RDSS-UAT資料」兩組。</li>
       </ol>
 
-      <p style="margin: 12px 0 0; color: #475569; font-size: 0.9rem;">
+      <p style="margin: 12px 0 0; color: var(--c-text-slate-600); font-size: 0.9rem;">
         📎 可直接取用的範本：點右上角<strong>下載規範MD檔</strong>，解壓後在 <code>assets/launch.json</code>
         （已去識別化，依檔內中文說明填入即可）
       </p>
 
-      <div class="callout" style="margin-top: 14px; background: #fef2f2; border-color: #f87171;">
-        <p style="color: #991b1b; margin: 0;">
+      <div class="callout" style="margin-top: 14px; background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+        <p style="color: var(--c-text-red-800); margin: 0;">
           <strong>只放一份。</strong>若根目錄與 <code>backend_new</code> 底下同時有 <code>launch.json</code>，
           後者優先生效；兩份一旦不同步就會「以為在測 UAT、實際連到 SIT」，而且不會有任何錯誤訊息。
           建議只保留 <code>backend_new/.vscode/launch.json</code>。
@@ -118,24 +118,24 @@ UAT：--spring.profiles.active=localuat --server.port=8081 --jwt.secret=&lt;見�
     </div>
 
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">前端地端啟動</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">前端地端啟動</h3>
       <ul style="line-height: 1.9; padding-left: 1.25rem;">
         <li><code>.env.dev</code> 的 <code>VITE_API_BASE_URL_V2</code> 指向 <code>http://localhost:8081/</code>。</li>
         <li>若存在 <code>.env.dev.local</code>，其值會覆蓋 <code>.env.dev</code>；請同步確認該檔也指向 8081。</li>
         <li>若 5173 被其他工具占用，可用 <code>npx vite --mode dev --port 5180</code>。</li>
         <li><code>.env.dev</code> 是 Git 追蹤檔，地端暫時修改不可跟著推版；<code>.env.dev.local</code> 符合現有 <code>*.local</code> 忽略規則，可用於保留本機覆寫值。</li>
       </ul>
-      <div class="callout" style="margin-top: 14px; background: #fff7ed; border-color: #fb923c;">
-        <p style="color: #9a3412; margin: 0;">
+      <div class="callout" style="margin-top: 14px; background: var(--c-bg-orange-50); border-color: var(--c-border-orange-400);">
+        <p style="color: var(--c-text-orange-800); margin: 0;">
           <strong>上板警示：</strong><code>.env.dev</code> 僅供 dev／地端測試使用。個人為連接本機 8081 所做的暫時修改，
           未經團隊確認不得擅自 commit、push 或隨版本上板；送版前必須以 <code>git status</code>／差異內容再次確認排除。
         </p>
       </div>
     </div>
 
-    <div class="callout" style="background: #fef2f2; border-color: #f87171;">
-      <p style="color: #991b1b; margin: 0 0 8px 0;"><strong>禁止事項</strong></p>
-      <ul style="color: #991b1b; margin: 0; padding-left: 20px; line-height: 1.8;">
+    <div class="callout" style="background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+      <p style="color: var(--c-text-red-800); margin: 0 0 8px 0;"><strong>禁止事項</strong></p>
+      <ul style="color: var(--c-text-red-800); margin: 0; padding-left: 20px; line-height: 1.8;">
         <li>地端禁止使用 <code>prod</code>／<code>rdssuat</code>。</li>
         <li>不要為切換環境修改 <code>application-{profile}.yml</code> datasource。</li>
         <li>Dashboard 不支援用 <code>${input:...}</code> 彈出 profile 選單。</li>

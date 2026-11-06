@@ -15,8 +15,16 @@ const prefersDark = typeof window !== 'undefined'
   && typeof window.matchMedia === 'function'
   && window.matchMedia('(prefers-color-scheme: dark)').matches
 
+// 網址帶 ?theme=dark 或 ?theme=light 可指定模式(分享連結、截圖用),優先於記憶值
+const fromUrl = typeof window !== 'undefined'
+  ? new URLSearchParams(window.location.search).get('theme')
+  : null
 const stored = readStored()
-export const isDark = ref(stored ? stored === 'dark' : prefersDark)
+export const isDark = ref(
+  fromUrl === 'dark' || fromUrl === 'light'
+    ? fromUrl === 'dark'
+    : (stored ? stored === 'dark' : prefersDark)
+)
 
 export const toggleTheme = () => {
   isDark.value = !isDark.value

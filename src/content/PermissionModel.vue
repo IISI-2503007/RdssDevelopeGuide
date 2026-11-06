@@ -4,14 +4,14 @@
       RDSS 權限需同時檢查頁面、功能角色、案件歸屬與最大管理員覆寫。menu 看得到只代表頁面權限通過，不代表頁面內所有簽辦、審查、轉派、核決動作都可執行。
     </p>
 
-    <div class="callout" style="margin-bottom: 24px; background: #eff6ff; border-color: #93c5fd;">
-      <p style="color: #1e40af; margin: 0;">
+    <div class="callout" style="margin-bottom: 24px; background: var(--c-bg-blue-50); border-color: var(--c-border-blue-300);">
+      <p style="color: var(--c-text-blue-800); margin: 0;">
         <strong>核心原則：</strong>正式規範以 <code>src/docs/13-權限模型與最大管理員規範.md</code> 為準。頁面權限請搭配 <code>11-頁面權限.md</code> 一起閱讀。
       </p>
     </div>
 
-    <div class="callout" style="margin-bottom: 24px; background: #fef2f2; border-color: #f87171;">
-      <p style="color: #991b1b; margin: 0;">
+    <div class="callout" style="margin-bottom: 24px; background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+      <p style="color: var(--c-text-red-800); margin: 0;">
         <strong>⚠️ 個人授權不等於 API 隔離：</strong>
         <code>RDSYS_PERMISSION_USER.ACCOUNT</code> 目前可控制個人 menu，但 URI 授權的 FUNC_CODE
         查詢只依 <code>USER_TYPE</code>。需要逐帳號 API 隔離時，必須把後端授權查詢與快取鍵改為
@@ -20,7 +20,7 @@
     </div>
 
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">權限分層</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">權限分層</h3>
       <div class="table-wrap">
         <table>
           <thead>
@@ -57,7 +57,7 @@
     </div>
 
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">最大管理員規則</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">最大管理員規則</h3>
       <ul style="line-height: 1.9; padding-left: 1.25rem;">
         <li>最大管理員應由後端集中判斷，例如 <code>authorizationService.isSuperAdmin(accountDetails)</code>。</li>
         <li>不要在各 service 分散 hard-code <code>NCA001</code>。</li>
@@ -68,7 +68,7 @@
     </div>
 
     <div style="margin-bottom: 32px;">
-      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: #4f46e5;">模組盤點 SOP</h3>
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">模組盤點 SOP</h3>
       <ol style="line-height: 1.9; padding-left: 1.25rem;">
         <li>確認頁面是否有 <code>RDSYS_PERMISSION</code> 主檔。</li>
         <li>確認 <code>RDSYS_PERMISSION_USER</code> 是否授權目標角色或帳號。</li>
@@ -79,8 +79,8 @@
       </ol>
     </div>
 
-    <div class="callout" style="background: #fef2f2; border-color: #f87171;">
-      <p style="color: #991b1b; margin: 0;">
+    <div class="callout" style="background: var(--c-bg-red-50); border-color: var(--c-border-red-400);">
+      <p style="color: var(--c-text-red-800); margin: 0;">
         <strong>常見陷阱：</strong><code>RDSYS_PERMISSION_USER</code> 補齊後，只代表頁面權限補齊。若頁面內還查 <code>OFFICIAL_DOC_USER</code> 或案件處理人欄位，最大管理員仍可能無法操作。
       </p>
     </div>

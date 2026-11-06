@@ -68,3 +68,22 @@ npm run build
 
 - 需要保護的內容放 `src/content/*.vue`，並在 `Home.vue` 的 sections 標 `protected: true`（現行做法見「測試環境」「測試帳號」兩章，兩者刻意沒有對應 `.md`）
 - 範本類檔案一律去識別化：實際值改成 `<...>` 佔位符，並在檔內說明「去哪裡取值」
+
+---
+
+## 規則 5：顏色一律用色票變數，不寫死色碼（夜晚模式）
+
+站台有白天／夜晚模式（標題列太陽／月亮鈕，`src/utils/theme.js`，html 加 `dark` class）。內容頁的顏色來自 `src/color-tokens.css` 的變數：
+
+- 文字 `var(--c-text-<色相>-<深淺>)`、底色 `var(--c-bg-<色相>-<深淺>)`、框線 `var(--c-border-<色相>-<深淺>)`，例如 `color: var(--c-text-blue-800)`、`background: var(--c-bg-amber-100)`。
+- 白天值就是 Tailwind 色票；夜晚值由同色相自動換成深色模式用的深淺（深字換淺字、淺底換深底）。
+
+新增或修改 `src/content/*.vue` 時，**直接寫 `#1e40af` 這種色碼會在夜晚模式看不見**。寫完跑一次：
+
+```powershell
+python -X utf8 scripts\color-tokens.py
+```
+
+它會把 inline style 裡的色碼換成變數、重產 `color-tokens.css`，並列出對不到色票的色碼（要改成 Tailwind 色票內的顏色）。Tailwind 工具類（`bg-gray-100`、`text-slate-700`…）也由同一支腳本產生夜晚覆寫，不用另外處理。
+
+檢查版面：`npm run build` 後 `npx vite preview --port 4173`，開 `http://localhost:4173/RdssDevelopeGuide/?theme=dark&expand=all`（`theme=light|dark` 指定模式、`expand=all` 或 `expand=section-3,section-5` 直接展開章節）。
