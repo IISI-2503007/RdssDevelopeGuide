@@ -9,6 +9,20 @@
         <h2 class="text-base sm:text-lg md:text-xl lg:text-2xl font-bold break-words max-w-full">RDSS專案-前後端協作規範</h2>
         <div class="flex items-center gap-3 shrink-0">
           <button
+            type="button"
+            @click="toggleTheme"
+            :title="isDark ? '切換為白天模式' : '切換為夜晚模式'"
+            :aria-label="isDark ? '切換為白天模式' : '切換為夜晚模式'"
+            class="inline-flex items-center justify-center w-8 h-8 p-0 rounded-lg border border-gray-200 bg-white text-gray-600 hover:bg-slate-100 transition-colors"
+          >
+            <svg v-if="isDark" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+          </button>
+          <button
             @click="handleDownload"
             :disabled="isDownloading"
             class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -144,6 +158,7 @@
 import { defineAsyncComponent, onBeforeUnmount, onMounted, ref } from 'vue'
 import { NCollapse, NCollapseItem } from 'naive-ui'
 import { downloadAllDocs } from '@/utils/downloadDocs'
+import { isDark, toggleTheme } from '@/utils/theme'
 import PasswordGate from '@/content/PasswordGate.vue'
 
 const isDownloading = ref(false)
@@ -199,6 +214,15 @@ const showMobileMenu = ref(false)
 const mainRef = ref(null)
 let onScrollHandler
 let rafId = null
+// 捲軸平常隱藏,捲動中或滑鼠移上去才顯示
+let scrollbarTimer = null
+const showScrollbarWhileScrolling = () => {
+  const el = mainRef.value
+  if (!el) return
+  el.classList.add('is-scrolling')
+  clearTimeout(scrollbarTimer)
+  scrollbarTimer = setTimeout(() => el.classList.remove('is-scrolling'), 800)
+}
 
 // 預設全部收合，點擊才展開（避免大量 DOM 造成卡頓）
 const expandedNames = ref([])
@@ -266,6 +290,7 @@ const updateActiveSection = () => {
 
 onMounted(() => {
   onScrollHandler = () => {
+    showScrollbarWhileScrolling()
     if (rafId) return
     rafId = requestAnimationFrame(() => {
       updateActiveSection()
@@ -295,6 +320,7 @@ onBeforeUnmount(() => {
     cancelAnimationFrame(rafId)
     rafId = null
   }
+  clearTimeout(scrollbarTimer)
   window.removeEventListener('beforeunload', _clearAuth)
 })
 </script>
@@ -313,10 +339,28 @@ onBeforeUnmount(() => {
   @apply p-5;
 }
 
-/* 自定義滾動條樣式(目錄與內容區各自的捲軸) */
+/* 捲軸:平常透明,滑鼠移上去或捲動中才顯示(目錄與內容區各自的捲軸) */
+aside,
+main {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+aside:hover,
+main:hover,
+main.is-scrolling {
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+:global(.dark) aside:hover,
+:global(.dark) main:hover,
+:global(.dark) main.is-scrolling {
+  scrollbar-color: #475569 transparent;
+}
+
 aside::-webkit-scrollbar,
 main::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 aside::-webkit-scrollbar-track,
@@ -326,12 +370,24 @@ main::-webkit-scrollbar-track {
 
 aside::-webkit-scrollbar-thumb,
 main::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+aside:hover::-webkit-scrollbar-thumb,
+main:hover::-webkit-scrollbar-thumb,
+main.is-scrolling::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 3px;
 }
 
 aside::-webkit-scrollbar-thumb:hover,
 main::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+:global(.dark) aside:hover::-webkit-scrollbar-thumb,
+:global(.dark) main:hover::-webkit-scrollbar-thumb,
+:global(.dark) main.is-scrolling::-webkit-scrollbar-thumb {
+  background: #475569;
 }
 </style>

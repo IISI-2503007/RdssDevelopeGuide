@@ -1,5 +1,6 @@
 <template>
   <n-config-provider
+    :theme="isDark ? darkTheme : null"
     :theme-overrides="themeOverrides"
     abstract
   >
@@ -10,7 +11,8 @@
 </template>
 
 <script setup>
-import { NConfigProvider, NMessageProvider } from 'naive-ui'
+import { NConfigProvider, NMessageProvider, darkTheme } from 'naive-ui'
+import { isDark } from '@/utils/theme'
 
 /**
  * @type import('naive-ui').GlobalThemeOverrides

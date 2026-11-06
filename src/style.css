@@ -324,3 +324,168 @@ button:focus-visible {
   outline: 3px solid rgba(37, 99, 235, 0.3);
   outline-offset: 2px;
 }
+
+/* ===== 夜晚模式:html.dark(由 utils/theme.js 切換,naive-ui 元件另由 App.vue 套 darkTheme) ===== */
+:root.dark {
+  color-scheme: dark;
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --primary: #818cf8;
+  --primary-strong: #a5b4fc;
+  --border: #334155;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.dark body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.dark .hero {
+  background: radial-gradient(circle at top, #1e1b4b, #0f172a 60%);
+}
+
+.dark pre {
+  background: #020617;
+  color: #e5e7eb;
+  border: 1px solid var(--border);
+}
+
+.dark thead {
+  background: #243043;
+}
+
+.dark .callout {
+  background: #1e1b4b;
+  border-color: #3730a3;
+}
+
+.dark .card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+.dark button:not([class*="bg-"]) {
+  background-color: #1e293b;
+  color: var(--text);
+}
+
+.dark .official-source-links a[target="_blank"] {
+  border-color: #3b82f6;
+  background: #1e3a8a;
+  color: #bfdbfe;
+}
+
+.dark .official-source-links a[target="_blank"]::before {
+  border-right-color: #3b82f6;
+  color: #93c5fd;
+}
+
+.dark .official-source-links a[target="_blank"]:hover {
+  border-color: #60a5fa;
+  background: #1e40af;
+  color: #dbeafe;
+}
+
+/* 內容頁零星用到的 Tailwind 淺色工具類,夜晚模式統一換色,不逐檔改 */
+.dark .bg-white,
+.dark .bg-gray-50,
+.dark .bg-gray-100,
+.dark .bg-slate-50,
+.dark .bg-slate-100 {
+  background-color: var(--card);
+}
+
+.dark .hover\:bg-slate-100:hover,
+.dark .hover\:bg-gray-100:hover {
+  background-color: #334155;
+}
+
+.dark .text-gray-500,
+.dark .text-gray-600,
+.dark .text-slate-600 {
+  color: var(--muted);
+}
+
+.dark .text-gray-700,
+.dark .text-gray-800,
+.dark .text-gray-900,
+.dark .text-slate-700,
+.dark .text-slate-800,
+.dark .hover\:text-slate-700:hover {
+  color: var(--text);
+}
+
+.dark .border-gray-200,
+.dark .border-gray-300,
+.dark .border-slate-200 {
+  border-color: var(--border);
+}
+
+.dark .bg-red-50,
+.dark .bg-red-100 {
+  background-color: #3f1d1d;
+}
+
+.dark .text-red-700 {
+  color: #fca5a5;
+}
+
+.dark .border-red-200 {
+  border-color: #7f1d1d;
+}
+
+.dark .bg-green-50,
+.dark .bg-green-100 {
+  background-color: #14281f;
+}
+
+.dark .text-green-700 {
+  color: #86efac;
+}
+
+.dark .border-green-200 {
+  border-color: #166534;
+}
+
+.dark .bg-orange-50 {
+  background-color: #3b2411;
+}
+
+.dark .text-orange-700 {
+  color: #fdba74;
+}
+
+.dark .bg-blue-50,
+.dark .bg-blue-100 {
+  background-color: #172554;
+}
+
+.dark .text-blue-900 {
+  color: #bfdbfe;
+}
+
+.dark .border-blue-400 {
+  border-color: #1d4ed8;
+}
+
+.dark .bg-rose-50 {
+  background-color: #3f1d2e;
+}
+
+.dark .text-rose-900 {
+  color: #fda4af;
+}
+
+.dark .border-rose-200 {
+  border-color: #881337;
+}
+
+.dark .bg-indigo-100 {
+  background-color: #312e81;
+}
+
+.dark .text-indigo-700 {
+  color: #c7d2fe;
+}
