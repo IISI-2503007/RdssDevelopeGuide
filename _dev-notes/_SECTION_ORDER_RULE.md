@@ -18,7 +18,7 @@
 
 ---
 
-## 目前章節順序（2026-11-05）
+## 目前章節順序（2026-11-10）
 
 | 順序 | id | 標題 | 元件 |
 | --- | --- | --- | --- |
@@ -39,8 +39,9 @@
 | 15 | `section-15` | Git 上板流程 | GitWorkflow.vue |
 | 16 | `section-16` | 錯誤代碼與例外日誌 | ErrorCodeLogging.vue |
 | 17 | `section-17` | SIT 資料匯入不覆蓋表（🔒 protected，無對應 .md） | NoOverwriteTables.vue |
-| **18（倒數第二）** | `appendix` | **測試環境** ⚠️ | TestEnvironment.vue |
-| **19（最後）** | `section-last` | **測試帳號** ⚠️ | TestAccounts.vue |
+| 18 | `section-18` | Jira 問題單建單與狀態流程 | JiraTicketRules.vue |
+| **19（倒數第二）** | `appendix` | **測試環境** ⚠️ | TestEnvironment.vue |
+| **20（最後）** | `section-last` | **測試帳號** ⚠️ | TestAccounts.vue |
 
 ---
 

@@ -96,7 +96,10 @@ def token_for(role, color):
 
 
 ROLE_OF = [(re.compile(r"^color$"), "text"), (re.compile(r"^background(-color)?$"), "bg"), (re.compile(r"^border"), "border")]
-COLOR_TOKEN = re.compile(r"#[0-9a-fA-F]{3,6}\b|\bwhite\b")
+# white 前面不能是 - 或字母,否則會把 var(--c-bg-white) 裡的 white 再包一層
+COLOR_TOKEN = re.compile(r"#[0-9a-fA-F]{3,6}\b|(?<![\w-])white\b")
+# 重跑時把頁面裡已經是 var(--c-...) 的變數也算進 used,否則 css 只剩這次新轉的幾個
+EXISTING_TOKEN = re.compile(r"var\(--c-(text|bg|border)-([a-z]+)(?:-(\d+))?\)")
 
 
 def convert_declarations(style_text):
@@ -139,6 +142,16 @@ for path, old, new, (role, color) in specials:
         io.open(path, "w", encoding="utf-8", newline="").write(s)
         changed.append(os.path.basename(path) + "(special)")
     token_for(role, color)
+
+for p in glob.glob(os.path.join(SRC, "**", "*.vue"), recursive=True):
+    for role, hue, shade in EXISTING_TOKEN.findall(io.open(p, encoding="utf-8").read()):
+        shade = shade or ""
+        if hue == "white":
+            used.setdefault((role, "white", ""), "#ffffff")
+        elif (hue, shade) in TOKEN2HEX:
+            used.setdefault((role, hue, shade), TOKEN2HEX[(hue, shade)])
+        else:
+            unknown.add(f"var(--c-{role}-{hue}-{shade}) in {os.path.basename(p)}")
 
 # Tailwind 工具類:掃實際用到的,產生 .dark 覆寫
 cls_rx = re.compile(r"\b(hover:)?(bg|text|border)-(white|black|gray|slate|neutral|indigo|blue|green|red|yellow|amber|emerald|rose|orange|sky|violet)(?:-(50|100|200|300|400|500|600|700|800|900|950))?\b")

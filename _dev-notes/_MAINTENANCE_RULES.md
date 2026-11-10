@@ -84,6 +84,6 @@ npm run build
 python -X utf8 scripts\color-tokens.py
 ```
 
-它會把 inline style 裡的色碼換成變數、重產 `color-tokens.css`，並列出對不到色票的色碼（要改成 Tailwind 色票內的顏色）。Tailwind 工具類（`bg-gray-100`、`text-slate-700`…）也由同一支腳本產生夜晚覆寫，不用另外處理。
+它會把 inline style 裡的色碼換成變數、重產 `color-tokens.css`，並列出對不到色票的色碼（要改成 Tailwind 色票內的顏色）。可以重複跑（2026-11-10 起頁面裡既有的 `var(--c-*)` 也會算進 css；之前重跑會把 css 砍到只剩當次新轉的幾個、並把 `var(--c-bg-white)` 再包一層）。跑完 `git status` 確認只動了預期的檔案。Tailwind 工具類（`bg-gray-100`、`text-slate-700`…）也由同一支腳本產生夜晚覆寫，不用另外處理。
 
 檢查版面：`npm run build` 後 `npx vite preview --port 4173`，開 `http://localhost:4173/RdssDevelopeGuide/?theme=dark&expand=all`（`theme=light|dark` 指定模式、`expand=all` 或 `expand=section-3,section-5` 直接展開章節）。
