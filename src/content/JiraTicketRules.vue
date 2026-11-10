@@ -236,7 +236,7 @@
     <!-- 修訂紀錄 -->
     <div style="margin-top: 40px;">
       <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">🕘 修訂紀錄</h3>
-      <p class="muted" style="margin-bottom: 12px; font-size: 0.95rem;">版本號就是兩份建單模板的檔名 V 號；每改一次規範，這裡加一列、模板升一版重發。</p>
+      <p class="muted" style="margin-bottom: 12px; font-size: 0.95rem;">版本號就是兩份建單模板的檔名 V 號，格式「V大版.小版」：大版（V2.0）是結構性改動，欄位增減、描述模板行數或標題格式改變、流程改變，收到的人要重新學；小版（V1.1）是措辭、補充說明、單條規則收緊或放寬。每改一次規範，這裡加一列、模板升版重發；改模組窗口不升版。</p>
       <div class="table-wrap">
         <table>
           <thead>
@@ -254,10 +254,10 @@
 <script setup>
 import { NCollapse, NCollapseItem } from 'naive-ui'
 
-// 改規範:history 加一列,version 跟著最後一列;模板檔名的 V 號同步
+// 改規範:history 加一列(V大版.小版),version 跟著最後一列;模板檔名的 V 號同步
 const history = [
-  { version: 'V1', date: '2026-11-09', change: '初版：建單必填欄位、標題格式、描述模板（五行）、截圖雲端檔名改單號、模組窗口 2026-11-09 版' },
-  { version: 'V2', date: '2026-11-10', change: '資安規定 Jira 不放附件，截圖與檔案一律上雲端、連結貼描述「截圖」行；規則寫進本站第 18 章；模板檔名改 V 版號、加修訂紀錄表' }
+  { version: 'V1.0', date: '2026-11-09', change: '初版：建單必填欄位、標題格式、描述模板（五行）、截圖雲端檔名改單號、模組窗口 2026-11-09 版' },
+  { version: 'V1.1', date: '2026-11-10', change: '資安規定 Jira 不放附件，截圖與檔案一律上雲端、連結貼描述「截圖」行；規則寫進本站第 18 章；模板檔名改 V大版.小版、加修訂紀錄表' }
 ]
 const version = history[history.length - 1].version.replace('V', '')
 
