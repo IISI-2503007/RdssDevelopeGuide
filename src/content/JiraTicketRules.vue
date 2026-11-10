@@ -227,16 +227,39 @@
       <h4 style="margin-bottom: 8px; font-size: 1rem;">📎 相關檔案（RDSS_WORK_HELPER）</h4>
       <ul style="margin: 0;">
         <li><code>docs\20261109_Jira問題單狀態流程與漏押檢核規則.md</code>：規則全文與修訂歷史</li>
-        <li><code>docs\20261109_Jira建單模板_PMO驗測.docx</code>：發給建 PMO 單的人的 Word 單頁模板（含範例）</li>
-        <li><code>docs\20261109_Jira建單模板_自行驗測.docx</code>：發給測試人員的 Word 單頁模板（含範例）</li>
+        <li><code>docs\Jira建單模板_PMO驗測_V{{ version }}.docx</code>：發給建 PMO 單的人的 Word 單頁模板（含範例）；檔名 V 號跟著下方修訂紀錄走</li>
+        <li><code>docs\Jira建單模板_自行驗測_V{{ version }}.docx</code>：發給測試人員的 Word 單頁模板（含範例）</li>
         <li><code>RDSS_Task_Tracker\tools\jira_round_progress.py</code>：每日修復進度統計與疑似漏押表的產生腳本</li>
       </ul>
+    </div>
+
+    <!-- 修訂紀錄 -->
+    <div style="margin-top: 40px;">
+      <h3 style="font-size: 1.3rem; margin-bottom: 16px; color: var(--c-text-indigo-600);">🕘 修訂紀錄</h3>
+      <p class="muted" style="margin-bottom: 12px; font-size: 0.95rem;">版本號就是兩份建單模板的檔名 V 號；每改一次規範，這裡加一列、模板升一版重發。</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th style="width: 80px;">版本</th><th style="width: 130px;">日期</th><th>異動</th></tr>
+          </thead>
+          <tbody>
+            <tr v-for="h in history" :key="h.version"><td>{{ h.version }}</td><td>{{ h.date }}</td><td>{{ h.change }}</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { NCollapse, NCollapseItem } from 'naive-ui'
+
+// 改規範:history 加一列,version 跟著最後一列;模板檔名的 V 號同步
+const history = [
+  { version: 'V1', date: '2026-11-09', change: '初版：建單必填欄位、標題格式、描述模板（五行）、截圖雲端檔名改單號、模組窗口 2026-11-09 版' },
+  { version: 'V2', date: '2026-11-10', change: '資安規定 Jira 不放附件，截圖與檔案一律上雲端、連結貼描述「截圖」行；規則寫進本站第 18 章；模板檔名改 V 版號、加修訂紀錄表' }
+]
+const version = history[history.length - 1].version.replace('V', '')
 
 const owners = [
   { name: '入口網站', pg: '葛俊佑', tester: 'yihsin.lai' },

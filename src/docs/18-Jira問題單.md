@@ -191,6 +191,17 @@
 | 檔案 | 用途 |
 |---|---|
 | `RDSS_WORK_HELPER\docs\20261109_Jira問題單狀態流程與漏押檢核規則.md` | 規則全文與修訂歷史 |
-| `RDSS_WORK_HELPER\docs\20261109_Jira建單模板_PMO驗測.docx` | 發給建 PMO 單的人的 Word 單頁模板（含範例） |
-| `RDSS_WORK_HELPER\docs\20261109_Jira建單模板_自行驗測.docx` | 發給測試人員的 Word 單頁模板（含範例） |
+| `RDSS_WORK_HELPER\docs\Jira建單模板_PMO驗測_V2.docx` | 發給建 PMO 單的人的 Word 單頁模板（含範例）；檔名 V 號跟著下方修訂紀錄走 |
+| `RDSS_WORK_HELPER\docs\Jira建單模板_自行驗測_V2.docx` | 發給測試人員的 Word 單頁模板（含範例） |
 | `RDSS_WORK_HELPER\RDSS_Task_Tracker\tools\jira_round_progress.py` | 每日修復進度統計與疑似漏押表的產生腳本 |
+
+---
+
+## 🕘 修訂紀錄
+
+版本號就是兩份建單模板的檔名 V 號；每改一次規範，這裡加一列、模板升一版重發。
+
+| 版本 | 日期 | 異動 |
+|---|---|---|
+| V1 | 2026-11-09 | 初版：建單必填欄位、標題格式、描述模板（五行）、截圖雲端檔名改單號、模組窗口 2026-11-09 版 |
+| V2 | 2026-11-10 | 資安規定 Jira 不放附件，截圖與檔案一律上雲端、連結貼描述「截圖」行；規則寫進本站第 18 章；模板檔名改 V 版號、加修訂紀錄表 |
